@@ -1,10 +1,3 @@
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.eclipse.persistence.oxm.annotations.*;
-
-//@XmlType(propOrder={ "name"})
-@XmlRootElement
 public abstract class Item {
 	private String name;
 	private int baseCost;
@@ -12,11 +5,12 @@ public abstract class Item {
 	private int DC;
 	private int progress;
 	
-	public Item() {}
-	
-	public Item(String name, int baseCost, int DC) 
+	public Item(String name, int DC, int baseCost, int matCost) 
 	{
-		
+		this.name = name;
+		this.DC = DC;
+		this.baseCost = baseCost;
+		this.matCost = matCost;
 	}
 	
 	public String getName() 
@@ -24,9 +18,44 @@ public abstract class Item {
 		return this.name;
 	}
 	
+	public int getBaseCost() 
+	{
+		return this.baseCost;
+	}
+	
+	public int getMatCost() 
+	{
+		return this.matCost;
+	}
+	
+	public int getDC() 
+	{
+		return this.DC;
+	}
+	
+	public int getProgress() 
+	{
+		return this.progress; 
+	}	
+	
 	public void setName(String name) 
 	{
 		this.name = name;
+	}
+	
+	public void setBaseCost(int i)
+	{
+		this.baseCost = i;
+	}
+	
+	public void setMatCost(int i) 
+	{
+		this.matCost = i;
+	}
+	
+	public void setProgress(int i)
+	{
+		this.progress = i;
 	}
 	
 	public boolean isComplete() 
@@ -34,7 +63,5 @@ public abstract class Item {
 		return progress >= baseCost;
 	}
 	
-	abstract void update();
-	
-
+	abstract void update();	
 }
