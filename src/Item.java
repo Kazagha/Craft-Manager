@@ -2,13 +2,11 @@ public abstract class Item {
 	private String name;
 	private int baseCost;
 	private int matCost;
-	private int DC;
 	private int progress;
 	
-	public Item(String name, int DC, int baseCost, int matCost) 
+	public Item(String name, int baseCost, int matCost) 
 	{
 		this.name = name;
-		this.DC = DC;
 		this.baseCost = baseCost;
 		this.matCost = matCost;
 	}
@@ -26,11 +24,6 @@ public abstract class Item {
 	public int getMatCost() 
 	{
 		return this.matCost;
-	}
-	
-	public int getDC() 
-	{
-		return this.DC;
 	}
 	
 	public int getProgress() 
