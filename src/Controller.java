@@ -9,29 +9,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Controller {
-	ArrayList<Item> items;
-	Item test;
+	Model model;
 		
-	public Controller() 
+	public Controller(Model model) 
 	{
-		items = new ArrayList<Item>();
+		this.model = model;
 	}
-	
-	@XmlElementRef
-	public ArrayList<Item> getItems() 
-	{
-		return this.items;
-	}
-	
-	public void setItems(ArrayList<Item> array) 
-	{
-		this.items = array;
-	}
-	
-	public void appendItem(Item item) {
-		this.items.add(item);
-	}
-	
 	
 	public void save(Object obj) 
 	{
@@ -50,9 +33,11 @@ public class Controller {
 	
 	public static void main (String[] args) 
 	{
-		Controller con = new Controller();
-		con.appendItem(new ItemMundane("test", 10, 10));
+		Model m = new Model();
+		m.appendItem("test");
 		
-		con.save(con);
+		Controller con = new Controller(new Model());
+		System.out.println(m.getItems());		
+		//con.save(con);
 	}	
 }
