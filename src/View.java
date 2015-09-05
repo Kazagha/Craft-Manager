@@ -1,5 +1,7 @@
+import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
@@ -50,12 +52,15 @@ public class View extends JPanel {
 	{
 		itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.PAGE_AXIS));
+		itemPanel.add(Box.createVerticalGlue());
 	}
 	
 	public void appendItem(Item item) 
 	{
+		MyStatusBar stat = new MyStatusBar();
+		stat.addRightComponent(new JLabel(item.getName()), new Color(240, 0, 30));
 		
-		itemPanel.add(new JLabel(item.getName()));
+		itemPanel.add(stat, itemPanel.getComponentCount() - 1);
 	}
 	
 	public void createAndShowGUI()
