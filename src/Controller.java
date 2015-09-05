@@ -34,7 +34,7 @@ public class Controller {
 	public static void main (String[] args) 
 	{
 		Model m = new Model();
-		m.appendItem("test");
+		m.appendItem(new ItemMundane("test", 10, 10));
 		
 		Controller con = new Controller(new Model());
 		System.out.println(m.getItems());		

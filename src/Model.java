@@ -3,24 +3,24 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElementRef;
 
 public class Model {
-	ArrayList<String> items = new ArrayList<String>();
+	ArrayList<Item> items = new ArrayList<Item>();
 	
 	public Model()
 	{
 		
 	}
 
-	public ArrayList<String> getItems() 
+	public ArrayList<Item> getItems() 
 	{
 		return this.items;
 	}
 	
-	public void setItems(ArrayList<String> array) 
+	public void setItems(ArrayList<Item> array) 
 	{
 		this.items = array;
 	}
 	
-	public void appendItem(String s) {
-		this.items.add(s);
+	public void appendItem(Item item) {
+		this.items.add(item);
 	}
 }
