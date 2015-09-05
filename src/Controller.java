@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.eclipse.persistence.jaxb.*;
-import org.eclipse.persistence.internal.oxm.Marshaller;
-import org.eclipse.persistence.*;
 
 @XmlRootElement
 public class Controller {
@@ -36,10 +36,10 @@ public class Controller {
 	public void save(Object obj) 
 	{
 		try {
-			javax.xml.bind.JAXBContext jaxb = JAXBContext.newInstance(Controller.class, Item.class, ItemMundane.class);
+			JAXBContext jaxb = JAXBContext.newInstance(Controller.class, Item.class, ItemMundane.class);
 			
-			javax.xml.bind.Marshaller marshaller = jaxb.createMarshaller();
-			marshaller.setProperty(JAXBMarshaller.JAXB_FORMATTED_OUTPUT, true);
+			Marshaller marshaller = jaxb.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			marshaller.marshal(obj, System.out);
 					
