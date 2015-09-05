@@ -10,10 +10,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Controller {
 	Model model;
+	View view;
 		
-	public Controller(Model model) 
+	public Controller(Model m, View v) 
 	{
-		this.model = model;
+		this.model = m;
+		this.view = v;
 	}
 	
 	public void save(Object obj) 
@@ -36,8 +38,15 @@ public class Controller {
 		Model m = new Model();
 		m.appendItem(new ItemMundane("test", 10, 10));
 		
-		Controller con = new Controller(new Model());
-		System.out.println(m.getItems());		
+		View v = new View();
+		
+		Controller con = new Controller(m, v);
+		System.out.println(m.getItems());	
+		
+		for(int i = 0; i < 12; i++) {
+			v.appendItem(new ItemMundane("this is an item: " + i, 10, 10));
+		}
+		v.createAndShowGUI();
 		//con.save(con);
 	}	
 }
