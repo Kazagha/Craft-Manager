@@ -1,7 +1,13 @@
+import java.awt.Dimension;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ViewItem extends JPanel {
+public class ViewItem extends JPanel implements Observer {
 	private JLabel name;
 	private JLabel baseCost;
 	private JLabel matCost;
@@ -13,6 +19,15 @@ public class ViewItem extends JPanel {
 		baseCost = new JLabel();
 		matCost = new JLabel();
 		progress = new JLabel();
+		
+		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		this.add(name);
+		this.add(Box.createRigidArea(new Dimension(10, 10)));
+		this.add(baseCost);
+		this.add(Box.createRigidArea(new Dimension(10, 10)));
+		this.add(matCost);
+		this.add(Box.createRigidArea(new Dimension(10, 10)));
+		this.add(progress);
 		
 		notify(model);
 	}
@@ -43,5 +58,10 @@ public class ViewItem extends JPanel {
 	public void setProgress(int num)
 	{
 		progress.setText(String.valueOf(num));
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		
 	}
 }
