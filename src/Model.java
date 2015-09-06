@@ -20,7 +20,13 @@ public class Model {
 		this.items = array;
 	}
 	
-	public void appendItem(Item item) {
+	public void appendItem(Item item) 
+	{
 		this.items.add(item);
+	}
+	
+	public void removeItem(Item item)
+	{
+		this.items.remove(item);
 	}
 }
