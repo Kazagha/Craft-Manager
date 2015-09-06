@@ -1,9 +1,11 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,6 +19,7 @@ public class View extends JPanel {
 	final int FRAME_HEIGHT = 650;
 	
 	JPanel itemPanel;
+	JButton button;
 	
 	public View()
 	{
@@ -33,6 +36,7 @@ public class View extends JPanel {
 					.addContainerGap()
 					.addGroup(layout.createParallelGroup()
 							.addComponent(title)
+							.addComponent(button)
 							.addComponent(itemPanel)
 							)
 					.addContainerGap()
@@ -42,6 +46,8 @@ public class View extends JPanel {
 				layout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(title)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addComponent(button)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(itemPanel)
 					.addContainerGap()
@@ -53,6 +59,12 @@ public class View extends JPanel {
 		itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.PAGE_AXIS));
 		//itemPanel.add(Box.createVerticalGlue());
+		button = new JButton("Do something");
+	}
+	
+	public void setActionListener(ActionListener listener)
+	{
+		button.addActionListener(listener);
 	}
 	
 	public void appendPanel(JPanel panel) 
