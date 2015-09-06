@@ -44,9 +44,14 @@ public class Controller {
 		System.out.println(m.getItems());	
 		
 		for(int i = 0; i < 12; i++) {
-			v.appendItem(new ItemMundane("this is an item: " + i, 10, 10));
+			ItemMundane item = new ItemMundane("This is an item" + i, 10, 10);
+			ViewItem panelView = new ViewItem(item);
+			
+			item.addObserver(panelView);
+			
+			v.appendPanel(panelView);
 		}
+		
 		v.createAndShowGUI();
-		//con.save(con);
 	}	
 }
