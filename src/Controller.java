@@ -2,6 +2,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -40,10 +43,15 @@ public class Controller {
 	public class MyActionListener implements ActionListener 
 	{
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.out.print("Action!");
+		public void actionPerformed(ActionEvent event) {
 			model.getItems().get(2).setName("this is a test");		
 			model.getItems().get(2).notifyObservers();
+			
+			if(event.getSource() instanceof JButton) {
+				JComponent parent = (JComponent) ((JButton) event.getSource()).getParent();
+				
+				System.out.format("Button Pressed: %s%n", view.indexOf(parent));						
+			}
 		}
 	}
 	
