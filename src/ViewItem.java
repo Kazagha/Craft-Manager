@@ -1,9 +1,12 @@
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -13,21 +16,22 @@ public class ViewItem extends JPanel implements Observer {
 	private JLabel matCost;
 	private JLabel progress;
 	
+	private JButton checkButton;
+	
 	public ViewItem(Item model) 
 	{
 		name = new JLabel();
 		baseCost = new JLabel();
 		matCost = new JLabel();
 		progress = new JLabel();
+		checkButton = new JButton("Check");
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		this.setLayout(new FlowLayout(FlowLayout.LEADING, 8, 4));
 		this.add(name);
-		this.add(Box.createRigidArea(new Dimension(10, 10)));
 		this.add(baseCost);
-		this.add(Box.createRigidArea(new Dimension(10, 10)));
 		this.add(matCost);
-		this.add(Box.createRigidArea(new Dimension(10, 10)));
 		this.add(progress);
+		this.add(checkButton);
 		
 		updateItem(model);
 	}
@@ -58,6 +62,11 @@ public class ViewItem extends JPanel implements Observer {
 	public void setProgress(int num)
 	{
 		progress.setText(String.valueOf(num));
+	}
+	
+	public void setActionListener(ActionListener listener)
+	{		
+		checkButton.addActionListener(listener);
 	}
 
 	@Override
