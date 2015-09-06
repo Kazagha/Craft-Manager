@@ -29,10 +29,10 @@ public class ViewItem extends JPanel implements Observer {
 		this.add(Box.createRigidArea(new Dimension(10, 10)));
 		this.add(progress);
 		
-		notify(model);
+		updateItem(model);
 	}
 	
-	public void notify(Item model) 
+	public void updateItem(Item model) 
 	{
 		setName(model.getName());
 		setBaseCost(model.getBaseCost());
@@ -61,7 +61,7 @@ public class ViewItem extends JPanel implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		
+	public void update(Observable model, Object arg1) {
+		this.updateItem((Item) model);		
 	}
 }
