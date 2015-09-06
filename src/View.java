@@ -52,15 +52,17 @@ public class View extends JPanel {
 	{
 		itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.PAGE_AXIS));
-		itemPanel.add(Box.createVerticalGlue());
+		//itemPanel.add(Box.createVerticalGlue());
 	}
 	
-	public void appendItem(Item item) 
+	public void appendPanel(JPanel panel) 
+	{		
+		itemPanel.add(panel);
+	}
+	
+	public void removePanel(JPanel panel)
 	{
-		MyStatusBar stat = new MyStatusBar();
-		stat.addRightComponent(new JLabel(item.getName()), new Color(240, 0, 30));
-		
-		itemPanel.add(stat, itemPanel.getComponentCount() - 1);
+		itemPanel.remove(panel);
 	}
 	
 	public void createAndShowGUI()
