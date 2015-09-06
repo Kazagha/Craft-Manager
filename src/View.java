@@ -6,6 +6,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +21,8 @@ public class View extends JPanel {
 	
 	JPanel itemPanel;
 	JButton button;
+	
+	ActionListener listener;
 	
 	public View()
 	{
@@ -64,17 +67,33 @@ public class View extends JPanel {
 	
 	public void setActionListener(ActionListener listener)
 	{
+		this.listener = listener;
+		
 		button.addActionListener(listener);
 	}
 	
 	public void appendPanel(JPanel panel) 
 	{		
+		((ViewItem) panel).setActionListener(listener);
 		itemPanel.add(panel);
 	}
 	
 	public void removePanel(JPanel panel)
 	{
 		itemPanel.remove(panel);
+	}
+	
+	public int indexOf(JComponent component)
+	{
+		for(int i = 0; i < itemPanel.getComponentCount(); i++) 
+		{
+			if(itemPanel.getComponent(i) == component) 
+			{
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 	public void createAndShowGUI()
