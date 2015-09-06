@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
@@ -16,6 +18,8 @@ public class Controller {
 	{
 		this.model = m;
 		this.view = v;
+		
+		v.setActionListener(new MyActionListener());
 	}
 	
 	public void save(Object obj) 
@@ -33,10 +37,19 @@ public class Controller {
 		}
 	}
 	
+	public class MyActionListener implements ActionListener 
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.print("Action!");
+			model.getItems().get(2).setName("this is a test");		
+			model.getItems().get(2).notifyObservers();
+		}
+	}
+	
 	public static void main (String[] args) 
 	{
 		Model m = new Model();
-		m.appendItem(new ItemMundane("test", 10, 10));
 		
 		View v = new View();
 		
@@ -46,6 +59,8 @@ public class Controller {
 		for(int i = 0; i < 12; i++) {
 			ItemMundane item = new ItemMundane("This is an item" + i, 10, 10);
 			ViewItem panelView = new ViewItem(item);
+			
+			m.appendItem(item);
 			
 			item.addObserver(panelView);
 			
