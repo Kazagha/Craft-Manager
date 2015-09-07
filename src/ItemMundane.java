@@ -1,6 +1,6 @@
 public class ItemMundane extends Item {
 
-	private int DC;
+	private int DC;	
 	
 	public ItemMundane(String name, int baseCost, int DC) {		
 		super(name, baseCost * 10, baseCost / 3 );
@@ -23,17 +23,16 @@ public class ItemMundane extends Item {
 		int check = controller.check(text);	
 			
 		// Was the check successful
-		if(check > getDC()) 
+		if(check >= getDC()) 
 		{
 			// Successful check
-			setProgress(getProgress() + (getDC() * check));
+			setProgress(getProgress() + (getDC() * check / 10));
 		} else if (check < getDC() - 4)
 		{
 			// Check Failed by 5 or more: Half raw materials have been destroyed
 			int cost = getMatCost() / 2;
 		}	
-		
-		System.out.format("DC: %s Check: %s", getDC(), check);			
+				
 		notifyObservers();
 	}
 }
