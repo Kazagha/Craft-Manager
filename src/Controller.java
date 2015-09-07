@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -14,13 +16,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Controller {
-	Model model;
-	View view;
+	private Model model;
+	private View view;
+	private Controller controller;
 		
 	public Controller(Model m, View v) 
 	{
 		this.model = m;
 		this.view = v;
+		this.controller = this;
 		
 		v.setActionListener(new MyActionListener());
 		this.appendItemPanels(model.getItems());
@@ -39,6 +43,18 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int check(String checkText) 
+	{
+		ArrayList<Object> menu = new ArrayList<Object>();
+		menu.add(checkText);
+		menu.add(new JTextField(""));
+		
+		// Prompt the user for input
+		JOptionPane.showConfirmDialog(null, menu.toArray(), "Check", JOptionPane.OK_CANCEL_OPTION);
+		
+		return Integer.valueOf(((JTextField) menu.get(1)).getText());
 	}
 	
 	public void appendItemPanels(ArrayList<Item> array) 
@@ -71,8 +87,9 @@ public class Controller {
 				int index = view.indexOf(parent);
 				System.out.format("Button Pressed: %s%n", index);
 				
-				model.getItems().get(index).setName("Updated");
-				model.getItems().get(index).notifyObservers();
+				//model.getItems().get(index).setName("Updated");
+				//model.getItems().get(index).notifyObservers();
+				model.getItems().get(index).update(controller);
 			}
 		}
 	}
@@ -83,7 +100,7 @@ public class Controller {
 		
 		// Add Dummy Items
 		for(int i = 0; i < 12; i++) {
-			ItemMundane item = new ItemMundane("This is an item" + i, 10, 10);
+			ItemMundane item = new ItemMundane("This is an item" + i, 150, 12);
 			m.appendItem(item);
 		}
 		
