@@ -23,6 +23,7 @@ public class Controller {
 		this.view = v;
 		
 		v.setActionListener(new MyActionListener());
+		this.appendItemPanels(model.getItems());
 	}
 	
 	public void save(Object obj) 
@@ -40,17 +41,38 @@ public class Controller {
 		}
 	}
 	
+	public void appendItemPanels(ArrayList<Item> array) 
+	{
+		// For all items in the model
+		for(Item item : array)
+		{
+			this.appendItemPanel(item);
+		}		
+	}
+	
+	public void appendItemPanel(Item item)
+	{
+		// Create an item panel
+		ViewItem panelView = new ViewItem(item);
+					
+		// Link the model to the item panel
+		item.addObserver(panelView);			
+		// Add the item panel to the main view
+		view.appendPanel(panelView);
+	}
+	
 	public class MyActionListener implements ActionListener 
 	{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			model.getItems().get(2).setName("this is a test");		
-			model.getItems().get(2).notifyObservers();
 			
 			if(event.getSource() instanceof JButton) {
 				JComponent parent = (JComponent) ((JButton) event.getSource()).getParent();
+				int index = view.indexOf(parent);
+				System.out.format("Button Pressed: %s%n", index);
 				
-				System.out.format("Button Pressed: %s%n", view.indexOf(parent));						
+				model.getItems().get(index).setName("Updated");
+				model.getItems().get(index).notifyObservers();
 			}
 		}
 	}
@@ -59,22 +81,15 @@ public class Controller {
 	{
 		Model m = new Model();
 		
+		// Add Dummy Items
+		for(int i = 0; i < 12; i++) {
+			ItemMundane item = new ItemMundane("This is an item" + i, 10, 10);
+			m.appendItem(item);
+		}
+		
 		View v = new View();
 		
 		Controller con = new Controller(m, v);
-		System.out.println(m.getItems());	
-		
-		for(int i = 0; i < 12; i++) {
-			ItemMundane item = new ItemMundane("This is an item" + i, 10, 10);
-			ViewItem panelView = new ViewItem(item);
-			
-			m.appendItem(item);
-			
-			item.addObserver(panelView);
-			
-			v.appendPanel(panelView);
-		}
-		
 		v.createAndShowGUI();
 	}	
 }
