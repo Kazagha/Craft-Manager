@@ -18,16 +18,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Controller {
 	private Model model;
 	private View view;
-	private Controller controller;
+	
+	public static Controller controller;
 		
 	public Controller(Model m, View v) 
-	{
+	{			
 		this.model = m;
 		this.view = v;
 		this.controller = this;
 		
+		model.addObserver(view);
+		
 		v.setActionListener(new MyActionListener());
 		this.appendItemPanels(model.getItems());
+	}
+	
+	public static Controller getInstance()
+	{
+		return controller;
 	}
 	
 	public void save(Object obj) 
@@ -57,6 +65,11 @@ public class Controller {
 		return Integer.valueOf(((JTextField) menu.get(1)).getText());
 	}
 	
+	public static void editArray(ArrayList<Object> array) 
+	{
+		JOptionPane.showConfirmDialog(null, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
+	}
+	
 	public void appendItemPanels(ArrayList<Item> array) 
 	{
 		// For all items in the model
@@ -84,12 +97,19 @@ public class Controller {
 			
 			if(event.getSource() instanceof JButton) {
 				JComponent parent = (JComponent) ((JButton) event.getSource()).getParent();
-				int index = view.indexOf(parent);
-				System.out.format("Button Pressed: %s%n", index);
 				
-				//model.getItems().get(index).setName("Updated");
-				//model.getItems().get(index).notifyObservers();
-				model.getItems().get(index).update(controller);
+				if(parent instanceof ViewItem) 
+				{
+					int index = view.indexOf(parent);
+					System.out.format("Button Pressed: %s%n", index);
+					
+					//model.getItems().get(index).setName("Updated");
+					//model.getItems().get(index).notifyObservers();
+					model.getItems().get(index).update(controller);
+				} else {
+					model.appendItem(ItemMundane.create());
+					model.notifyObservers();
+				}				
 			}
 		}
 	}
