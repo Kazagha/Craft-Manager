@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,11 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-public class View extends JPanel {
+public class View extends JPanel implements Observer {
 
 	//Frame Width and Height
 	final int FRAME_WIDTH = 300;
 	final int FRAME_HEIGHT = 650;
+	
+	JLabel goldLabel;
+	JLabel XPLabel;
 	
 	JPanel itemPanel;
 	JButton button;
@@ -39,6 +44,8 @@ public class View extends JPanel {
 					.addContainerGap()
 					.addGroup(layout.createParallelGroup()
 							.addComponent(title)
+							.addComponent(goldLabel)
+							.addComponent(XPLabel)
 							.addComponent(button)
 							.addComponent(itemPanel)
 							)
@@ -50,19 +57,27 @@ public class View extends JPanel {
 					.addContainerGap()
 					.addComponent(title)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addComponent(goldLabel)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addComponent(XPLabel)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(button)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(itemPanel)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addContainerGap()
 			);
 	}
 	
 	private void init()
 	{
+		goldLabel = new JLabel();
+		XPLabel = new JLabel();
+		
 		itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.PAGE_AXIS));
 		//itemPanel.add(Box.createVerticalGlue());
-		button = new JButton("Do something");
+		button = new JButton("New Item");
 	}
 	
 	public void setActionListener(ActionListener listener)
@@ -81,6 +96,14 @@ public class View extends JPanel {
 	public void removePanel(JPanel panel)
 	{
 		itemPanel.remove(panel);
+	}
+	
+	public void removeAllPanels()
+	{
+		while(itemPanel.getComponentCount() > 0)
+		{
+			itemPanel.remove(0);
+		}
 	}
 	
 	public int indexOf(JComponent component)
@@ -112,5 +135,16 @@ public class View extends JPanel {
 		//Display the window
 		frame.pack();
 		frame.setVisible(true);		
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1)
+	{
+		this.removeAllPanels();
+	
+		Model m = (Model) arg0;		
+		Controller.getInstance().appendItemPanels(m.getItems());
+		
+		this.revalidate();		
 	}
 }
