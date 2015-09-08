@@ -53,7 +53,7 @@ public class Controller {
 		}
 	}
 	
-	public int check(String checkText) 
+	public static int check(String checkText) 
 	{
 		ArrayList<Object> menu = new ArrayList<Object>();
 		menu.add(checkText);
@@ -105,7 +105,7 @@ public class Controller {
 					
 					//model.getItems().get(index).setName("Updated");
 					//model.getItems().get(index).notifyObservers();
-					model.getItems().get(index).update(controller);
+					model.getItems().get(index).update();
 				} else {
 					model.appendItem(ItemMundane.create());
 					model.notifyObservers();

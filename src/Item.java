@@ -5,7 +5,7 @@ public abstract class Item  extends Observable {
 	private int baseCost;
 	private int matCost;
 	private int progress;
-	
+		
 	public Item(String name, int baseCost, int matCost) 
 	{
 		this.name = name;

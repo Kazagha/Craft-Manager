@@ -37,9 +37,10 @@ public class ItemMundane extends Item {
 	}
 	
 	@Override
-	void update(Controller controller) {
+	void update()
+	{		
 		String text = String.format("Roll craft check (DC=%s)", getDC());
-		int check = controller.check(text);	
+		int check = Controller.check(text);	
 			
 		// Was the check successful
 		if(check >= getDC()) 

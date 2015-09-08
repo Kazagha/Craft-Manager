@@ -10,7 +10,7 @@ public class ItemWand extends Item{
 	}
 
 	@Override
-	void update(Controller controller) {
+	void update() {
 		setProgress(getProgress() + 1000); 
 	}
 }
