@@ -26,6 +26,8 @@ public class Model extends Observable {
 	
 	public void appendItem(Item item) 
 	{
+		if(item == null) { return; }
+		
 		this.items.add(item);
 		setChanged();
 	}
