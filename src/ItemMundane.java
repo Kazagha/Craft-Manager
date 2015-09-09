@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class ItemMundane extends Item {
@@ -15,15 +16,31 @@ public class ItemMundane extends Item {
 	{		
 		ArrayList<Object> array = new ArrayList<Object>();
 		
-		for(String s : new String[] {"Name", "Base Cost", "DC" }) 
+		for(String str : new String[] {"Name", "Base Cost", "DC" }) 
 		{
-			array.add(s);
+			array.add(str);
 			array.add(new JTextField(""));
-		}	
+		}
 		
-		Controller.getInstance().editArray(array);
+		int result = JOptionPane.OK_OPTION;
+		while(result == JOptionPane.OK_OPTION)
+		{
+			try
+			{
+				// Open JOptionPane to prompt the user for input
+				result = Controller.editArray(array);
+				// Attempt to create an instance with the specified input
+				return new ItemMundane(
+						(((JTextField) array.get(1)).getText()),
+						Integer.valueOf(((JTextField) array.get(3)).getText()),
+						Integer.valueOf(((JTextField) array.get(5)).getText())
+						);
+			} catch (Exception e) {
+				// TODO: Show 'Invalid input' message
+			}
+		}
 		
-		return new ItemMundane("test", 1, 1);
+		return null;
 	}
 	
 	public int getDC() 
