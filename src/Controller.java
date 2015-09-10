@@ -65,9 +65,9 @@ public class Controller {
 		return Integer.valueOf(((JTextField) menu.get(1)).getText());
 	}
 	
-	public static void editArray(ArrayList<Object> array) 
+	public static int editArray(ArrayList<Object> array) 
 	{
-		JOptionPane.showConfirmDialog(null, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
+		return JOptionPane.showConfirmDialog(null, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	public void appendItemPanels(ArrayList<Item> array) 
