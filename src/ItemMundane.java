@@ -1,4 +1,6 @@
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -8,7 +10,7 @@ public class ItemMundane extends Item {
 	private int DC;	
 	
 	public ItemMundane(String name, int baseCost, int DC) {		
-		super(name, baseCost * 10, baseCost / 3 );
+		super(name, baseCost * 10, baseCost * 10 / 3 );
 		this.DC = DC;
 	}
 
@@ -16,11 +18,11 @@ public class ItemMundane extends Item {
 	{		
 		ArrayList<Object> array = new ArrayList<Object>();
 		
-		for(String str : new String[] {"Name", "Base Cost", "DC" }) 
-		{
-			array.add(str);
-			array.add(new JTextField(""));
-		}
+		JTextField name = new JTextField("");
+		JTextField baseCost = new JTextField("");
+		JTextField DC = new JTextField("");
+
+		array.addAll(Arrays.asList(new Object[] {"Name", name, "Base Cost", baseCost, "DC", DC }));
 		
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
@@ -31,9 +33,9 @@ public class ItemMundane extends Item {
 				result = Controller.editArray(array);
 				// Attempt to create an instance with the specified input
 				return new ItemMundane(
-						(((JTextField) array.get(1)).getText()),
-						Integer.valueOf(((JTextField) array.get(3)).getText()),
-						Integer.valueOf(((JTextField) array.get(5)).getText())
+						name.getText(),
+						Integer.valueOf(baseCost.getText()),
+						Integer.valueOf(DC.getText())
 						);
 			} catch (Exception e) {
 				// TODO: Show 'Invalid input' message
