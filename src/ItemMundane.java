@@ -13,39 +13,19 @@ public class ItemMundane extends Item {
 		super(name, baseCost * 10, baseCost * 10 / 3 );
 		this.DC = DC;
 	}
-
+	
 	public static Item create()
-	{		
-		ArrayList<Object> array = new ArrayList<Object>();
-		
-		JTextField name = new JTextField("");
-		JTextField baseCost = new JTextField("");
-		JTextField DC = new JTextField("");
-
-		array.addAll(Arrays.asList(new Object[] {"Name", name, "Base Cost", baseCost, "DC", DC }));
-		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION)
+	{
+		ItemMundane newItem = new ItemMundane("", 0, 0);
+		if(newItem.edit() == JOptionPane.OK_OPTION)
 		{
-			try
-			{
-				// Open JOptionPane to prompt the user for input
-				result = Controller.editArray(array);
-				// Attempt to create an instance with the specified input
-				return new ItemMundane(
-						name.getText(),
-						Integer.valueOf(baseCost.getText()),
-						Integer.valueOf(DC.getText())
-						);
-			} catch (Exception e) {
-				// TODO: Show 'Invalid input' message
-			}
+			return newItem;
 		}
 		
 		return null;
 	}
 	
-	public void edit()
+	public int edit()
 	{
 		ArrayList<Object> array = new ArrayList<Object>();
 		
@@ -62,15 +42,18 @@ public class ItemMundane extends Item {
 			{
 				// Open JOptionPane to prompt the user for input
 				result = Controller.editArray(array);
-				// Attempt to create an instance with the specified input
 				
+				// Set the changes on this
 				this.setName(name.getText());
 				this.setBaseCost(Integer.valueOf(baseCost.getText()));
-				this.setDC(Integer.valueOf(DC.getText()));						
+				this.setDC(Integer.valueOf(DC.getText()));
+				return result;
 			} catch (Exception e) {
 				// TODO: Show 'Invalid input' message
 			}
 		}
+		
+		return result;
 	}
 	
 	public int getDC() 
