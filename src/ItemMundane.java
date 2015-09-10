@@ -45,6 +45,34 @@ public class ItemMundane extends Item {
 		return null;
 	}
 	
+	public void edit()
+	{
+		ArrayList<Object> array = new ArrayList<Object>();
+		
+		JTextField name = new JTextField(this.getName());
+		JTextField baseCost = new JTextField(String.valueOf(this.getBaseCost()));
+		JTextField DC = new JTextField(String.valueOf(this.getDC()));
+
+		array.addAll(Arrays.asList(new Object[] {"Name", name, "Base Cost", baseCost, "DC", DC }));
+				
+		int result = JOptionPane.OK_OPTION;
+		while(result == JOptionPane.OK_OPTION)
+		{
+			try
+			{
+				// Open JOptionPane to prompt the user for input
+				result = Controller.editArray(array);
+				// Attempt to create an instance with the specified input
+				
+				this.setName(name.getText());
+				this.setBaseCost(Integer.valueOf(baseCost.getText()));
+				this.setDC(Integer.valueOf(DC.getText()));						
+			} catch (Exception e) {
+				// TODO: Show 'Invalid input' message
+			}
+		}
+	}
+	
 	public int getDC() 
 	{
 		return this.DC;
