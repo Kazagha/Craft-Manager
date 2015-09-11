@@ -4,9 +4,10 @@ import java.util.Observable;
 import javax.xml.bind.annotation.XmlElementRef;
 
 public class Model extends Observable {
-	int gold;
-	int XP;
-	ArrayList<Item> items = new ArrayList<Item>();
+	
+	public static enum ITEM {MUNDANE, MAGIC};
+	
+	private ArrayList<Item> items = new ArrayList<Item>();	
 	
 	public Model()
 	{
