@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -14,12 +15,29 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.sun.corba.se.impl.orb.ParserTable.TestAcceptor1;
+
 @XmlRootElement
 public class Controller {
 	private Model model;
 	private View view;
 	
 	public static Controller controller;
+	
+	private HashMap<Model.ITEM, Integer> craft;
+	
+	public enum Action 
+	{
+		NEWITEM("New Item"),
+		EDIT("Edit Item"),
+		CRAFT("Craft");
+		
+		String command;
+		Action(String str)
+		{
+			this.command = str;
+		}
+	}
 		
 	public Controller(Model m, View v) 
 	{			
@@ -105,10 +123,17 @@ public class Controller {
 					
 					//model.getItems().get(index).setName("Updated");
 					//model.getItems().get(index).notifyObservers();
-					model.getItems().get(index).update();
+					//model.getItems().get(index).update();
+					model.getItems().get(index).edit();
+					model.getItems().get(index).notifyObservers();
 				} else {
 					model.appendItem(ItemMundane.create());
 					model.notifyObservers();
+					
+					craft = new HashMap<>();
+					craft.put(Model.ITEM.MUNDANE, 100);		
+
+					System.out.format("%d",craft.get(Model.ITEM.MUNDANE));
 				}				
 			}
 		}
