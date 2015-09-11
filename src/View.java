@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.SpringLayout;
 
 public class View extends JPanel implements Observer {
 
@@ -25,7 +27,9 @@ public class View extends JPanel implements Observer {
 	JLabel XPLabel;
 	
 	JPanel itemPanel;
-	JButton button;
+	
+	JButton newItemButton;
+	JButton craftButton;
 	
 	ActionListener listener;
 	
@@ -46,7 +50,8 @@ public class View extends JPanel implements Observer {
 							.addComponent(title)
 							.addComponent(goldLabel)
 							.addComponent(XPLabel)
-							.addComponent(button)
+							.addComponent(craftButton)
+							.addComponent(newItemButton)
 							.addComponent(itemPanel)
 							)
 					.addContainerGap()
@@ -61,7 +66,9 @@ public class View extends JPanel implements Observer {
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(XPLabel)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(button)
+					.addComponent(craftButton)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addComponent(newItemButton)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(itemPanel)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -75,16 +82,22 @@ public class View extends JPanel implements Observer {
 		XPLabel = new JLabel();
 		
 		itemPanel = new JPanel();
-		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.PAGE_AXIS));
+		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));		
 		//itemPanel.add(Box.createVerticalGlue());
-		button = new JButton("New Item");
+		newItemButton= new JButton("New Item");
+		craftButton = new JButton("Craft");
+		
 	}
 	
 	public void setActionListener(ActionListener listener)
 	{
 		this.listener = listener;
 		
-		button.addActionListener(listener);
+		newItemButton.addActionListener(listener);
+		craftButton.addActionListener(listener);
+		
+		newItemButton.setActionCommand(Controller.Action.NEWITEM.toString());
+		craftButton.setActionCommand(Controller.Action.CRAFT.toString());
 	}
 	
 	public void appendPanel(JPanel panel) 
