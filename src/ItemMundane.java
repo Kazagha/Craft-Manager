@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 public class ItemMundane extends Item {
 
 	private int DC;	
+	private Model.ITEM type = Model.ITEM.MUNDANE;
 	
 	public ItemMundane(String name, int baseCost, int DC) {		
 		super(name, baseCost * 10, baseCost * 10 / 3 );
@@ -64,6 +65,11 @@ public class ItemMundane extends Item {
 	public void setDC(int DC)
 	{
 		this.DC = DC;
+	}
+	
+	public Model.ITEM getType()
+	{
+		return type;
 	}
 	
 	@Override
