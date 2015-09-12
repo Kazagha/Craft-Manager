@@ -15,8 +15,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sun.corba.se.impl.orb.ParserTable.TestAcceptor1;
-
 @XmlRootElement
 public class Controller {
 	private Model model;
@@ -38,20 +36,6 @@ public class Controller {
 		{
 			this.command = str;
 		}
-		/*
-		public Action getEnum(String str)
-		{
-			for(Action a : Controller.Action.values())
-			{
-				if(a.toString().equals(str)) 
-				{
-					return a;
-				}
-			}
-			
-			return INVALID;
-		}
-		*/
 	}
 		
 	public Controller(Model m, View v) 
@@ -134,13 +118,7 @@ public class Controller {
 				if(parent instanceof ViewItem) 
 				{
 					int index = view.indexOf(parent);
-					System.out.format("Button Pressed: %s%n", index);
-					
-					//model.getItems().get(index).setName("Updated");
-					//model.getItems().get(index).notifyObservers();
-					//model.getItems().get(index).update();
-					model.getItems().get(index).edit();
-					model.getItems().get(index).notifyObservers();
+					edit(index);
 				} else {
 					switch(Controller.Action.valueOf(event.getActionCommand()))
 					{
@@ -150,8 +128,7 @@ public class Controller {
 					case EDIT:
 						break;
 					case CRAFT:
-						craft = new HashMap<>();
-						craft.put(Model.ITEM.MUNDANE, 100);	
+						craft();
 						break;
 					default:						
 					}
@@ -160,6 +137,34 @@ public class Controller {
 				}				
 			}
 		}
+	}
+	
+	public void craft()
+	{
+		if(model.getItems().size() > 0) 
+		{
+			Item item = model.getItems().get(0);
+			
+			switch(item.getItemType()) 
+			{
+			case MUNDANE:
+				int check = this.check("Roll Craft Check:");
+				craft = new HashMap<>();
+				craft.put(Model.ITEM.MUNDANE, 100);
+				break;
+			case MAGIC:
+				
+				break;				
+			}			
+		} else {
+			JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void edit(int index)
+	{
+		model.getItems().get(index).edit();
+		model.getItems().get(index).notifyObservers();
 	}
 	
 	public static void main (String[] args) 
