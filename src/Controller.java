@@ -30,13 +30,28 @@ public class Controller {
 	{
 		NEWITEM("New Item"),
 		EDIT("Edit Item"),
-		CRAFT("Craft");
+		CRAFT("Craft"),
+		INVALID("Invalid Action");
 		
 		String command;
 		Action(String str)
 		{
 			this.command = str;
 		}
+		/*
+		public Action getEnum(String str)
+		{
+			for(Action a : Controller.Action.values())
+			{
+				if(a.toString().equals(str)) 
+				{
+					return a;
+				}
+			}
+			
+			return INVALID;
+		}
+		*/
 	}
 		
 	public Controller(Model m, View v) 
@@ -127,13 +142,21 @@ public class Controller {
 					model.getItems().get(index).edit();
 					model.getItems().get(index).notifyObservers();
 				} else {
-					model.appendItem(ItemMundane.create());
-					model.notifyObservers();
+					switch(Controller.Action.valueOf(event.getActionCommand()))
+					{
+					case NEWITEM: 
+						model.appendItem(ItemMundane.create());
+						break;						
+					case EDIT:
+						break;
+					case CRAFT:
+						craft = new HashMap<>();
+						craft.put(Model.ITEM.MUNDANE, 100);	
+						break;
+					default:						
+					}
 					
-					craft = new HashMap<>();
-					craft.put(Model.ITEM.MUNDANE, 100);		
-
-					System.out.format("%d",craft.get(Model.ITEM.MUNDANE));
+					model.notifyObservers();
 				}				
 			}
 		}
