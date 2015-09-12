@@ -67,11 +67,6 @@ public class ItemMundane extends Item {
 		this.DC = DC;
 	}
 	
-	public Model.ITEM getType()
-	{
-		return type;
-	}
-	
 	@Override
 	void update()
 	{		

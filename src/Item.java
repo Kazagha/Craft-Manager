@@ -5,6 +5,7 @@ public abstract class Item  extends Observable {
 	private int baseCost;
 	private int matCost;
 	private int progress;
+	private Model.ITEM itemType;
 		
 	public Item(String name, int baseCost, int matCost) 
 	{
@@ -60,6 +61,16 @@ public abstract class Item  extends Observable {
 	public boolean isComplete() 
 	{
 		return progress >= baseCost;
+	}
+	
+	public Model.ITEM getItemType()
+	{
+		return itemType;
+	}
+	
+	public void setItemType(Model.ITEM type) 
+	{
+		this.itemType = type;
 	}
 	
 	abstract void update();
