@@ -123,7 +123,7 @@ public class Controller {
 					switch(Controller.Action.valueOf(event.getActionCommand()))
 					{
 					case NEWITEM: 
-						model.appendItem(ItemMundane.create());
+						model.appendQueue(ItemMundane.create());
 						break;						
 					case EDIT:
 						break;
@@ -144,7 +144,7 @@ public class Controller {
 		if(model.getQueue().size() > 0) 
 		{
 			// TODO: Get the first item that is not complete
-			Item item = model.getQueue().get(0);
+			Item item = getNextItem();
 			
 			switch(item.getItemType()) 
 			{
@@ -173,6 +173,40 @@ public class Controller {
 		model.getQueue().get(index).notifyObservers();
 	}
 	
+	public Item getNextItem() 
+	{
+		for(Item item : model.getQueue())
+		{
+			if(! item.isComplete())
+				return item;
+		}
+		
+		return null;
+	}
+	
+	public void clearComplete()
+	{
+		// Collect completed items in the 'remove' array
+		ArrayList<Item> remove = new ArrayList<Item>();
+		for(Item item : model.getQueue())
+		{
+			if(item.isComplete())
+			{			
+				remove.add(item);
+				model.getComplete().add(item);
+			}			
+		}
+		
+		// Remove items from the queue
+		for(Item item : remove)
+		{
+			model.removeQueue(item);
+		}
+		
+		// Notify Observers (GUI) of changes
+		model.notifyObservers();
+	}
+	
 	public static void main (String[] args) 
 	{
 		Model m = new Model();
@@ -180,7 +214,7 @@ public class Controller {
 		// Add Dummy Items
 		for(int i = 0; i < 12; i++) {
 			ItemMundane item = new ItemMundane("This is an item" + i, 150, 12);
-			m.appendItem(item);
+			m.appendQueue(item);
 		}
 		
 		View v = new View();
