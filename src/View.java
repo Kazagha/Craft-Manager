@@ -30,6 +30,9 @@ public class View extends JPanel implements Observer {
 	
 	JButton newItemButton;
 	JButton craftButton;
+	JButton clearButton;
+	JButton testButton01;
+	JButton testButton02;
 	
 	ActionListener listener;
 	
@@ -50,6 +53,9 @@ public class View extends JPanel implements Observer {
 								.addGroup(layout.createSequentialGroup()
 										.addComponent(craftButton)
 										.addComponent(newItemButton)
+										.addComponent(clearButton)
+										.addComponent(testButton01)
+										.addComponent(testButton02)
 										)
 								.addComponent(title)
 								.addComponent(goldLabel)
@@ -69,6 +75,9 @@ public class View extends JPanel implements Observer {
 						.addComponent(XPLabel)
 						.addComponent(craftButton)
 						.addComponent(newItemButton)
+						.addComponent(clearButton)
+						.addComponent(testButton01)
+						.addComponent(testButton02)
 						)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(itemPanel)
@@ -87,6 +96,9 @@ public class View extends JPanel implements Observer {
 		//itemPanel.add(Box.createVerticalGlue());
 		newItemButton= new JButton("New Item");
 		craftButton = new JButton("Craft");
+		clearButton = new JButton("Clear Completed");
+		testButton01 = new JButton("Placeholder A");
+		testButton02 = new JButton("Placeholder B");
 		
 	}
 	
@@ -96,9 +108,13 @@ public class View extends JPanel implements Observer {
 		
 		newItemButton.addActionListener(listener);
 		craftButton.addActionListener(listener);
+		clearButton.addActionListener(listener);
+		testButton01.addActionListener(listener);
+		testButton02.addActionListener(listener);
 		
 		newItemButton.setActionCommand(Controller.Action.NEWITEM.toString());
 		craftButton.setActionCommand(Controller.Action.CRAFT.toString());
+		clearButton.setActionCommand(Controller.Action.CLEAR.toString());
 	}
 	
 	public void appendPanel(JPanel panel) 
