@@ -156,7 +156,14 @@ public class View extends JPanel implements Observer {
 		this.removeAllPanels();
 	
 		Model m = (Model) arg0;		
-		Controller.getInstance().appendItemPanels(m.getItems());
+		
+		for(Item item : m.getQueue())
+		{
+			if(! item.isComplete())
+			{
+				Controller.getInstance().appendItemPanel(item);
+			}
+		}
 		
 		this.revalidate();		
 	}

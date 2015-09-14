@@ -47,7 +47,7 @@ public class Controller {
 		model.addObserver(view);
 		
 		v.setActionListener(new MyActionListener());
-		this.appendItemPanels(model.getItems());
+		this.appendItemPanels(model.getQueue());
 	}
 	
 	public static Controller getInstance()
@@ -141,19 +141,25 @@ public class Controller {
 	
 	public void craft()
 	{
-		if(model.getItems().size() > 0) 
+		if(model.getQueue().size() > 0) 
 		{
-			Item item = model.getItems().get(0);
+			// TODO: Get the first item that is not complete
+			Item item = model.getQueue().get(0);
 			
 			switch(item.getItemType()) 
 			{
 			case MUNDANE:
-				int check = this.check("Roll Craft Check:");
-				craft = new HashMap<>();
-				craft.put(Model.ITEM.MUNDANE, 100);
+				//int check = this.check("Roll Craft Check:");
+				item.update();
 				break;
 			case MAGIC:
+				int progress = 2000;
 				
+				while(progress > 0) 
+				{
+					item.update();
+					// Add progress to item
+				}
 				break;				
 			}			
 		} else {
@@ -163,8 +169,8 @@ public class Controller {
 	
 	public void edit(int index)
 	{
-		model.getItems().get(index).edit();
-		model.getItems().get(index).notifyObservers();
+		model.getQueue().get(index).edit();
+		model.getQueue().get(index).notifyObservers();
 	}
 	
 	public static void main (String[] args) 
