@@ -7,21 +7,33 @@ public class Model extends Observable {
 	
 	public static enum ITEM {MUNDANE, MAGIC};
 	
-	private ArrayList<Item> items = new ArrayList<Item>();	
+	private ArrayList<Item> queue = new ArrayList<Item>();
+	private ArrayList<Item> complete = new ArrayList<Item>();
 	
 	public Model()
 	{
 		
 	}
 
-	public ArrayList<Item> getItems() 
+	public ArrayList<Item> getQueue() 
 	{
-		return this.items;
+		return this.queue;
 	}
 	
-	public void setItems(ArrayList<Item> array) 
+	public void setQueue(ArrayList<Item> array) 
 	{
-		this.items = array;
+		this.queue = array;
+		setChanged();
+	}
+	
+	public ArrayList<Item> getComplete() 
+	{
+		return this.complete;
+	}
+	
+	public void setComplete(ArrayList<Item> array) 
+	{
+		this.complete = array;
 		setChanged();
 	}
 	
@@ -29,13 +41,13 @@ public class Model extends Observable {
 	{
 		if(item == null) { return; }
 		
-		this.items.add(item);
+		this.queue.add(item);
 		setChanged();
 	}
 	
 	public void removeItem(Item item)
 	{
-		this.items.remove(item);
+		this.queue.remove(item);
 		setChanged();
 	}
 }
