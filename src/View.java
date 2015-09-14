@@ -45,15 +45,17 @@ public class View extends JPanel implements Observer {
 				
 		layout.setHorizontalGroup(
 				layout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(layout.createParallelGroup()
-							.addComponent(title)
-							.addComponent(goldLabel)
-							.addComponent(XPLabel)
-							.addComponent(craftButton)
-							.addComponent(newItemButton)
-							.addComponent(itemPanel)
-							)
+					.addContainerGap()					
+						.addGroup(layout.createParallelGroup()
+								.addGroup(layout.createSequentialGroup()
+										.addComponent(craftButton)
+										.addComponent(newItemButton)
+										)
+								.addComponent(title)
+								.addComponent(goldLabel)
+								.addComponent(XPLabel)
+								.addComponent(itemPanel)								
+								)							
 					.addContainerGap()
 			);
 				
@@ -62,13 +64,12 @@ public class View extends JPanel implements Observer {
 					.addContainerGap()
 					.addComponent(title)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(goldLabel)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(XPLabel)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(craftButton)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(newItemButton)
+					.addGroup(layout.createParallelGroup()
+						.addComponent(goldLabel)
+						.addComponent(XPLabel)
+						.addComponent(craftButton)
+						.addComponent(newItemButton)
+						)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(itemPanel)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -155,8 +156,10 @@ public class View extends JPanel implements Observer {
 	{
 		this.removeAllPanels();
 	
-		Model m = (Model) arg0;		
+		Model m = (Model) arg0;
+		Controller.getInstance().appendItemPanels(m.getQueue());
 		
+		/* Adding completed items
 		for(Item item : m.getQueue())
 		{
 			if(! item.isComplete())
@@ -164,6 +167,7 @@ public class View extends JPanel implements Observer {
 				Controller.getInstance().appendItemPanel(item);
 			}
 		}
+		*/
 		
 		this.revalidate();		
 	}
