@@ -37,7 +37,7 @@ public class Model extends Observable {
 		setChanged();
 	}
 	
-	public void appendItem(Item item) 
+	public void appendQueue(Item item) 
 	{
 		if(item == null) { return; }
 		
@@ -45,9 +45,23 @@ public class Model extends Observable {
 		setChanged();
 	}
 	
-	public void removeItem(Item item)
+	public void removeQueue(Item item)
 	{
 		this.queue.remove(item);
+		setChanged();
+	}
+	
+	public void appendComplete(Item item)
+	{
+		if(item == null) { return; }
+		
+		this.complete.add(item);
+		setChanged();		
+	}
+	
+	public void removeComplete(Item item)
+	{
+		this.complete.remove(item);
 		setChanged();
 	}
 }
