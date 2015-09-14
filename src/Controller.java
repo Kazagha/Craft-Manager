@@ -29,6 +29,7 @@ public class Controller {
 		NEWITEM("New Item"),
 		EDIT("Edit Item"),
 		CRAFT("Craft"),
+		CLEAR("Clear Completed Items"),
 		INVALID("Invalid Action");
 		
 		String command;
@@ -129,6 +130,9 @@ public class Controller {
 						break;
 					case CRAFT:
 						craft();
+						break;
+					case CLEAR:
+						clearComplete();
 						break;
 					default:						
 					}
