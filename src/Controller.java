@@ -179,9 +179,11 @@ public class Controller {
 						// Notify the Observers that this item has been updated
 						iMundane.notifyObservers();
 					} else if (check < iMundane.getDC() - 4)
-					{
-						// Check Failed by 5 or more: Half raw materials have been destroyed
+					{						
+						// Check Failed by 5 or more: Half raw materials have been destroyed						
 						int cost = iMundane.getMatCost() / 2;
+						// All progress is lost
+						progress = 0;
 					}
 				}
 				break;
