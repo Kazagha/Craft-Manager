@@ -129,7 +129,18 @@ public class Controller {
 					case EDIT:
 						break;
 					case CRAFT:
-						craft();
+						// Check there are items in the queue to craft
+						if(model.getQueue().size() == 0) 
+							JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
+							
+						switch(getNextItem(null).getItemType())
+						{
+						case MUNDANE:
+							craftMundane();
+							break;
+						case MAGIC:
+							break;
+						}
 						break;
 					case CLEAR:
 						clearComplete();
@@ -143,62 +154,38 @@ public class Controller {
 		}
 	}
 	
-	public void craft()
+	public void craftMundane()
 	{
-		if(model.getQueue().size() > 0) 
+		ItemMundane iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
+		int check = this.check("Roll Craft Check:");
+		int progress = iMundane.getDC() * check;
+		
+		while(progress > 0)
 		{
-			// TODO: Get the first item that is not complete
-			Item nextItem = getNextItem(null);
-			int progress;
+			iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
 			
-			switch(nextItem.getItemType()) 
-			{			
-			case MUNDANE:
-				ItemMundane iMundane = (ItemMundane) nextItem;
-				
-				int check = this.check("Roll Craft Check:");
-				progress = iMundane.getDC() * check;
-				
-				while(progress > 0)
+			if(check >= iMundane.getDC()) 
+			{
+				// Successful check
+				int diff = iMundane.getBaseCost() - iMundane.getProgress();
+				if(diff >= progress) 
 				{
-					iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
-					
-					if(check >= iMundane.getDC()) 
-					{
-						// Successful check
-						int diff = iMundane.getBaseCost() - iMundane.getProgress();
-						if(diff >= progress) 
-						{
-							iMundane.setProgress(iMundane.getProgress() + progress);
-							progress = 0;
-						} else {
-							iMundane.setProgress(iMundane.getProgress() + diff);
-							progress -= diff;
-						}
-						
-						// Notify the Observers that this item has been updated
-						iMundane.notifyObservers();
-					} else if (check < iMundane.getDC() - 4)
-					{						
-						// Check Failed by 5 or more: Half raw materials have been destroyed						
-						int cost = iMundane.getMatCost() / 2;
-						// All progress is lost
-						progress = 0;
-					}
+					iMundane.setProgress(iMundane.getProgress() + progress);
+					progress = 0;
+				} else {
+					iMundane.setProgress(iMundane.getProgress() + diff);
+					progress -= diff;
 				}
-				break;
-			case MAGIC:
-				progress = 2000;
 				
-				while(progress > 0) 
-				{
-					nextItem.update();
-					// Add progress to item
-				}
-				break;				
-			}			
-		} else {
-			JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
+				// Notify the Observers that this item has been updated
+				iMundane.notifyObservers();
+			} else if (check < iMundane.getDC() - 4)
+			{						
+				// Check Failed by 5 or more: Half raw materials have been destroyed						
+				int cost = iMundane.getMatCost() / 2;
+				// All progress is lost
+				progress = 0;
+			}	
 		}
 	}
 	
