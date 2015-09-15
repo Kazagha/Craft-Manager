@@ -154,21 +154,36 @@ public class Controller {
 			switch(nextItem.getItemType()) 
 			{			
 			case MUNDANE:
-				ItemMundane itemMundane = (ItemMundane) nextItem;
+				ItemMundane iMundane = (ItemMundane) nextItem;
 				
 				int check = this.check("Roll Craft Check:");
-				progress = itemMundane.getDC() * check;
+				progress = iMundane.getDC() * check;
 				
-				if(check >= itemMundane.getDC()) 
+				while(progress > 0)
 				{
-					// Successful check
-					itemMundane.setProgress(itemMundane.getProgress() + progress);
-					itemMundane.notifyObservers();
-				} else if (check < itemMundane.getDC() - 4)
-				{
-					// Check Failed by 5 or more: Half raw materials have been destroyed
-					int cost = itemMundane.getMatCost() / 2;
-				}	
+					iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
+					
+					if(check >= iMundane.getDC()) 
+					{
+						// Successful check
+						int diff = iMundane.getBaseCost() - iMundane.getProgress();
+						if(diff >= progress) 
+						{
+							iMundane.setProgress(iMundane.getProgress() + progress);
+							progress = 0;
+						} else {
+							iMundane.setProgress(iMundane.getProgress() + diff);
+							progress -= diff;
+						}
+						
+						// Notify the Observers that this item has been updated
+						iMundane.notifyObservers();
+					} else if (check < iMundane.getDC() - 4)
+					{
+						// Check Failed by 5 or more: Half raw materials have been destroyed
+						int cost = iMundane.getMatCost() / 2;
+					}
+				}
 				break;
 			case MAGIC:
 				progress = 2000;
