@@ -157,36 +157,44 @@ public class Controller {
 	
 	public void craftMundane()
 	{
-		ItemMundane iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
+		//ItemMundane iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
 		int check = this.check("Roll Craft Check:");
-		int progress = iMundane.getDC() * check;
+		int checkPart = check;
 		
-		while(progress > 0)
+		//int progress = iMundane.getDC() * check;
+		
+		while(checkPart > 0)
 		{
-			iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
+			ItemMundane iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
+			int progress = iMundane.getDC() * checkPart;
+			
 			
 			if(check >= iMundane.getDC()) 
 			{
-				// Successful check
+				// Successful check	
 				int diff = iMundane.getBaseCost() - iMundane.getProgress();
+				
 				if(diff >= progress) 
 				{
 					iMundane.setProgress(iMundane.getProgress() + progress);
-					progress = 0;
+					checkPart = 0;
 				} else {
 					iMundane.setProgress(iMundane.getProgress() + diff);
 					progress -= diff;
+					checkPart -= progress / iMundane.getDC(); 
 				}
 				
 				// Notify the Observers that this item has been updated
 				iMundane.notifyObservers();
-			} else if (check < iMundane.getDC() - 4)
-			{						
-				// Check Failed by 5 or more: Half raw materials have been destroyed						
+			} else if (check < iMundane.getDC() - 4) {						
+				// Check Failed by 5 or more: Half raw materials have been destroyed				
 				int cost = iMundane.getMatCost() / 2;
 				// All progress is lost
-				progress = 0;
-			}	
+				checkPart = 0;
+			} else {
+				// The check failed but no materials have been destroyed				
+				checkPart = 0;
+			}
 		}
 	}
 	
