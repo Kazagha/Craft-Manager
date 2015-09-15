@@ -148,20 +148,34 @@ public class Controller {
 		if(model.getQueue().size() > 0) 
 		{
 			// TODO: Get the first item that is not complete
-			Item item = getNextItem();
+			Item nextItem = getNextItem(null);
+			int progress;
 			
-			switch(item.getItemType()) 
-			{
+			switch(nextItem.getItemType()) 
+			{			
 			case MUNDANE:
-				//int check = this.check("Roll Craft Check:");
-				item.update();
+				ItemMundane itemMundane = (ItemMundane) nextItem;
+				
+				int check = this.check("Roll Craft Check:");
+				progress = itemMundane.getDC() * check;
+				
+				if(check >= itemMundane.getDC()) 
+				{
+					// Successful check
+					itemMundane.setProgress(itemMundane.getProgress() + progress);
+					itemMundane.notifyObservers();
+				} else if (check < itemMundane.getDC() - 4)
+				{
+					// Check Failed by 5 or more: Half raw materials have been destroyed
+					int cost = itemMundane.getMatCost() / 2;
+				}	
 				break;
 			case MAGIC:
-				int progress = 2000;
+				progress = 2000;
 				
 				while(progress > 0) 
 				{
-					item.update();
+					nextItem.update();
 					// Add progress to item
 				}
 				break;				
@@ -177,11 +191,11 @@ public class Controller {
 		model.getQueue().get(index).notifyObservers();
 	}
 	
-	public Item getNextItem() 
+	public Item getNextItem(Model.ITEM type) 
 	{
 		for(Item item : model.getQueue())
 		{
-			if(! item.isComplete())
+			if(! item.isComplete() && (type == null || item.getItemType() == type))
 				return item;
 		}
 		
