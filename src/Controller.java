@@ -139,6 +139,7 @@ public class Controller {
 							craftMundane();
 							break;
 						case MAGIC:
+							craftMagic();
 							break;
 						}
 						break;
@@ -186,6 +187,16 @@ public class Controller {
 				// All progress is lost
 				progress = 0;
 			}	
+		}
+	}
+	
+	public void craftMagic()
+	{
+		int progress = 2000;
+		
+		while(progress > 0)
+		{
+			// Progress items
 		}
 	}
 	
