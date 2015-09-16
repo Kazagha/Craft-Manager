@@ -33,6 +33,13 @@ public class ItemMundane extends Item {
 		JTextField name = new JTextField(this.getName());
 		JTextField baseCost = new JTextField(String.valueOf(this.getBaseCost()));
 		JTextField DC = new JTextField(String.valueOf(this.getDC()));
+		
+		// Prevent the user from changing the item after crafting has started
+		if(this.getProgress() > 0) 
+		{
+			baseCost.setEditable(false);
+			DC.setEditable(false);
+		}
 
 		array.addAll(Arrays.asList(new Object[] {"Name", name, "Item Cost", baseCost, "DC", DC }));
 				
