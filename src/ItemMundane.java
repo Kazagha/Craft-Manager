@@ -34,7 +34,7 @@ public class ItemMundane extends Item {
 		JTextField baseCost = new JTextField(String.valueOf(this.getBaseCost()));
 		JTextField DC = new JTextField(String.valueOf(this.getDC()));
 
-		array.addAll(Arrays.asList(new Object[] {"Name", name, "Base Cost", baseCost, "DC", DC }));
+		array.addAll(Arrays.asList(new Object[] {"Name", name, "Item Cost", baseCost, "DC", DC }));
 				
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
@@ -47,6 +47,7 @@ public class ItemMundane extends Item {
 				// Set the changes on this
 				this.setName(name.getText());
 				this.setBaseCost(Integer.valueOf(baseCost.getText()));
+				this.setMatCost(this.getBaseCost() / 3);
 				this.setDC(Integer.valueOf(DC.getText()));
 				return result;
 			} catch (Exception e) {
