@@ -174,12 +174,16 @@ public class Controller {
 				// Successful check	
 				int diff = iMundane.getBaseCost() - iMundane.getProgress();
 				
+				// Check if the item will be finished on this craft check
 				if(diff >= progress) 
 				{
+					// Add entire check to the item 
 					iMundane.setProgress(iMundane.getProgress() + progress);
 					checkPart = 0;
 				} else {
+					// Add the difference required to complete the item
 					iMundane.setProgress(iMundane.getProgress() + diff);
+					// Calculate the remaining craft check
 					progress -= diff;
 					checkPart -= progress / iMundane.getDC(); 
 				}
