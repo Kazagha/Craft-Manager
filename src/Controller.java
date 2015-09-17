@@ -134,8 +134,7 @@ public class Controller {
 						// Check there are items in the queue to craft
 						if(model.getQueue().size() == 0) 
 							JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
-						// TODO: Switch on Item Type
-						/*	
+													
 						switch(getNextItem(null).getItemType())
 						{
 						case MUNDANE:
@@ -144,8 +143,7 @@ public class Controller {
 						case MAGIC:
 							craftMagic();
 							break;
-						}
-						*/
+						}						
 						break;
 					case CLEAR:
 						clearComplete();
@@ -172,7 +170,6 @@ public class Controller {
 			ItemMundane iMundane = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
 			int progress = iMundane.getDC() * checkPart;
 			
-			
 			if(check >= iMundane.getDC()) 
 			{
 				// Successful check	
@@ -188,8 +185,8 @@ public class Controller {
 					// Add the difference required to complete the item
 					iMundane.setProgress(iMundane.getProgress() + diff);
 					// Calculate the remaining craft check
-					progress -= diff;
-					checkPart -= progress / iMundane.getDC(); 
+					progress -= diff;					
+					checkPart = (progress / iMundane.getDC());
 				}
 				
 				// Notify the Observers that this item has been updated
@@ -237,8 +234,7 @@ public class Controller {
 	{
 		for(Item item : model.getQueue())
 		{
-			// TODO: Fetch item based on item type
-			//if(! item.isComplete() && (type == null || item.getItemType() == type))
+			if(! item.isComplete() && (type == null || item.getItemType() == type))
 				return item;
 		}
 		
