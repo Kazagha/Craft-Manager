@@ -133,7 +133,10 @@ public class Controller {
 					case CRAFT:
 						// Check there are items in the queue to craft
 						if(model.getQueue().size() == 0) 
+						{
 							JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
+							break;
+						}
 													
 						switch(getNextItem(null).getItemType())
 						{
@@ -165,7 +168,7 @@ public class Controller {
 		
 		//int progress = iMundane.getDC() * check;
 		
-		while(checkPart > 0)
+		while(checkPart > 0 && getNextItem(Item.TYPE.MUNDANE) != null)
 		{
 			ItemMundane iMundane = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
 			int progress = iMundane.getDC() * checkPart;
@@ -206,7 +209,7 @@ public class Controller {
 	public void craftMagic()
 	{
 		int progress = 2000;		
-		while(progress > 0)
+		while(progress > 0 && getNextItem(Item.TYPE.MAGIC) != null)
 		{
 			Item item = getNextItem(Item.TYPE.MAGIC);			
 			int diff = progress - item.getProgress();
