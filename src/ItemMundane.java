@@ -76,22 +76,5 @@ public class ItemMundane extends Item {
 	}
 	
 	@Override
-	void update()
-	{		
-		String text = String.format("Roll craft check (DC=%s)", getDC());
-		int check = Controller.check(text);	
-			
-		// Was the check successful
-		if(check >= getDC()) 
-		{
-			// Successful check
-			setProgress(getProgress() + (getDC() * check));
-		} else if (check < getDC() - 4)
-		{
-			// Check Failed by 5 or more: Half raw materials have been destroyed
-			int cost = getMatCost() / 2;
-		}	
-				
-		notifyObservers();
-	}
+	void update() {}
 }
