@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Model extends Observable {
 	
 	public static enum ITEM {MUNDANE, MAGIC};
@@ -15,6 +17,7 @@ public class Model extends Observable {
 		
 	}
 
+	@XmlElementRef
 	public ArrayList<Item> getQueue() 
 	{
 		return this.queue;
@@ -26,6 +29,7 @@ public class Model extends Observable {
 		setChanged();
 	}
 	
+	@XmlElementRef
 	public ArrayList<Item> getComplete() 
 	{
 		return this.complete;
