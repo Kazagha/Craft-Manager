@@ -60,7 +60,7 @@ public class Controller {
 	public void save(Object obj) 
 	{
 		try {
-			JAXBContext jaxb = JAXBContext.newInstance(ItemMundane.class);
+			JAXBContext jaxb = JAXBContext.newInstance(Model.class, ItemMundane.class);
 			
 			Marshaller marshaller = jaxb.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -125,7 +125,7 @@ public class Controller {
 					switch(Controller.Action.valueOf(event.getActionCommand()))
 					{
 					case SAVE:
-						Controller.getInstance().save(model.getQueue().get(0));
+						Controller.getInstance().save(model);
 						break;
 					case NEWITEM: 
 						model.appendQueue(ItemMundane.create());
