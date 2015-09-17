@@ -4,16 +4,20 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class ItemMundane extends Item {
 
 	private int DC;	
 	
 	public ItemMundane(String name, int baseCost, int DC) {		
 		super(name, baseCost * 10, baseCost * 10 / 3 );
-		super.setItemType(Model.ITEM.MUNDANE);
+		//super.setItemType(Model.ITEM.MUNDANE);
 		this.DC = DC;		
 	}
+	
+	public ItemMundane() {}
 	
 	public static Item create()
 	{
@@ -41,7 +45,7 @@ public class ItemMundane extends Item {
 			DC.setEditable(false);
 		}
 
-		array.addAll(Arrays.asList(new Object[] {"Name", name, "Item Cost", baseCost, "DC", DC }));
+		array.addAll(Arrays.asList(new Object[] {"Name", name, "Base Item Price", baseCost, "DC", DC }));
 				
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
