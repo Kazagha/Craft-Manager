@@ -136,7 +136,8 @@ public class Controller {
 						// Check there are items in the queue to craft
 						if(model.getQueue().size() == 0) 
 							JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
-							
+						// TODO: Switch on Item Type
+						/*	
 						switch(getNextItem(null).getItemType())
 						{
 						case MUNDANE:
@@ -146,6 +147,7 @@ public class Controller {
 							craftMagic();
 							break;
 						}
+						*/
 						break;
 					case CLEAR:
 						clearComplete();
@@ -237,7 +239,8 @@ public class Controller {
 	{
 		for(Item item : model.getQueue())
 		{
-			if(! item.isComplete() && (type == null || item.getItemType() == type))
+			// TODO: Fetch item based on item type
+			//if(! item.isComplete() && (type == null || item.getItemType() == type))
 				return item;
 		}
 		

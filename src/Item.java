@@ -1,5 +1,8 @@
 import java.util.Observable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public abstract class Item  extends Observable {
 	private String name;
 	private int baseCost;
@@ -7,6 +10,8 @@ public abstract class Item  extends Observable {
 	private int progress;
 	private Model.ITEM itemType;
 		
+	public Item() {}
+	
 	public Item(String name, int baseCost, int matCost) 
 	{
 		this.name = name;
@@ -63,15 +68,18 @@ public abstract class Item  extends Observable {
 		return progress >= baseCost;
 	}
 	
+	/*
 	public Model.ITEM getItemType()
 	{
 		return itemType;
 	}
 	
+	
 	public void setItemType(Model.ITEM type) 
 	{
 		this.itemType = type;
 	}
+	*/
 	
 	abstract void update();
 	
