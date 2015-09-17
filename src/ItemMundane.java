@@ -13,7 +13,7 @@ public class ItemMundane extends Item {
 	
 	public ItemMundane(String name, int baseCost, int DC) {		
 		super(name, baseCost * 10, baseCost * 10 / 3 );
-		//super.setItemType(Model.ITEM.MUNDANE);
+		super.setItemType(Item.TYPE.MUNDANE);
 		this.DC = DC;		
 	}
 	
