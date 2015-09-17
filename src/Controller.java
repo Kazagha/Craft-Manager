@@ -30,6 +30,7 @@ public class Controller {
 		EDIT("Edit Item"),
 		CRAFT("Craft"),
 		CLEAR("Clear Completed Items"),
+		SAVE("Save to XML"),
 		INVALID("Invalid Action");
 		
 		String command;
@@ -59,7 +60,7 @@ public class Controller {
 	public void save(Object obj) 
 	{
 		try {
-			JAXBContext jaxb = JAXBContext.newInstance(Controller.class, Item.class, ItemMundane.class);
+			JAXBContext jaxb = JAXBContext.newInstance(ItemMundane.class);
 			
 			Marshaller marshaller = jaxb.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -123,6 +124,9 @@ public class Controller {
 				} else {
 					switch(Controller.Action.valueOf(event.getActionCommand()))
 					{
+					case SAVE:
+						Controller.getInstance().save(model.getQueue().get(0));
+						break;
 					case NEWITEM: 
 						model.appendQueue(ItemMundane.create());
 						break;						
@@ -204,11 +208,22 @@ public class Controller {
 	
 	public void craftMagic()
 	{
-		int progress = 2000;
-		
+		int progress = 2000;		
 		while(progress > 0)
 		{
-			// Progress items
+			Item item = getNextItem(Model.ITEM.MAGIC);			
+			int diff = progress - item.getProgress();
+						
+			if(diff >= progress)
+			{
+				item.setProgress(item.getProgress() + progress);
+				progress = 0;
+			} else {
+				item.setProgress(item.getProgress() + diff);
+				progress -= diff;
+			}
+			
+			item.update();
 		}
 	}
 	
@@ -252,7 +267,7 @@ public class Controller {
 		model.notifyObservers();
 	}
 	
-	public static void main (String[] args) 
+	public static void main (String[] args)
 	{
 		Model m = new Model();
 		
