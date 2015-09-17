@@ -8,8 +8,10 @@ public abstract class Item  extends Observable {
 	private int baseCost;
 	private int matCost;
 	private int progress;
-	private Model.ITEM itemType;
-		
+	private TYPE itemType;
+	
+	public static enum TYPE {MUNDANE, MAGIC};
+	
 	public Item() {}
 	
 	public Item(String name, int baseCost, int matCost) 
@@ -68,18 +70,18 @@ public abstract class Item  extends Observable {
 		return progress >= baseCost;
 	}
 	
-	/*
-	public Model.ITEM getItemType()
+	
+	public TYPE getItemType()
 	{
 		return itemType;
 	}
 	
 	
-	public void setItemType(Model.ITEM type) 
+	public void setItemType(TYPE type) 
 	{
 		this.itemType = type;
 	}
-	*/
+	
 	
 	abstract void update();
 	

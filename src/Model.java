@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Model extends Observable {
 	
-	public static enum ITEM {MUNDANE, MAGIC};
+	//public static enum ITEM {MUNDANE, MAGIC};
 	
 	private ArrayList<Item> queue = new ArrayList<Item>();
 	private ArrayList<Item> complete = new ArrayList<Item>();
