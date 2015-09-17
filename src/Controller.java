@@ -22,8 +22,6 @@ public class Controller {
 	
 	public static Controller controller;
 	
-	private HashMap<Model.ITEM, Integer> craft;
-	
 	public enum Action 
 	{
 		NEWITEM("New Item"),
@@ -171,7 +169,7 @@ public class Controller {
 		
 		while(checkPart > 0)
 		{
-			ItemMundane iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
+			ItemMundane iMundane = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
 			int progress = iMundane.getDC() * checkPart;
 			
 			
@@ -213,7 +211,7 @@ public class Controller {
 		int progress = 2000;		
 		while(progress > 0)
 		{
-			Item item = getNextItem(Model.ITEM.MAGIC);			
+			Item item = getNextItem(Item.TYPE.MAGIC);			
 			int diff = progress - item.getProgress();
 						
 			if(diff >= progress)
@@ -235,7 +233,7 @@ public class Controller {
 		model.getQueue().get(index).notifyObservers();
 	}
 	
-	public Item getNextItem(Model.ITEM type) 
+	public Item getNextItem(Item.TYPE type) 
 	{
 		for(Item item : model.getQueue())
 		{
