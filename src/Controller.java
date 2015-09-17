@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,18 +58,18 @@ public class Controller {
 	
 	public void save(Object obj) 
 	{
-		try {
-			JAXBContext jaxb = JAXBContext.newInstance(Model.class, ItemMundane.class);
-			
-			Marshaller marshaller = jaxb.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			
-			marshaller.marshal(obj, System.out);
-					
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		JAXBController jaxb = new JAXBController(new File("user.xml"));
+		jaxb.save(model);		
 	}
+	
+	
+	public void load(File f)
+	{
+		JAXBController jaxb = new JAXBController(f);
+		model = jaxb.load();
+		this.appendItemPanels(model.getQueue());
+	}
+	
 	
 	public static int check(String checkText) 
 	{
