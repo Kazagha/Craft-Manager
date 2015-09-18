@@ -115,6 +115,8 @@ public class View extends JPanel implements Observer {
 		newItemButton.setActionCommand(Controller.Action.NEWITEM.toString());
 		craftButton.setActionCommand(Controller.Action.CRAFT.toString());
 		clearButton.setActionCommand(Controller.Action.CLEAR.toString());
+		testButton01.setActionCommand(Controller.Action.SAVE.toString());
+		testButton02.setActionCommand(Controller.Action.LOAD.toString());
 	}
 	
 	public void appendPanel(JPanel panel) 
