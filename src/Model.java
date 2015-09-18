@@ -1,17 +1,20 @@
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder={ "queue", "complete" })
 public class Model extends Observable {
 	
 	//public static enum ITEM {MUNDANE, MAGIC};
 	
 	private ArrayList<Item> queue = new ArrayList<Item>();
 	private ArrayList<Item> complete = new ArrayList<Item>();
-	
+		
 	public Model()
 	{
 		
@@ -67,5 +70,10 @@ public class Model extends Observable {
 	{
 		this.complete.remove(item);
 		setChanged();
+	}
+	
+	public void afterUnmarshal(Unmarshaller unmarshaller, Object parent) 
+	{
+		
 	}
 }
