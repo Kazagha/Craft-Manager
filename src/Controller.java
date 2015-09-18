@@ -29,6 +29,7 @@ public class Controller {
 		EDIT("Edit Item"),
 		CRAFT("Craft"),
 		CLEAR("Clear Completed Items"),
+		LOAD("Load from XML"),
 		SAVE("Save to XML"),
 		INVALID("Invalid Action");
 		
@@ -61,16 +62,16 @@ public class Controller {
 		JAXBController jaxb = new JAXBController(new File("user.xml"));
 		jaxb.save(model);		
 	}
-	
-	
+		
 	public void load(File f)
 	{
 		JAXBController jaxb = new JAXBController(f);
 		model = jaxb.load();
+		
+		view.removeAllPanels();
 		this.appendItemPanels(model.getQueue());
 	}
-	
-	
+		
 	public static int check(String checkText) 
 	{
 		ArrayList<Object> menu = new ArrayList<Object>();
@@ -94,7 +95,9 @@ public class Controller {
 		for(Item item : array)
 		{
 			this.appendItemPanel(item);
-		}		
+		}	
+		
+		view.revalidate();
 	}
 	
 	public void appendItemPanel(Item item)
@@ -106,6 +109,8 @@ public class Controller {
 		item.addObserver(panelView);			
 		// Add the item panel to the main view
 		view.appendPanel(panelView);
+		// Revalidates the view
+		view.revalidate();
 	}
 	
 	public class MyActionListener implements ActionListener 
@@ -123,6 +128,10 @@ public class Controller {
 				} else {
 					switch(Controller.Action.valueOf(event.getActionCommand()))
 					{
+					case LOAD:
+						Controller.getInstance().load(new File("user.xml"));
+						clearComplete();
+						break;
 					case SAVE:
 						Controller.getInstance().save(model);
 						break;
