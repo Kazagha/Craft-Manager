@@ -9,18 +9,26 @@ public class ItemWand extends Item{
 
 	private int casterLevel;
 	private int spellLevel;
+	private Effect effect;
 	
+	/*
 	public ItemWand(String name, int casterLevel, int spellLevel) 
 	{		
 		super(name, casterLevel * spellLevel * 750, casterLevel * spellLevel * 750 / 2);
 		this.casterLevel = casterLevel;
 		this.spellLevel = spellLevel;
 	}
+	*/
+	
+	public ItemWand() {}
+	
+	public ItemWand(String name, int baseCost, int matCost) 
+	{
+		super(name, baseCost, matCost);
+	}
 
 	@Override
-	void update() {
-		setProgress(getProgress() + 1000); 
-	}
+	void update() {}
 
 	public static Item create() 
 	{
@@ -84,6 +92,15 @@ public class ItemWand extends Item{
 		return this.spellLevel;
 	}
 	
+	public Effect getEffect() {
+		return effect;
+	}
+
+	public void setEffect(Effect effect) {
+		this.effect = effect;
+		setName("Wand of " + effect.getName());
+	}
+
 	public int getXP()
 	{
 		return casterLevel * spellLevel * 750 / 25;
