@@ -41,14 +41,21 @@ public class Controller {
 	}
 		
 	public Controller(Model m, View v) 
-	{			
-		this.model = m;
-		this.view = v;
+	{	
 		this.controller = this;
 		
-		model.addObserver(view);
+		setUp(m, v);
+	}
+	
+	private void setUp(Model m, View v)
+	{
+		this.model = m;
+		this.view = v;
 		
+		// Setup the observer pattern, wire the actions into view
+		model.addObserver(view);		
 		v.setActionListener(new MyActionListener());
+		// Populate the view with items from the model
 		this.appendItemPanels(model.getQueue());
 	}
 	
@@ -66,11 +73,9 @@ public class Controller {
 	public void load(File f)
 	{
 		JAXBController jaxb = new JAXBController(f);
-		model = jaxb.load();
-		model.addObserver(view);
+		model = jaxb.load();		
 		
-		view.removeAllPanels();
-		this.appendItemPanels(model.getQueue());
+		setUp(model, view);
 	}
 		
 	public static int check(String checkText) 
@@ -287,8 +292,6 @@ public class Controller {
 		Model m = new Model();
 		View v = new View();
 		
-		m.addObserver(v);
-		
 		// Add Dummy Items
 		/*
 		for(int i = 0; i < 12; i++) {
@@ -296,8 +299,6 @@ public class Controller {
 			m.appendQueue(item);
 		}
 		*/
-		
-		
 		
 		Controller con = new Controller(m, v);
 		v.createAndShowGUI();
