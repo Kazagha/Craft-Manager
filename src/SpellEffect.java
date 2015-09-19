@@ -48,7 +48,7 @@ public class SpellEffect extends Effect {
 
 	public void setXP(int XP)
 	{
-		XP = XP;
+		this.XP = XP;
 	}
 
 	@Override
