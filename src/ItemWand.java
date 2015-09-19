@@ -12,15 +12,6 @@ public class ItemWand extends Item{
 	private boolean eternal;
 	private Effect effect;
 	
-	/*
-	public ItemWand(String name, int casterLevel, int spellLevel) 
-	{		
-		super(name, casterLevel * spellLevel * 750, casterLevel * spellLevel * 750 / 2);
-		this.casterLevel = casterLevel;
-		this.spellLevel = spellLevel;
-	}
-	*/
-	
 	public ItemWand() {}
 	
 	public ItemWand(String name, int baseCost, int matCost) 
