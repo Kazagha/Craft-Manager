@@ -81,7 +81,11 @@ public class Controller {
 		// Prompt the user for input
 		JOptionPane.showConfirmDialog(null, menu.toArray(), "Check", JOptionPane.OK_CANCEL_OPTION);
 		
-		return Integer.valueOf(((JTextField) menu.get(1)).getText());
+		int result = 0; 
+		result = Integer.valueOf(((JTextField) menu.get(1)).getText());
+		
+		return result;
+
 	}
 	
 	public static int editArray(ArrayList<Object> array) 
