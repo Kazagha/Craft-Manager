@@ -3,7 +3,7 @@ public abstract class Effect {
 
 	public abstract String getName();
 	
-	public abstract int getCost();
+	public abstract int getMaterialCost();
 	
-	public abstract int getXP();	
+	public abstract int getXPCost();	
 }
