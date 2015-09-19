@@ -9,6 +9,7 @@ public class ItemWand extends Item{
 
 	private int casterLevel;
 	private int spellLevel;
+	private boolean eternal;
 	private Effect effect;
 	
 	/*
@@ -32,7 +33,7 @@ public class ItemWand extends Item{
 
 	public static Item create() 
 	{
-		ItemWand newItem = new ItemWand("", 0, 0);
+		ItemWand newItem = new ItemWand("Wand of", 0, 0);
 		if(newItem.edit() == JOptionPane.OK_OPTION)
 			return newItem;
 		
@@ -47,8 +48,9 @@ public class ItemWand extends Item{
 		JTextField name = new JTextField(this.getName());
 		JTextField casterLevel = new JTextField();
 		JTextField spellLevel = new JTextField();
+		JTextField eternal = new JTextField(getEternal().toString());
 		
-		array.addAll(Arrays.asList(new Object[] { "Name", name, "Caster Level", casterLevel, "Spell Level", spellLevel}));
+		array.addAll(Arrays.asList(new Object[] { "Name", name, "Caster Level", casterLevel, "Spell Level", spellLevel, "Eternal", eternal}));
 		
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_CANCEL_OPTION)
@@ -59,10 +61,11 @@ public class ItemWand extends Item{
 				
 				// Set changes on this Item
 				this.setName(name.getText());
-				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
-				this.setSpellLevel(Integer.valueOf(casterLevel.getText()));				
-				this.setBaseCost(getCasterLevel() * getSpellLevel() * 750);
-				this.setMatCost(getBaseCost() / 2); 
+				this.setEternal(Boolean.valueOf(eternal.getText()));
+				//this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
+				//this.setSpellLevel(Integer.valueOf(casterLevel.getText()));				
+				//this.setBaseCost(getCasterLevel() * getSpellLevel() * 750);
+				//this.setMatCost(getBaseCost() / 2); 
 				return result;
 			} catch (Exception e) {
 				
@@ -70,26 +73,6 @@ public class ItemWand extends Item{
 			
 		}
 		return result;
-	}
-	
-	public void setCasterLevel(int num)
-	{
-		this.casterLevel = num;
-	}
-	
-	public int getCasterLevel()
-	{
-		return this.casterLevel;
-	}
-	
-	public void setSpellLevel(int num)
-	{
-		this.spellLevel = num;
-	}
-	
-	public int getSpellLevel()
-	{
-		return this.spellLevel;
 	}
 	
 	public Effect getEffect() {
@@ -104,5 +87,23 @@ public class ItemWand extends Item{
 	public int getXP()
 	{
 		return casterLevel * spellLevel * 750 / 25;
+	}
+
+	public boolean isEternal() 
+	{		
+		return eternal;
+	}
+	
+	public Boolean getEternal()
+	{
+		if(eternal)
+			return true;
+		
+		return false;
+	}
+
+	public void setEternal(boolean eternal) 
+	{
+		this.eternal = eternal;
 	}
 }
