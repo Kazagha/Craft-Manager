@@ -34,7 +34,7 @@ public class View extends JPanel implements Observer {
 	JButton testButton01;
 	JButton testButton02;
 	
-	ActionListener listener;
+	ActionListener listener = null;
 	
 	public View()
 	{
@@ -97,26 +97,29 @@ public class View extends JPanel implements Observer {
 		newItemButton= new JButton("New Item");
 		craftButton = new JButton("Craft");
 		clearButton = new JButton("Clear Completed");
-		testButton01 = new JButton("Placeholder A");
-		testButton02 = new JButton("Placeholder B");
+		testButton01 = new JButton("Save");
+		testButton02 = new JButton("Load");
 		
 	}
 	
 	public void setActionListener(ActionListener listener)
 	{
-		this.listener = listener;
-		
-		newItemButton.addActionListener(listener);
-		craftButton.addActionListener(listener);
-		clearButton.addActionListener(listener);
-		testButton01.addActionListener(listener);
-		testButton02.addActionListener(listener);
-		
-		newItemButton.setActionCommand(Controller.Action.NEWITEM.toString());
-		craftButton.setActionCommand(Controller.Action.CRAFT.toString());
-		clearButton.setActionCommand(Controller.Action.CLEAR.toString());
-		testButton01.setActionCommand(Controller.Action.SAVE.toString());
-		testButton02.setActionCommand(Controller.Action.LOAD.toString());
+		if(this.listener == null) 
+		{
+			this.listener = listener;
+			
+			newItemButton.addActionListener(listener);
+			craftButton.addActionListener(listener);
+			clearButton.addActionListener(listener);
+			testButton01.addActionListener(listener);
+			testButton02.addActionListener(listener);
+			
+			newItemButton.setActionCommand(Controller.Action.NEWITEM.toString());
+			craftButton.setActionCommand(Controller.Action.CRAFT.toString());
+			clearButton.setActionCommand(Controller.Action.CLEAR.toString());
+			testButton01.setActionCommand(Controller.Action.SAVE.toString());
+			testButton02.setActionCommand(Controller.Action.LOAD.toString());
+		}
 	}
 	
 	public void appendPanel(JPanel panel) 
@@ -176,7 +179,7 @@ public class View extends JPanel implements Observer {
 	
 		Model m = (Model) arg0;
 		Controller.getInstance().appendItemPanels(m.getQueue());
-		
+		System.out.format("View has been updated %n");
 		/* Adding completed items
 		for(Item item : m.getQueue())
 		{
