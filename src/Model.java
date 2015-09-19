@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder={ "queue", "complete" })
+@XmlType(propOrder={ "gold", "XP", "queue", "complete" })
 public class Model extends Observable {
 	
-	//public static enum ITEM {MUNDANE, MAGIC};
-	
+	private int gold;
+	private int XP;
 	private ArrayList<Item> queue = new ArrayList<Item>();
 	private ArrayList<Item> complete = new ArrayList<Item>();
 		
@@ -19,8 +19,28 @@ public class Model extends Observable {
 	{
 		
 	}
+	
+	public void setGold(int num)
+	{
+		this.gold = num;
+	}
+	
+	public int getGold()
+	{
+		return this.gold;
+	}
+	
+	public void setXP(int num)
+	{
+		this.XP = num;
+	}
+	
+	public int getXP()
+	{
+		return this.XP;
+	}
 
-	@XmlElementRef
+	@XmlElementRef(name="Queue")
 	public ArrayList<Item> getQueue() 
 	{
 		return this.queue;
@@ -32,7 +52,7 @@ public class Model extends Observable {
 		setChanged();
 	}
 	
-	@XmlElementRef
+	@XmlElementRef(name="Complete")
 	public ArrayList<Item> getComplete() 
 	{
 		return this.complete;
