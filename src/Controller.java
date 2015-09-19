@@ -67,6 +67,7 @@ public class Controller {
 	{
 		JAXBController jaxb = new JAXBController(f);
 		model = jaxb.load();
+		model.addObserver(view);
 		
 		view.removeAllPanels();
 		this.appendItemPanels(model.getQueue());
@@ -266,7 +267,7 @@ public class Controller {
 		{
 			if(item.isComplete())
 			{			
-				remove.add(item);
+				remove.add(item);				
 				model.getComplete().add(item);
 			}			
 		}
@@ -284,14 +285,19 @@ public class Controller {
 	public static void main (String[] args)
 	{
 		Model m = new Model();
+		View v = new View();
+		
+		m.addObserver(v);
 		
 		// Add Dummy Items
+		/*
 		for(int i = 0; i < 12; i++) {
 			ItemMundane item = new ItemMundane("This is an item" + i, 150, 12);
 			m.appendQueue(item);
 		}
+		*/
 		
-		View v = new View();
+		
 		
 		Controller con = new Controller(m, v);
 		v.createAndShowGUI();
