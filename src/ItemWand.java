@@ -83,8 +83,11 @@ public class ItemWand extends Item{
 	}
 
 	public void setEffect(Effect effect) {
+		if(effect == null)
+			return;
+		
 		this.effect = effect;
-		setName("Wand of " + effect.getName());
+		this.setName("Wand of " + getEffect().getName());
 	}
 
 	public int getXP()
