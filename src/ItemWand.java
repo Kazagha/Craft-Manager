@@ -44,7 +44,7 @@ public class ItemWand extends Item{
 		array.addAll(Arrays.asList(new Object[] { "Name", name, "Caster Level", casterLevel, "Spell Level", spellLevel, "Eternal", eternal}));
 		
 		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_CANCEL_OPTION)
+		while(result == JOptionPane.OK_OPTION)
 		{
 			try
 			{
@@ -64,6 +64,18 @@ public class ItemWand extends Item{
 			
 		}
 		return result;
+	}
+	
+	@Override
+	public int getBaseCost()
+	{
+		return 0;
+	}
+	
+	@Override 
+	public int getMatCost()
+	{
+		return 0;
 	}
 	
 	public Effect getEffect() {
