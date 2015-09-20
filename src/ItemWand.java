@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -39,9 +41,15 @@ public class ItemWand extends Item{
 		JTextField name = new JTextField(this.getName());
 		JTextField casterLevel = new JTextField();
 		JTextField spellLevel = new JTextField();
-		JTextField eternal = new JTextField(getEternal().toString());
+		JComboBox<String> eternal = new JComboBox<String>(new String[] { "False", "True" });
+		if(this.eternal) 
+			eternal.setSelectedIndex(1); 
 		
-		array.addAll(Arrays.asList(new Object[] { "Name", name, "Caster Level", casterLevel, "Spell Level", spellLevel, "Eternal", eternal}));
+		JButton editButton = new JButton("Edit Effect");
+		editButton.setText("Edit Effect");
+		editButton.setAction(new Effect.editAction());
+				
+		array.addAll(Arrays.asList(new Object[] { "Name", name, "Caster Level", casterLevel, "Spell Level", spellLevel, "Eternal", eternal, editButton}));
 		
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
@@ -52,7 +60,7 @@ public class ItemWand extends Item{
 				
 				// Set changes on this Item
 				this.setName(name.getText());
-				this.setEternal(Boolean.valueOf(eternal.getText()));
+				this.setEternal(Boolean.valueOf(eternal.getSelectedItem().toString()));
 				//this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
 				//this.setSpellLevel(Integer.valueOf(casterLevel.getText()));				
 				//this.setBaseCost(getCasterLevel() * getSpellLevel() * 750);
