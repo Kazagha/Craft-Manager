@@ -16,19 +16,19 @@ public class EnhanceEffect extends Effect {
 			this.cost = i;
 		}
 		
-		public enhance getEnhance(int i)
+		public static enhance getEnhance(int i)
 		{
 			return enhance.values()[i];
 		}
 		
-		public String getString(int i)
+		public static String getString(int i)
 		{
-			return this.getEnhance(i).toString();
+			return getEnhance(i).toString();
 		}
 		
-		public int getCost(int i)
+		public static int getCost(int i)
 		{
-			return this.getEnhance(i).getCost();
+			return getEnhance(i).getCost();
 		}
 
 		public String toString() 
@@ -65,26 +65,25 @@ public class EnhanceEffect extends Effect {
 	@Override
 	public String getName() 
 	{
-		return "+" + bonus;
+		return enhance.getString(bonus).toString();
 	}
 
 	@Override
 	public int getBaseCost()
 	{
-		return 0;
+		return enhance.getCost(bonus);
 	}
 
 	@Override
 	public int getMaterialCost() 
 	{
-		return 0;
+		return enhance.getCost(bonus) / 2;
 	}
 
 	@Override
 	public int getXPCost() 
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return enhance.getCost(bonus) / 25;
 	}
 
 	@Override
