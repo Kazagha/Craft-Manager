@@ -122,4 +122,10 @@ public class SpellEffect extends Effect {
 	public String getName() {
 		return this.name;
 	}
+
+	@Override
+	public int getBaseCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
