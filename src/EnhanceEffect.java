@@ -6,7 +6,16 @@ public class EnhanceEffect extends Effect {
 		
 	enum enhance
 	{
-		ONE("+1", 1000);
+		ONE		("+1", 1000),
+		TWO		("+2", 4000),
+		THREE	("+3", 9000),
+		FOUR	("+4", 16000),
+		FIVE	("+5", 25000),
+		SIX		("+6", 36000),
+		SEVEN	("+7", 49000),
+		EIGHT	("+8", 64000),
+		NINE	("+9", 81000),
+		TEN		("+10", 10000);
 		
 		String str;
 		int cost;
