@@ -39,10 +39,10 @@ public class SpellEffect extends Effect {
 		ArrayList<Object> array = new ArrayList<Object>();
 		
 		JTextField name = new JTextField(getName());
-		JTextField casterLevel = new JTextField(getCasterLevel());
-		JTextField spellLevel = new JTextField(getSpellLevel());
-		JTextField materialCost = new JTextField(getMaterialCost());
-		JTextField xpCost = new JTextField(getXPCost());
+		JTextField casterLevel = new JTextField(String.valueOf(getCasterLevel()));
+		JTextField spellLevel = new JTextField(String.valueOf(getSpellLevel()));
+		JTextField materialCost = new JTextField(String.valueOf(getMaterialCost()));
+		JTextField xpCost = new JTextField(String.valueOf(getXPCost()));
 		
 		array.addAll(Arrays.asList(new Object[] { 
 				"Name", name, 
