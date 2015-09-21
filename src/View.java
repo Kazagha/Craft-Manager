@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,6 +36,7 @@ public class View extends JPanel implements Observer {
 	JButton testButton02;
 	
 	ActionListener listener = null;
+	MouseAdapter mouseListener = null;
 	
 	public View()
 	{
@@ -122,9 +124,18 @@ public class View extends JPanel implements Observer {
 		}
 	}
 	
+	public void setMouseListener(MouseAdapter listener)
+	{
+		this.mouseListener = listener;
+	}
+	
 	public void appendPanel(JPanel panel) 
 	{		
+		// Set the Action Listener
 		((ViewItem) panel).setActionListener(listener);
+		// Set the Mouse Listener
+		panel.addMouseListener(mouseListener);
+		// Add the panel to the view
 		itemPanel.add(panel);
 	}
 	
