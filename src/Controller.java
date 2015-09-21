@@ -1,11 +1,14 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -55,6 +58,7 @@ public class Controller {
 		// Setup the observer pattern, wire the actions into view
 		model.addObserver(view);		
 		v.setActionListener(new MyActionListener());
+		v.setMouseListener(new mouseListener());
 		// Populate the view with items from the model
 		this.appendItemPanels(model.getQueue());
 	}
@@ -146,7 +150,11 @@ public class Controller {
 						Controller.getInstance().save(model);
 						break;
 					case NEWITEM: 
-						model.appendQueue(ItemMundane.create());
+						//model.appendQueue(ItemMundane.create());
+						ItemWand newItem = (ItemWand) ItemWand.create();
+						newItem.setEffect(new SpellEffect().create());
+						
+						model.appendQueue(newItem);
 						break;						
 					case EDIT:
 						break;
@@ -177,6 +185,19 @@ public class Controller {
 					model.notifyObservers();
 				}				
 			}
+		}
+	}
+	
+	class mouseListener extends MouseAdapter
+	{
+		public void mousePressed(MouseEvent e)
+		{
+			System.out.format("Mouse Pressed%n");
+		}
+		
+		public void mouseReleased(MouseEvent e)
+		{
+			System.out.format("Mouse Released%n");
 		}
 	}
 	
