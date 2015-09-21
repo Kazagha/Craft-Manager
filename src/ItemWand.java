@@ -41,12 +41,11 @@ public class ItemWand extends Item{
 		ArrayList<Object> array = new ArrayList<Object>();
 
 		JTextField name = new JTextField(this.getName());
-		JTextField casterLevel = new JTextField();
-		JTextField spellLevel = new JTextField();
 		JComboBox<String> eternal = new JComboBox<String>(new String[] { "False", "True" });
 		if(this.eternal) 
 			eternal.setSelectedIndex(1); 
 		
+		/*
 		JButton editButton = new JButton(new AbstractAction() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -57,13 +56,12 @@ public class ItemWand extends Item{
 		editButton.setText("Edit Effect");
 		// TODO: Check if the effect exists and change the text of the button
 		//editButton.setText("Edit " + );
+		*/
 				
 		array.addAll(Arrays.asList(new Object[] { 
 				"Name", name, 
-				"Caster Level", casterLevel, 
-				"Spell Level", spellLevel, 
 				"Eternal", eternal, 
-				editButton, 
+				//editButton, 
 				}));
 		
 		int result = JOptionPane.OK_OPTION;
