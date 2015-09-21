@@ -1,6 +1,8 @@
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -45,11 +47,24 @@ public class ItemWand extends Item{
 		if(this.eternal) 
 			eternal.setSelectedIndex(1); 
 		
-		JButton editButton = new JButton("Edit Effect");
+		JButton editButton = new JButton(new AbstractAction() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				effect.edit();
+			}
+		});
+		
 		editButton.setText("Edit Effect");
-		editButton.setAction(new Effect.editAction());
+		// TODO: Check if the effect exists and change the text of the button
+		//editButton.setText("Edit " + );
 				
-		array.addAll(Arrays.asList(new Object[] { "Name", name, "Caster Level", casterLevel, "Spell Level", spellLevel, "Eternal", eternal, editButton}));
+		array.addAll(Arrays.asList(new Object[] { 
+				"Name", name, 
+				"Caster Level", casterLevel, 
+				"Spell Level", spellLevel, 
+				"Eternal", eternal, 
+				editButton, 
+				}));
 		
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
@@ -61,10 +76,6 @@ public class ItemWand extends Item{
 				// Set changes on this Item
 				this.setName(name.getText());
 				this.setEternal(Boolean.valueOf(eternal.getSelectedItem().toString()));
-				//this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
-				//this.setSpellLevel(Integer.valueOf(casterLevel.getText()));				
-				//this.setBaseCost(getCasterLevel() * getSpellLevel() * 750);
-				//this.setMatCost(getBaseCost() / 2); 
 				return result;
 			} catch (Exception e) {
 				
