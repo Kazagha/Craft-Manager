@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -6,11 +7,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -132,8 +137,8 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			
-			if(event.getSource() instanceof JButton) {
-				JComponent parent = (JComponent) ((JButton) event.getSource()).getParent();
+			if(event.getSource() instanceof JComponent) {
+				JComponent parent = (JComponent) ((JComponent) event.getSource()).getParent();
 				
 				if(parent instanceof ViewItem) 
 				{
@@ -157,6 +162,7 @@ public class Controller {
 						model.appendQueue(newItem);
 						break;						
 					case EDIT:
+						System.out.format("Edit: %s", parent.toString());
 						break;
 					case CRAFT:
 						// Check there are items in the queue to craft
@@ -211,10 +217,36 @@ public class Controller {
 				if(source instanceof ViewItem)
 				{
 					int index = view.indexOf(source);					
-					System.out.format("Popup Triggered%n%s%n", index);				
+					//System.out.format("Popup Triggered%n%s%n", index);
+					
+					JPopupMenu menu = createItemMenu(index);
+					menu.show(event.getComponent(), event.getX(), event.getY());					
 				}
 			}
 		}
+	}
+	
+	private JPopupMenu createItemMenu(int index)
+	{
+		ActionListener listener = view.getActionListener();
+		Item item = model.getQueue().get(index);
+		
+		JPopupMenu menu = new JPopupMenu();		
+		JMenuItem jmi;
+		
+		jmi = new JMenuItem(item.getName());
+		//jmi.setEnabled(false);
+		menu.add(jmi);
+		menu.add(new JMenuBar());
+		
+		jmi = new JMenuItem("Edit");
+		jmi.addActionListener(listener);
+		jmi.setActionCommand(Controller.Action.EDIT.toString());		
+		menu.add(jmi);		
+		
+		jmi = new JMenuItem("test");
+		
+		return menu;
 	}
 	
 	public void craftMundane()
