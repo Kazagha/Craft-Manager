@@ -190,14 +190,30 @@ public class Controller {
 	
 	class mouseListener extends MouseAdapter
 	{
-		public void mousePressed(MouseEvent e)
+		public void mousePressed(MouseEvent event)
 		{
 			System.out.format("Mouse Pressed%n");
+			showPopup(event);
 		}
 		
-		public void mouseReleased(MouseEvent e)
+		public void mouseReleased(MouseEvent event)
 		{
 			System.out.format("Mouse Released%n");
+			showPopup(event);
+		}
+		
+		private void showPopup(MouseEvent event)
+		{
+			if(event.isPopupTrigger())
+			{
+				JComponent source = (JComponent) event.getSource();
+				
+				if(source instanceof ViewItem)
+				{
+					int index = view.indexOf(source);					
+					System.out.format("Popup Triggered%n%s%n", index);				
+				}
+			}
 		}
 	}
 	
