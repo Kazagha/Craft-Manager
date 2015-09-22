@@ -247,7 +247,6 @@ public class Controller {
 		jmi = new JMenuItem(item.getName());		
 		menu.add(jmi);
 		menu.addSeparator();
-		//menu.add(new JMenuBar());
 		
 		jmi = new JMenuItem("Edit");
 		jmi.addActionListener(listener);
@@ -255,7 +254,12 @@ public class Controller {
 		jmi.putClientProperty(key, item);
 		menu.add(jmi);		
 		
-		jmi = new JMenuItem("test");
+		jmi = new JMenuItem("Effect");
+		jmi.addActionListener(listener);
+		jmi.setActionCommand(Controller.Action.EDIT.toString());
+		Effect e = ((ItemWand) item).getEffect();
+		jmi.putClientProperty(key, e);
+		menu.add(jmi);	
 		
 		return menu;
 	}
