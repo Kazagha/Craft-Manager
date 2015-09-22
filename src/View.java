@@ -124,6 +124,11 @@ public class View extends JPanel implements Observer {
 		}
 	}
 	
+	public ActionListener getActionListener()
+	{
+		return this.listener;
+	}
+	
 	public void setMouseListener(MouseAdapter listener)
 	{
 		this.mouseListener = listener;
