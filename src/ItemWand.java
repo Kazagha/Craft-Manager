@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -41,9 +42,9 @@ public class ItemWand extends Item{
 		ArrayList<Object> array = new ArrayList<Object>();
 
 		JTextField name = new JTextField(this.getName());
-		JComboBox<String> eternal = new JComboBox<String>(new String[] { "False", "True" });
-		if(this.eternal) 
-			eternal.setSelectedIndex(1); 
+		//JComboBox<String> eternal = new JComboBox<String>(new String[] { "False", "True" });
+		JCheckBox eternal = new JCheckBox();
+		eternal.setSelected(this.eternal);
 		
 		/*
 		JButton editButton = new JButton(new AbstractAction() {			
@@ -73,7 +74,7 @@ public class ItemWand extends Item{
 				
 				// Set changes on this Item
 				this.setName(name.getText());
-				this.setEternal(Boolean.valueOf(eternal.getSelectedItem().toString()));
+				this.setEternal(eternal.isSelected());
 				return result;
 			} catch (Exception e) {
 				
