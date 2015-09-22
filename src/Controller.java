@@ -30,6 +30,7 @@ public class Controller {
 	private View view;
 	
 	public static Controller controller;
+	public static String key = new String("key");
 	
 	public enum Action 
 	{
@@ -138,7 +139,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent event) {
 			
 			if(event.getSource() instanceof JComponent) {
-				JComponent parent = (JComponent) ((JComponent) event.getSource()).getParent();
+				JComponent source = ((JComponent) event.getSource());
+				JComponent parent = (JComponent) source.getParent();
 				
 				if(parent instanceof ViewItem) 
 				{
@@ -162,7 +164,15 @@ public class Controller {
 						model.appendQueue(newItem);
 						break;						
 					case EDIT:
-						System.out.format("Edit: %s", parent.toString());
+						Object obj = source.getClientProperty(key);
+						// Check if the object is an item or effect
+						if(obj instanceof Item)
+						{
+							((Item) obj).edit();
+						} else if (obj instanceof Effect) 
+						{
+							((Effect) obj).edit();
+						}
 						break;
 					case CRAFT:
 						// Check there are items in the queue to craft
@@ -198,13 +208,13 @@ public class Controller {
 	{
 		public void mousePressed(MouseEvent event)
 		{
-			System.out.format("Mouse Pressed%n");
+			//System.out.format("Mouse Pressed%n");
 			showPopup(event);
 		}
 		
 		public void mouseReleased(MouseEvent event)
 		{
-			System.out.format("Mouse Released%n");
+			//System.out.format("Mouse Released%n");
 			showPopup(event);
 		}
 		
@@ -234,14 +244,15 @@ public class Controller {
 		JPopupMenu menu = new JPopupMenu();		
 		JMenuItem jmi;
 		
-		jmi = new JMenuItem(item.getName());
-		//jmi.setEnabled(false);
+		jmi = new JMenuItem(item.getName());		
 		menu.add(jmi);
-		menu.add(new JMenuBar());
+		menu.addSeparator();
+		//menu.add(new JMenuBar());
 		
 		jmi = new JMenuItem("Edit");
 		jmi.addActionListener(listener);
-		jmi.setActionCommand(Controller.Action.EDIT.toString());		
+		jmi.setActionCommand(Controller.Action.EDIT.toString());	
+		jmi.putClientProperty(key, item);
 		menu.add(jmi);		
 		
 		jmi = new JMenuItem("test");
