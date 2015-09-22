@@ -85,5 +85,5 @@ public abstract class Item  extends Observable {
 	
 	abstract void update();
 	
-	abstract int edit();
+	public abstract int edit();
 }
