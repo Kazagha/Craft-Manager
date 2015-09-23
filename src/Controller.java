@@ -11,6 +11,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -35,6 +36,7 @@ public class Controller {
 	public enum Action 
 	{
 		NEWITEM("New Item"),
+		NEWEFFECT("New Effect"),
 		EDIT("Edit Item"),
 		CRAFT("Craft"),
 		CLEAR("Clear Completed Items"),
@@ -159,7 +161,7 @@ public class Controller {
 					case NEWITEM: 
 						//model.appendQueue(ItemMundane.create());
 						ItemWand newItem = (ItemWand) ItemWand.create();
-						newItem.setEffect(new SpellEffect().create());
+						newItem.addEffect(new SpellEffect().create());
 						
 						model.appendQueue(newItem);
 						break;						
@@ -243,24 +245,41 @@ public class Controller {
 		
 		JPopupMenu menu = new JPopupMenu();		
 		JMenuItem jmi;
+		JMenu subMenu;
 		
 		jmi = new JMenuItem(item.getName());		
 		menu.add(jmi);
 		menu.addSeparator();
 		
-		jmi = new JMenuItem("Edit");
+		// TODO: Different menu for different types of items
+		
+		jmi = new JMenuItem("Edit Item");
 		jmi.addActionListener(listener);
 		jmi.setActionCommand(Controller.Action.EDIT.toString());	
 		jmi.putClientProperty(key, item);
 		menu.add(jmi);		
 		
-		jmi = new JMenuItem("Effect");
-		jmi.addActionListener(listener);
-		jmi.setActionCommand(Controller.Action.EDIT.toString());
-		Effect e = ((ItemWand) item).getEffect();
-		jmi.putClientProperty(key, e);
-		menu.add(jmi);	
+		subMenu = new JMenu("Effects");
+		menu.add(subMenu);
 		
+		jmi = new JMenuItem("Add");
+		jmi.addActionListener(listener);
+		jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
+		jmi.putClientProperty(key, item);
+		subMenu.add(jmi);
+		subMenu.addSeparator();
+		
+		for(Effect e : ((ItemWand) item).getEffect())
+		{
+			jmi = new JMenuItem(e.getName());
+			jmi.addActionListener(listener);
+			jmi.setActionCommand(Controller.Action.EDIT.toString());		
+			jmi.putClientProperty(key, e);
+			subMenu.add(jmi);
+		}
+		
+
+				
 		return menu;
 	}
 	
