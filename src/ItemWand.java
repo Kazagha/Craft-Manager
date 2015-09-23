@@ -15,7 +15,7 @@ public class ItemWand extends Item{
 	private int casterLevel;
 	private int spellLevel;
 	private boolean eternal;
-	private Effect effect;
+	private ArrayList<Effect> effect;
 	
 	public ItemWand() {}
 	
@@ -96,16 +96,22 @@ public class ItemWand extends Item{
 		return 0;
 	}
 	
-	public Effect getEffect() {
+	public ArrayList<Effect> getEffect() 
+	{
 		return effect;
 	}
+	
+	public void setEffect(ArrayList<Effect> effects)
+	{
+		this.effect = effects;
+	}
 
-	public void setEffect(Effect effect) {
+	public void addEffect(Effect effect) {
 		if(effect == null)
 			return;
 		
-		this.effect = effect;
-		this.setName("Wand of " + getEffect().getName());
+		this.effect.add(effect);
+		//this.setName("Wand of " + getEffect().getName());
 	}
 
 	public int getXP()
