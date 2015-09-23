@@ -22,6 +22,7 @@ public class ItemWand extends Item{
 	public ItemWand(String name, int baseCost, int matCost) 
 	{
 		super(name, baseCost, matCost);
+		effect = new ArrayList<Effect>();
 	}
 
 	@Override
