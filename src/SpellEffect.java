@@ -57,7 +57,7 @@ public class SpellEffect extends Effect {
 		{
 			try
 			{
-				result = Controller.editArray(array);
+				result = Controller.getInstance().editArray(array);
 				
 				this.setName(name.getText());
 				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));

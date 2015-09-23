@@ -53,7 +53,7 @@ public class ItemMundane extends Item {
 			try
 			{
 				// Open JOptionPane to prompt the user for input
-				result = Controller.editArray(array);
+				result = Controller.getInstance().editArray(array);
 				
 				// Set the changes on this
 				this.setName(name.getText());

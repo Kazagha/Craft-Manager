@@ -106,9 +106,9 @@ public class Controller {
 
 	}
 	
-	public static int editArray(ArrayList<Object> array) 
+	public int editArray(ArrayList<Object> array) 
 	{
-		return JOptionPane.showConfirmDialog(null, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
+		return JOptionPane.showConfirmDialog(view, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	public void appendItemPanels(ArrayList<Item> array) 

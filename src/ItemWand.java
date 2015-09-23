@@ -71,7 +71,7 @@ public class ItemWand extends Item{
 		{
 			try
 			{
-				result = Controller.editArray(array);
+				result = Controller.getInstance().editArray(array);
 				
 				// Set changes on this Item
 				this.setName(name.getText());
