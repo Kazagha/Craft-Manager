@@ -93,12 +93,19 @@ public class ItemWand extends Item{
 		this.effect = effects;
 	}
 
-	public void addEffect(Effect effect) {
-		if(effect == null)
+	public void addEffect(Effect newEffect) {
+		if(newEffect == null)
 			return;
 		
-		this.effect.add(effect);
-		//this.setName("Wand of " + getEffect().getName());
+		// Allow only only one effect to be set
+		if(getEffect().size() > 0)
+		{
+			this.getEffect().set(0, newEffect);
+		} else {
+			this.getEffect().add(newEffect);
+		}
+		// Set the name to match the effect
+		//this.setName("Wand of " + newEffect.getName());
 	}
 
 	public int getXP()
