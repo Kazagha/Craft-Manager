@@ -46,24 +46,10 @@ public class ItemWand extends Item{
 		//JComboBox<String> eternal = new JComboBox<String>(new String[] { "False", "True" });
 		JCheckBox eternal = new JCheckBox();
 		eternal.setSelected(this.eternal);
-		
-		/*
-		JButton editButton = new JButton(new AbstractAction() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				effect.edit();
-			}
-		});
-		
-		editButton.setText("Edit Effect");
-		// TODO: Check if the effect exists and change the text of the button
-		//editButton.setText("Edit " + );
-		*/
 				
 		array.addAll(Arrays.asList(new Object[] { 
 				"Name", name, 
 				"Eternal", eternal, 
-				//editButton, 
 				}));
 		
 		int result = JOptionPane.OK_OPTION;
