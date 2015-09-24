@@ -15,7 +15,7 @@ public class EnhanceEffect extends Effect {
 		SEVEN	("+7", 49000),
 		EIGHT	("+8", 64000),
 		NINE	("+9", 81000),
-		TEN		("+10", 10000);
+		TEN		("+10", 100000);
 		
 		String str;
 		int cost;
