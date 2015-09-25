@@ -164,7 +164,13 @@ public class Controller {
 						newItem.addEffect(new SpellEffect().create());
 						
 						model.appendQueue(newItem);
-						break;						
+						break;
+					case NEWEFFECT:
+						{
+							ItemWand item = (ItemWand) source.getClientProperty(key);
+							item.addEffect(SpellEffect.create());							
+						}
+						break;
 					case EDIT:
 						Object obj = source.getClientProperty(key);
 						// Check if the object is an item or effect
@@ -259,10 +265,10 @@ public class Controller {
 		jmi.putClientProperty(key, item);
 		menu.add(jmi);		
 		
-		subMenu = new JMenu("Effects");
+		subMenu = new JMenu("Edit");
 		menu.add(subMenu);
 		
-		jmi = new JMenuItem("Add");
+		jmi = new JMenuItem("New Effect");
 		jmi.addActionListener(listener);
 		jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
 		jmi.putClientProperty(key, item);
@@ -278,8 +284,6 @@ public class Controller {
 			subMenu.add(jmi);
 		}
 		
-
-				
 		return menu;
 	}
 	
