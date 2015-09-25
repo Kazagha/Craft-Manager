@@ -10,8 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
-public class ItemWand extends Item{
+public class ItemWand extends ItemMagic {
 
+	private String name;
 	private int casterLevel;
 	private int spellLevel;
 	private boolean eternal;
@@ -21,7 +22,7 @@ public class ItemWand extends Item{
 	
 	public ItemWand(String name, int baseCost, int matCost) 
 	{
-		super(name, baseCost, matCost);
+		//super(name, baseCost, matCost);
 		effect = new ArrayList<Effect>();
 	}
 
@@ -69,6 +70,16 @@ public class ItemWand extends Item{
 			
 		}
 		return result;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name) 
+	{			
+		this.name = name;
 	}
 	
 	@Override
