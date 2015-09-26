@@ -20,9 +20,9 @@ public class ItemWand extends ItemMagic {
 	
 	public ItemWand() {}
 	
-	public ItemWand(String name, int baseCost, int matCost) 
+	public ItemWand(String name) 
 	{
-		//super(name, baseCost, matCost);
+		setName(name);
 		effect = new ArrayList<Effect>();
 	}
 
@@ -31,7 +31,7 @@ public class ItemWand extends ItemMagic {
 
 	public static Item create() 
 	{
-		ItemWand newItem = new ItemWand("Wand of", 0, 0);
+		ItemWand newItem = new ItemWand("Wand of");
 		if(newItem.edit() == JOptionPane.OK_OPTION)
 			return newItem;
 		
@@ -102,6 +102,7 @@ public class ItemWand extends ItemMagic {
 	public void setEffect(ArrayList<Effect> effects)
 	{
 		this.effect = effects;
+		this.setName("Wand of " + effects.get(0).getName());
 	}
 
 	public void addEffect(Effect newEffect) {
@@ -116,7 +117,7 @@ public class ItemWand extends ItemMagic {
 			this.getEffect().add(newEffect);
 		}
 		// Set the name to match the effect
-		//this.setName("Wand of " + newEffect.getName());
+		this.setName("Wand of " + newEffect.getName());
 	}
 
 	public int getXP()
