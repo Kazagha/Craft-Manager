@@ -76,20 +76,33 @@ public class Controller {
 		return controller;
 	}
 	
+	/**
+	 * Save the specified object <code>obj</code> to XML
+	 * @param obj
+	 */
 	public void save(Object obj) 
 	{
 		JAXBController jaxb = new JAXBController(new File("user.xml"));
 		jaxb.save(model);		
 	}
 		
-	public void load(File f)
+	/**
+	 * Load the specified XML File into the model
+	 * @param file
+	 */
+	public void load(File file)
 	{
-		JAXBController jaxb = new JAXBController(f);
+		JAXBController jaxb = new JAXBController(file);
 		model = jaxb.load();		
 		
 		setUp(model, view);
 	}
 		
+	/**
+	 * Prompt the user with <code>checkText</code> to roll a check
+	 * @param checkText
+	 * @return
+	 */
 	public static int check(String checkText) 
 	{
 		ArrayList<Object> menu = new ArrayList<Object>();
@@ -106,11 +119,20 @@ public class Controller {
 
 	}
 	
+	/**
+	 * Prompt the user to edit <code>array</code> using  the <code>JOptionPane</code>
+	 * @param array
+	 * @return
+	 */
 	public int editArray(ArrayList<Object> array) 
 	{
 		return JOptionPane.showConfirmDialog(view, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
+	/**
+	 * Add the <code>array</code> of items to the View 
+	 * @param array
+	 */
 	public void appendItemPanels(ArrayList<Item> array) 
 	{
 		// For all items in the model
@@ -122,6 +144,10 @@ public class Controller {
 		view.revalidate();
 	}
 	
+	/**
+	 * Add the specified <code>item</code> to the  View
+	 * @param item
+	 */
 	public void appendItemPanel(Item item)
 	{
 		// Create an item panel
