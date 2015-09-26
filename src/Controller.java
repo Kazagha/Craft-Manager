@@ -194,7 +194,8 @@ public class Controller {
 					case NEWEFFECT:
 						{
 							ItemMagic item = (ItemMagic) source.getClientProperty(key);
-							item.addEffect(SpellEffect.create());							
+							item.addEffect(SpellEffect.create());	
+							item.notifyObservers();
 						}
 						break;
 					case EDIT:
@@ -202,10 +203,13 @@ public class Controller {
 						// Check if the object is an item or effect
 						if(obj instanceof Item)
 						{
-							((Item) obj).edit();
+							Item item = (Item) obj;
+							item.edit();
+							item.notifyObservers();
 						} else if (obj instanceof Effect) 
 						{
 							((Effect) obj).edit();
+							System.out.print(obj);
 						}
 						break;
 					case CRAFT:
