@@ -167,7 +167,7 @@ public class Controller {
 						break;
 					case NEWEFFECT:
 						{
-							ItemWand item = (ItemWand) source.getClientProperty(key);
+							ItemMagic item = (ItemMagic) source.getClientProperty(key);
 							item.addEffect(SpellEffect.create());							
 						}
 						break;
