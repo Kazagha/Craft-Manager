@@ -80,6 +80,7 @@ public class ItemWand extends ItemMagic {
 	public void setName(String name) 
 	{			
 		this.name = name;
+		this.setChanged();
 	}
 	
 	@Override
@@ -103,6 +104,7 @@ public class ItemWand extends ItemMagic {
 	{
 		this.effect = effects;
 		this.setName("Wand of " + effects.get(0).getName());
+		this.setChanged();
 	}
 
 	public void addEffect(Effect newEffect) {
@@ -118,6 +120,8 @@ public class ItemWand extends ItemMagic {
 		}
 		// Set the name to match the effect
 		this.setName("Wand of " + newEffect.getName());
+		
+		this.setChanged();
 	}
 
 	public int getXP()
@@ -141,5 +145,6 @@ public class ItemWand extends ItemMagic {
 	public void setEternal(boolean eternal) 
 	{
 		this.eternal = eternal;
+		this.setChanged();
 	}
 }
