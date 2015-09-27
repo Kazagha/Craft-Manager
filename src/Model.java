@@ -62,12 +62,20 @@ public class Model extends Observable {
 		return this.queue;
 	}
 	
+	/**
+	 * Return an array of <code>Item</code>'s in the queue (to be crafted)
+	 * @param array
+	 */
 	public void setQueue(ArrayList<Item> array) 
 	{
 		this.queue = array;
 		setChanged();
 	}
 	
+	/**
+	 * Return an array of <code>Item</code>'- that have been completed
+	 * @return
+	 */
 	@XmlElementRef(name="Complete")
 	public ArrayList<Item> getComplete() 
 	{
