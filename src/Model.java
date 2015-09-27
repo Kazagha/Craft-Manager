@@ -20,21 +20,37 @@ public class Model extends Observable {
 		
 	}
 	
+	/**
+	 * Set player gold to the specified <code>num</code> of gold pieces
+	 * @param num
+	 */
 	public void setGold(int num)
 	{
 		this.gold = num;
 	}
 	
+	/**
+	 * Return the number of gold pieces the player owns 
+	 * @return
+	 */
 	public int getGold()
 	{
 		return this.gold;
 	}
 	
+	/**
+	 * Set the amount of XP the player has
+	 * @param num
+	 */
 	public void setXP(int num)
 	{
 		this.XP = num;
 	}
 	
+	/**
+	 * Return the amount of XP the player has
+	 * @return
+	 */
 	public int getXP()
 	{
 		return this.XP;
