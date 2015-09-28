@@ -187,7 +187,7 @@ public class Controller {
 					case NEWITEM: 
 						//model.appendQueue(ItemMundane.create());
 						ItemWand newItem = (ItemWand) ItemWand.create();
-						newItem.addEffect(new SpellEffect().create());
+						//newItem.addEffect(new SpellEffect().create());
 						
 						model.appendQueue(newItem);
 						break;
@@ -300,17 +300,18 @@ public class Controller {
 				
 		// Check if the item is 'magic' 
 		if(item instanceof ItemMagic) {
+			
+			// Add a new magical Effects
+			jmi = new JMenuItem("New Effect");
+			jmi.addActionListener(listener);
+			jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
+			jmi.putClientProperty(key, item);
+			subMenu.add(jmi);
+			subMenu.addSeparator();
+			
+			// Edit existing Effects
 			for(Effect e : ((ItemMagic) item).getEffect())
-			{
-				// Add a new magical Effects
-				jmi = new JMenuItem("New Effect");
-				jmi.addActionListener(listener);
-				jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
-				jmi.putClientProperty(key, item);
-				subMenu.add(jmi);
-				subMenu.addSeparator();
-				
-				// Edit existing Effects
+			{				
 				jmi = new JMenuItem(e.getName());
 				jmi.addActionListener(listener);
 				jmi.setActionCommand(Controller.Action.EDIT.toString());		
