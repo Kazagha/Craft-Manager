@@ -297,21 +297,26 @@ public class Controller {
 		
 		subMenu = new JMenu("Edit");
 		menu.add(subMenu);
-		
-		jmi = new JMenuItem("New Effect");
-		jmi.addActionListener(listener);
-		jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
-		jmi.putClientProperty(key, item);
-		subMenu.add(jmi);
-		subMenu.addSeparator();
-		
-		for(Effect e : ((ItemWand) item).getEffect())
-		{
-			jmi = new JMenuItem(e.getName());
-			jmi.addActionListener(listener);
-			jmi.setActionCommand(Controller.Action.EDIT.toString());		
-			jmi.putClientProperty(key, e);
-			subMenu.add(jmi);
+				
+		// Check if the item is 'magic' 
+		if(item instanceof ItemMagic) {
+			for(Effect e : ((ItemMagic) item).getEffect())
+			{
+				// Add a new magical Effects
+				jmi = new JMenuItem("New Effect");
+				jmi.addActionListener(listener);
+				jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
+				jmi.putClientProperty(key, item);
+				subMenu.add(jmi);
+				subMenu.addSeparator();
+				
+				// Edit existing Effects
+				jmi = new JMenuItem(e.getName());
+				jmi.addActionListener(listener);
+				jmi.setActionCommand(Controller.Action.EDIT.toString());		
+				jmi.putClientProperty(key, e);
+				subMenu.add(jmi);
+			}
 		}
 		
 		return menu;
