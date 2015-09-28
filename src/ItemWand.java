@@ -1,11 +1,7 @@
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
