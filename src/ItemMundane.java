@@ -4,16 +4,22 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder={ "price", "DC" })
 public class ItemMundane extends Item {
 
+	private int price;
 	private int DC;	
 	
-	public ItemMundane(String name, int baseCost, int DC) {		
-		super(name, baseCost * 10, baseCost * 10 / 3 );
+	public ItemMundane(String name, int price, int DC) {	
+		super(name);		
 		super.setItemType(Item.TYPE.MUNDANE);
+		this.price = price;
 		this.DC = DC;		
 	}
 	
@@ -35,7 +41,7 @@ public class ItemMundane extends Item {
 		ArrayList<Object> array = new ArrayList<Object>();
 		
 		JTextField name = new JTextField(this.getName());
-		JTextField baseCost = new JTextField(String.valueOf(this.getBaseCost()));
+		JTextField baseCost = new JTextField(String.valueOf(this.getPrice()));
 		JTextField DC = new JTextField(String.valueOf(this.getDC()));
 		
 		// Prevent the user from changing the item after crafting has started
@@ -57,8 +63,7 @@ public class ItemMundane extends Item {
 				
 				// Set the changes on this
 				this.setName(name.getText());
-				this.setBaseCost(Integer.valueOf(baseCost.getText()));
-				this.setMatCost(this.getBaseCost() / 3);
+				this.setPrice(Integer.valueOf(baseCost.getText()));
 				this.setDC(Integer.valueOf(DC.getText()));
 				return result;
 			} catch (Exception e) {
@@ -79,6 +84,23 @@ public class ItemMundane extends Item {
 		this.DC = DC;
 	}
 	
+	public void setPrice(int price) 
+	{
+		this.price = price;
+	}	
+	
+	@XmlElement
+	@Override
+	public int getPrice()
+	{
+		return price;
+	}
+
 	@Override
 	void update() {}
+
+	@Override
+	public int getCraftPrice() {
+		return price / 3;
+	}
 }
