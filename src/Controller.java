@@ -68,7 +68,7 @@ public class Controller {
 		v.setActionListener(new MyActionListener());
 		v.setMouseListener(new mouseListener());
 		// Populate the view with items from the model
-		this.appendItemPanels(model.getQueue());
+		//this.appendItemPanels(model.getQueue());		
 	}
 	
 	public static Controller getInstance()
@@ -185,11 +185,10 @@ public class Controller {
 						Controller.getInstance().save(model);
 						break;
 					case NEWITEM: 
-						//model.appendQueue(ItemMundane.create());
-						ItemWand newItem = (ItemWand) ItemWand.create();
-						//newItem.addEffect(new SpellEffect().create());
-						
-						model.appendQueue(newItem);
+						model.appendQueue(ItemMundane.create());
+						//ItemWand newItem = (ItemWand) ItemWand.create();
+						//newItem.addEffect(new SpellEffect().create());						
+						//model.appendQueue(newItem);
 						break;
 					case NEWEFFECT:
 						{
@@ -339,7 +338,7 @@ public class Controller {
 			if(check >= iMundane.getDC()) 
 			{
 				// Successful check	
-				int diff = iMundane.getBaseCost() - iMundane.getProgress();
+				int diff = iMundane.getPrice() - iMundane.getProgress();
 				
 				// Check if the item will be finished on this craft check
 				if(diff >= progress) 
@@ -359,7 +358,7 @@ public class Controller {
 				iMundane.notifyObservers();
 			} else if (check < iMundane.getDC() - 4) {						
 				// Check Failed by 5 or more: Half raw materials have been destroyed				
-				int cost = iMundane.getMatCost() / 2;
+				int cost = iMundane.getCraftPrice() / 2;
 				// All progress is lost
 				checkPart = 0;
 			} else {
