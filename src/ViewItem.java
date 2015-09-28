@@ -39,8 +39,8 @@ public class ViewItem extends JPanel implements Observer {
 	public void updateItem(Item model) 
 	{
 		setName(model.getName());
-		setBaseCost(model.getBaseCost());
-		setMatCost(model.getMatCost());
+		setBaseCost(model.getPrice());
+		setMatCost(model.getCraftPrice());
 		setProgress(model.getProgress());
 	}
 	
