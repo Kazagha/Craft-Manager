@@ -21,7 +21,7 @@ public class JAXBController {
 	
 	private void setUp() {
 		try {
-			jaxbContext = JAXBContext.newInstance(Model.class, Item.class, ItemMundane.class);		
+			jaxbContext = JAXBContext.newInstance(Model.class, Item.class, ItemMundane.class, ItemMagic.class, ItemWand.class);		
 			unmarshaller = jaxbContext.createUnmarshaller();
 			marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
