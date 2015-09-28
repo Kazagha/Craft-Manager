@@ -4,13 +4,12 @@ import java.util.Arrays;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-
+@XmlRootElement
 public class ItemWand extends ItemMagic {
 
-	private String name;
-	private int casterLevel;
-	private int spellLevel;
 	private boolean eternal;
 	private ArrayList<Effect> effect;
 	
@@ -20,6 +19,7 @@ public class ItemWand extends ItemMagic {
 	{
 		setName(name);
 		effect = new ArrayList<Effect>();
+		super.setItemType(Item.TYPE.MAGIC);
 	}
 
 	@Override
@@ -67,30 +67,7 @@ public class ItemWand extends ItemMagic {
 		}
 		return result;
 	}
-	
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name) 
-	{			
-		this.name = name;
-		this.setChanged();
-	}
-	
-	@Override
-	public int getBaseCost()
-	{
-		return 0;
-	}
-	
-	@Override 
-	public int getMatCost()
-	{
-		return 0;
-	}
-	
+		
 	public ArrayList<Effect> getEffect() 
 	{
 		return effect;
@@ -119,10 +96,43 @@ public class ItemWand extends ItemMagic {
 		
 		this.setChanged();
 	}
+	
+	@Override
+	public int getPrice()
+	{
+		if(this.isValid())
+		{
+			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
+			
+			return (750 * effect.getCasterLevel() * effect.getSpellLevel())  
+					+ (effect.getMaterialCost() * 50); 
+		}
+		
+		return 0;
+	}
+	
+	@Override 
+	public int getCraftPrice()
+	{
+		if(getPrice() > 0)
+		{
+			return getPrice() / 2;
+		}
+		
+		return 0;
+	}
 
 	public int getXP()
-	{
-		return casterLevel * spellLevel * 750 / 25;
+	{				
+		if(this.isValid() && getPrice() > 0)
+		{
+			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
+			
+			return (this.getCraftPrice() / 25) 
+					+ (effect.getXPCost() * 50);
+		}
+		
+		return 0;
 	}
 
 	public boolean isEternal() 
@@ -142,5 +152,10 @@ public class ItemWand extends ItemMagic {
 	{
 		this.eternal = eternal;
 		this.setChanged();
+	}
+	
+	private boolean isValid()
+	{
+		return effect.size() > 0 && this.getEffect().get(0) instanceof SpellEffect;
 	}
 }
