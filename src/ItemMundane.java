@@ -41,17 +41,17 @@ public class ItemMundane extends Item {
 		ArrayList<Object> array = new ArrayList<Object>();
 		
 		JTextField name = new JTextField(this.getName());
-		JTextField baseCost = new JTextField(String.valueOf(this.getPrice()));
+		JTextField price = new JTextField(String.valueOf(this.getPrice()));
 		JTextField DC = new JTextField(String.valueOf(this.getDC()));
 		
 		// Prevent the user from changing the item after crafting has started
 		if(this.getProgress() > 0) 
 		{
-			baseCost.setEditable(false);
+			price.setEditable(false);
 			DC.setEditable(false);
 		}
 
-		array.addAll(Arrays.asList(new Object[] {"Name", name, "Base Item Price", baseCost, "DC", DC }));
+		array.addAll(Arrays.asList(new Object[] {"Name", name, "Full Price", price, "DC", DC }));
 				
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
@@ -63,7 +63,7 @@ public class ItemMundane extends Item {
 				
 				// Set the changes on this
 				this.setName(name.getText());
-				this.setPrice(Integer.valueOf(baseCost.getText()));
+				this.setPrice(Integer.valueOf(price.getText()));
 				this.setDC(Integer.valueOf(DC.getText()));
 				return result;
 			} catch (Exception e) {
