@@ -4,10 +4,12 @@ import java.util.Arrays;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder={ "eternal", "effect" })
 public class ItemWand extends ItemMagic {
 
 	private boolean eternal;
@@ -66,8 +68,9 @@ public class ItemWand extends ItemMagic {
 			
 		}
 		return result;
-	}
-		
+	}	
+	
+	@XmlElement
 	public ArrayList<Effect> getEffect() 
 	{
 		return effect;
@@ -134,18 +137,19 @@ public class ItemWand extends ItemMagic {
 		
 		return 0;
 	}
-
+	
 	public boolean isEternal() 
 	{		
 		return eternal;
 	}
-	
+
+	@XmlElement
 	public Boolean getEternal()
 	{
 		if(eternal)
 			return true;
 		
-		return false;
+		return null;
 	}
 
 	public void setEternal(boolean eternal) 

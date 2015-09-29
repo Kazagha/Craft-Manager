@@ -3,8 +3,12 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-
+@XmlRootElement
+@XmlType(propOrder={ "name", "casterLevel", "spellLevel", "materialCost", "XPCost" })
 public class SpellEffect extends Effect {
 
 	private String name;
@@ -73,6 +77,7 @@ public class SpellEffect extends Effect {
 		return result;
 	}
 	
+	@XmlElement
 	public int getMaterialCost() 
 	{
 		return materialCost;
@@ -83,6 +88,7 @@ public class SpellEffect extends Effect {
 		this.materialCost = materialCost;
 	}
 
+	@XmlElement(name="XPCost")
 	public int getXPCost() 
 	{
 		return xpCost;
@@ -119,6 +125,7 @@ public class SpellEffect extends Effect {
 	}
 
 	@Override
+	@XmlElement
 	public String getName() {
 		return this.name;
 	}
