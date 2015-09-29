@@ -5,6 +5,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -70,7 +71,7 @@ public class ItemWand extends ItemMagic {
 		return result;
 	}	
 	
-	@XmlElement
+	@XmlElementRef
 	public ArrayList<Effect> getEffect() 
 	{
 		return effect;
@@ -79,7 +80,6 @@ public class ItemWand extends ItemMagic {
 	public void setEffect(ArrayList<Effect> effects)
 	{
 		this.effect = effects;
-		this.setName("Wand of " + effects.get(0).getName());
 		this.setChanged();
 	}
 
@@ -103,7 +103,7 @@ public class ItemWand extends ItemMagic {
 	@Override
 	public int getPrice()
 	{
-		if(this.isValid())
+		if(this.hasSpellEffect())
 		{
 			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
 			
@@ -127,7 +127,7 @@ public class ItemWand extends ItemMagic {
 
 	public int getXP()
 	{				
-		if(this.isValid() && getPrice() > 0)
+		if(this.hasSpellEffect() && getPrice() > 0)
 		{
 			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
 			
@@ -158,7 +158,7 @@ public class ItemWand extends ItemMagic {
 		this.setChanged();
 	}
 	
-	private boolean isValid()
+	private boolean hasSpellEffect()
 	{
 		return effect.size() > 0 && this.getEffect().get(0) instanceof SpellEffect;
 	}
