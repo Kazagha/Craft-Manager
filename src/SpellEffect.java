@@ -8,23 +8,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder={ "name", "casterLevel", "spellLevel", "materialCost", "XPCost" })
+@XmlType(propOrder={ "name", "casterLevel", "spellLevel", "craftCost", "XPCost" })
 public class SpellEffect extends Effect {
 
 	private String name;
 	private int casterLevel;
 	private int spellLevel;
-	private int materialCost;
+	private int craftCost;
 	private int xpCost;
 	
 	public SpellEffect() {}
 	
-	public SpellEffect(String name, int casterLevel, int spellLevel, int materialCost, int xpCost)
+	public SpellEffect(String name, int casterLevel, int spellLevel, int craftCost, int xpCost)
 	{
 		this.name = name;
 		this.casterLevel = casterLevel;
 		this.spellLevel = spellLevel;
-		this.materialCost = materialCost;
+		this.craftCost = craftCost;
 		this.xpCost = xpCost;
 	}
 	
@@ -45,14 +45,14 @@ public class SpellEffect extends Effect {
 		JTextField name = new JTextField(getName());
 		JTextField casterLevel = new JTextField(String.valueOf(getCasterLevel()));
 		JTextField spellLevel = new JTextField(String.valueOf(getSpellLevel()));
-		JTextField materialCost = new JTextField(String.valueOf(getCraftCost()));
+		JTextField craftCost = new JTextField(String.valueOf(getCraftCost()));
 		JTextField xpCost = new JTextField(String.valueOf(getXPCost()));
 		
 		array.addAll(Arrays.asList(new Object[] { 
 				"Name", name, 
 				"Caster Level", casterLevel, 
 				"Spell Level", spellLevel, 
-				"Material Cost", materialCost, 
+				"Material Cost", craftCost, 
 				"XP Cost", xpCost 
 				}));
 		
@@ -66,11 +66,11 @@ public class SpellEffect extends Effect {
 				this.setName(name.getText());
 				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
 				this.setSpellLevel(Integer.valueOf(spellLevel.getText()));
-				this.setMaterialCost(Integer.valueOf(materialCost.getText()));
+				this.setCraftCost(Integer.valueOf(craftCost.getText()));
 				this.setXPCost(Integer.valueOf(xpCost.getText()));
 				return result;
 			} catch (Exception e) {
-				
+				Controller.getInstance().showMessage("Error: " + e.getMessage());
 			}
 		}
 		
@@ -80,12 +80,12 @@ public class SpellEffect extends Effect {
 	@XmlElement
 	public int getCraftCost() 
 	{
-		return materialCost;
+		return craftCost;
 	}
 
-	public void setMaterialCost(int materialCost) 
+	public void setCraftCost(int craftCost) 
 	{
-		this.materialCost = materialCost;
+		this.craftCost = craftCost;
 	}
 
 	@XmlElement(name="XPCost")
@@ -106,6 +106,9 @@ public class SpellEffect extends Effect {
 
 	public void setCasterLevel(int casterLevel) 
 	{
+		if(casterLevel <= 0)
+			throw new UnsupportedOperationException("Caster level must be greater than zero");
+		
 		this.casterLevel = casterLevel;
 	}
 
