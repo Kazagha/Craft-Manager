@@ -45,7 +45,7 @@ public class SpellEffect extends Effect {
 		JTextField name = new JTextField(getName());
 		JTextField casterLevel = new JTextField(String.valueOf(getCasterLevel()));
 		JTextField spellLevel = new JTextField(String.valueOf(getSpellLevel()));
-		JTextField materialCost = new JTextField(String.valueOf(getMaterialCost()));
+		JTextField materialCost = new JTextField(String.valueOf(getCraftCost()));
 		JTextField xpCost = new JTextField(String.valueOf(getXPCost()));
 		
 		array.addAll(Arrays.asList(new Object[] { 
@@ -78,7 +78,7 @@ public class SpellEffect extends Effect {
 	}
 	
 	@XmlElement
-	public int getMaterialCost() 
+	public int getCraftCost() 
 	{
 		return materialCost;
 	}
@@ -131,7 +131,7 @@ public class SpellEffect extends Effect {
 	}
 
 	@Override
-	public int getBaseCost() {
+	public int getCost() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

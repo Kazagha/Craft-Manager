@@ -108,7 +108,7 @@ public class ItemWand extends ItemMagic {
 			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
 			
 			return (750 * effect.getCasterLevel() * effect.getSpellLevel())  
-					+ (effect.getMaterialCost() * 50); 
+					+ (effect.getCraftCost() * 50); 
 		}
 		
 		return 0;

@@ -78,13 +78,13 @@ public class EnhanceEffect extends Effect {
 	}
 
 	@Override
-	public int getBaseCost()
+	public int getCost()
 	{
 		return enhance.getCost(bonus);
 	}
 
 	@Override
-	public int getMaterialCost() 
+	public int getCraftCost() 
 	{
 		return enhance.getCost(bonus) / 2;
 	}
