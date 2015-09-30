@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.ValidationException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -70,7 +71,7 @@ public class SpellEffect extends Effect {
 				this.setXPCost(Integer.valueOf(xpCost.getText()));
 				return result;
 			} catch (Exception e) {
-				Controller.getInstance().showMessage("Error: " + e.getMessage());
+				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
 			}
 		}
 		
@@ -104,10 +105,10 @@ public class SpellEffect extends Effect {
 		return casterLevel;
 	}
 
-	public void setCasterLevel(int casterLevel) 
+	public void setCasterLevel(int casterLevel) throws ValidationException 
 	{
 		if(casterLevel <= 0)
-			throw new UnsupportedOperationException("Caster level must be greater than zero");
+			throw new ValidationException("Caster level must be greater than zero");
 		
 		this.casterLevel = casterLevel;
 	}
