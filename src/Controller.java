@@ -32,6 +32,8 @@ public class Controller {
 	
 	public static Controller controller;
 	public static String key = new String("key");
+	public static String keyItem = new String("keyItem");
+	public static String keyEffect = new String("keyEffect");
 	
 	public enum Action 
 	{
@@ -210,10 +212,14 @@ public class Controller {
 							Item item = (Item) obj;
 							item.edit();
 							item.notifyObservers();
-						} else if (obj instanceof Effect) 
-						{
+						} else if (obj instanceof Effect) {
+							Effect effect = (Effect) source.getClientProperty(key);
 							((Effect) obj).edit();
-							System.out.print(obj);
+							
+							//TODO: Hack to update the item when the price changes
+							Item item = (Item) source.getClientProperty(keyItem);
+							item.setName(item.getName());
+							item.notifyObservers();
 						}
 						break;
 					case CRAFT:
@@ -314,12 +320,13 @@ public class Controller {
 			subMenu.addSeparator();
 			
 			// Edit existing Effects
-			for(Effect e : ((ItemMagic) item).getEffect())
+			for(Effect effect : ((ItemMagic) item).getEffect())
 			{				
-				jmi = new JMenuItem(e.getName());
+				jmi = new JMenuItem(effect.getName());
 				jmi.addActionListener(listener);
 				jmi.setActionCommand(Controller.Action.EDIT.toString());		
-				jmi.putClientProperty(key, e);
+				jmi.putClientProperty(key, effect);
+				jmi.putClientProperty(keyItem, item);
 				subMenu.add(jmi);
 			}
 		}
