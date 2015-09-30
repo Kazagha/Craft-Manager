@@ -64,7 +64,7 @@ public class ItemWand extends ItemMagic {
 				this.setEternal(eternal.isSelected());
 				return result;
 			} catch (Exception e) {
-				
+				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
 			}
 			
 		}

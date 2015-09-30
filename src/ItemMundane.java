@@ -67,7 +67,7 @@ public class ItemMundane extends Item {
 				this.setDC(Integer.valueOf(DC.getText()));
 				return result;
 			} catch (Exception e) {
-				// TODO: Show 'Invalid input' message
+				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
 			}
 		}
 		
