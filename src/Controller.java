@@ -185,10 +185,10 @@ public class Controller {
 						Controller.getInstance().save(model);
 						break;
 					case NEWITEM: 
-						model.appendQueue(ItemMundane.create());
-						//ItemWand newItem = (ItemWand) ItemWand.create();
+						//model.appendQueue(ItemMundane.create());
+						ItemWand newItem = (ItemWand) ItemWand.create();
 						//newItem.addEffect(new SpellEffect().create());						
-						//model.appendQueue(newItem);
+						model.appendQueue(newItem);
 						break;
 					case NEWEFFECT:
 						{
@@ -374,7 +374,7 @@ public class Controller {
 		while(progress > 0 && getNextItem(Item.TYPE.MAGIC) != null)
 		{
 			Item item = getNextItem(Item.TYPE.MAGIC);			
-			int diff = progress - item.getProgress();
+			int diff = item.getPrice() - item.getProgress();
 						
 			if(diff >= progress)
 			{
@@ -383,9 +383,10 @@ public class Controller {
 			} else {
 				item.setProgress(item.getProgress() + diff);
 				progress -= diff;
-			}
+			}			
 			
-			item.update();
+			item.hasChanged();
+			item.notifyObservers();
 		}
 	}
 	
