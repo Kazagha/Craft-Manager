@@ -102,27 +102,31 @@ public class ItemWand extends ItemMagic {
 	
 	@Override
 	public int getPrice()
-	{
-		if(this.hasSpellEffect())
+	{		
+		int price = 0;
+		
+		for(Effect effect : this.getEffect())
 		{
-			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
-			
-			return (750 * effect.getCasterLevel() * effect.getSpellLevel())  
-					+ (effect.getCraftCost() * 50); 
+			if(effect instanceof SpellEffect)
+			{
+				SpellEffect spell = (SpellEffect) effect;
+				// Calculate the base price
+				price += 750 * spell.getCasterLevel() * spell.getSpellLevel();
+				// Additional costly 'material components'
+				price += spell.getCraftCost() * 50;
+			}
 		}
 		
-		return 0;
+		return price;			
 	}
 	
 	@Override 
 	public int getCraftPrice()
 	{
-		if(getPrice() > 0)
-		{
-			return getPrice() / 2;
-		}
+		if(getPrice() == 0)
+			return 0;		
 		
-		return 0;
+		return getPrice() / 2;
 	}
 
 	public int getXP()
