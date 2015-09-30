@@ -1,6 +1,8 @@
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.xml.bind.ValidationException;
@@ -56,6 +58,13 @@ public class SpellEffect extends Effect {
 				"Material Cost", craftCost, 
 				"XP Cost", xpCost 
 				}));
+		
+		SelectAllFocus focus = new SelectAllFocus();
+		for(Object object : array)
+		{
+			if(object instanceof JTextField)
+				((JTextField) object).addFocusListener(focus);
+		}
 		
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
