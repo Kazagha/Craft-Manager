@@ -129,6 +129,11 @@ public class Controller {
 		return JOptionPane.showConfirmDialog(view, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
+	public void showMessage(String message) 
+	{
+		JOptionPane.showMessageDialog(view, message);
+	}
+	
 	/**
 	 * Add the <code>array</code> of items to the View 
 	 * @param array
