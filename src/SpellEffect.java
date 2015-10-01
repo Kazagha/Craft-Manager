@@ -59,7 +59,7 @@ public class SpellEffect extends Effect {
 				"XP Cost", xpCost 
 				}));
 		
-		SelectAllFocus focus = new SelectAllFocus();
+		FocusSelectAll focus = new FocusSelectAll();
 		for(Object object : array)
 		{
 			if(object instanceof JTextField)
