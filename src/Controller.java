@@ -212,8 +212,7 @@ public class Controller {
 							Item item = (Item) obj;
 							item.edit();
 							item.notifyObservers();
-						} else if (obj instanceof Effect) {
-							Effect effect = (Effect) source.getClientProperty(key);
+						} else if (obj instanceof Effect) {							
 							((Effect) obj).edit();
 							
 							//TODO: Hack to update the item when the price changes
