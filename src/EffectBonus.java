@@ -3,7 +3,7 @@ import javax.swing.JOptionPane;
 
 public class EffectBonus extends Effect {
 
-	enum Type
+	public enum Type
 	{
 		ABILITY_BONUS		("Ability Bonus (enhancement)", 1000),
 		ARMOR_BONUS			("Armor bonus (enhancement)", 1000),
@@ -35,39 +35,45 @@ public class EffectBonus extends Effect {
 	}
 	
 	int bonus;
+	Type type;
 	
-	public EffectBonus() {
-		// TODO Auto-generated constructor stub
+	public EffectBonus() {}
+	
+	public EffectBonus(int bonus, Type type)
+	{
+		this.bonus = bonus;
+		this.type = type;
+	}
+	
+	public int squared(int bonus)
+	{
+		return (int) Math.pow(bonus, 2);
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() 
+	{
+		return type.getDesc();
 	}
 
 	@Override
-	public int getCost() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getCost()
+	{
+		return squared(bonus) * type.getCost();
 	}
 
 	@Override
-	public int getCraftCost() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getCraftCost() 
+	{
+		return this.getCost() / 2;
 	}
 
 	@Override
-	public int getXPCost() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getXPCost() 
+	{
+		return this.getCost() / 25;
 	}
 
 	@Override
-	public int edit() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	public int edit() { return 0; }
 }
