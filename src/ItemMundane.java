@@ -97,9 +97,6 @@ public class ItemMundane extends Item {
 	}
 
 	@Override
-	void update() {}
-
-	@Override
 	public int getCraftPrice() {
 		return price / 3;
 	}

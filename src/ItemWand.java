@@ -25,9 +25,6 @@ public class ItemWand extends ItemMagic {
 		super.setItemType(Item.TYPE.MAGIC);
 	}
 
-	@Override
-	void update() {}
-
 	public static Item create() 
 	{
 		ItemWand newItem = new ItemWand("Wand of");

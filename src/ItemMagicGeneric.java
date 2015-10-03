@@ -13,49 +13,50 @@ public class ItemMagicGeneric extends ItemMagic {
 	}
 	
 	@Override
-	ArrayList<Effect> getEffect() {
+	ArrayList<Effect> getEffect()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	void setEffect(ArrayList<Effect> effect) {
+	void setEffect(ArrayList<Effect> effect) 
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	void addEffect(Effect effect) {
+	void addEffect(Effect effect) 
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	int getXP() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	void update() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int edit() {
+	int getXP() 
+	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getPrice() {
+	public int edit() 
+	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getCraftPrice() {
+	public int getPrice() 
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCraftPrice() 
+	{
 		// TODO Auto-generated method stub
 		return 0;
 	}

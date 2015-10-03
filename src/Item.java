@@ -52,9 +52,7 @@ public abstract class Item  extends Observable {
 	public boolean isComplete() 
 	{
 		return progress >= getPrice();
-	}
-	
-	abstract void update();
+	}	
 	
 	public abstract int edit();
 	
