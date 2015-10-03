@@ -14,6 +14,33 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder={ "name", "casterLevel", "spellLevel", "craftCost", "XPCost" })
 public class EffectSpell extends Effect {
 
+	public enum Type
+	{
+		SINGLE_USE_SPELL_COMPLETION		("Single use, spell completion", 25),
+		SINGLE_USE_USE_ACTIVATED		("Single use, use-activated", 50),
+		CHARGES_SPELL_TRIGGER			("50 charges, spell trigger", 750),
+		COMMAND_WORD					("Command Word", 1800),
+		CONTINOUS						("Use-activated or continuous", 2000);	
+		
+		String desc;
+		int price;
+		Type(String desc, int price)
+		{
+			this.desc = desc;
+			this.price = price;
+		}
+		
+		public int getPrice()
+		{
+			return price;
+		}
+		
+		public String toString()
+		{
+			return desc;
+		}
+	}	
+	
 	private String name;
 	private int casterLevel;
 	private int spellLevel;
