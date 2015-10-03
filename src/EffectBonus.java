@@ -102,7 +102,7 @@ public class EffectBonus extends Effect {
 	
 	public static EffectBonus create()
 	{
-		EffectBonus newEffect = new EffectBonus(0, EffectBonus.Type.ABILITY_BONUS);
+		EffectBonus newEffect = new EffectBonus(1, EffectBonus.Type.ABILITY_BONUS);
 		
 		if(newEffect.edit() == JOptionPane.OK_OPTION)
 			return newEffect;
