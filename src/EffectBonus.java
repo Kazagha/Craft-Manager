@@ -141,4 +141,9 @@ public class EffectBonus extends Effect {
 		
 		return result;
 	}
+	
+	public String toString()
+	{
+		return String.format("+%d %s", this.getBonus(), this.getType());
+	}
 }
