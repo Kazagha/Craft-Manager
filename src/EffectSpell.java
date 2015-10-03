@@ -2,6 +2,7 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -42,6 +43,7 @@ public class EffectSpell extends Effect {
 	}	
 	
 	private String name;
+	private Type type;
 	private int casterLevel;
 	private int spellLevel;
 	private int craftCost;
@@ -49,9 +51,10 @@ public class EffectSpell extends Effect {
 	
 	public EffectSpell() {}
 	
-	public EffectSpell(String name, int casterLevel, int spellLevel, int craftCost, int xpCost)
+	public EffectSpell(String name, Type type, int casterLevel, int spellLevel, int craftCost, int xpCost)
 	{
 		this.name = name;
+		this.type = type;
 		this.casterLevel = casterLevel;
 		this.spellLevel = spellLevel;
 		this.craftCost = craftCost;
@@ -60,7 +63,7 @@ public class EffectSpell extends Effect {
 	
 	public static EffectSpell create()
 	{
-		EffectSpell newEffect = new EffectSpell("", 0, 0, 0, 0);
+		EffectSpell newEffect = new EffectSpell("", EffectSpell.Type.CHARGES_SPELL_TRIGGER, 0, 0, 0, 0);
 		
 		if(newEffect.edit() == JOptionPane.OK_OPTION)
 			return newEffect;
@@ -78,8 +81,12 @@ public class EffectSpell extends Effect {
 		JTextField craftCost = new JTextField(String.valueOf(getCraftPrice()));
 		JTextField xpCost = new JTextField(String.valueOf(getXPCost()));
 		
+		JComboBox<EffectSpell.Type> spellType = new JComboBox<EffectSpell.Type>(EffectSpell.Type.values());
+		spellType.setSelectedItem(type);
+		
 		array.addAll(Arrays.asList(new Object[] { 
 				"Name", name, 
+				"Type", type,
 				"Caster Level", casterLevel, 
 				"Spell Level", spellLevel, 
 				"Material Cost", craftCost, 
@@ -101,6 +108,7 @@ public class EffectSpell extends Effect {
 				result = Controller.getInstance().editArray(array);
 				
 				this.setName(name.getText());
+				this.setType((EffectSpell.Type) spellType.getSelectedItem());
 				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
 				this.setSpellLevel(Integer.valueOf(spellLevel.getText()));
 				this.setCraftCost(Integer.valueOf(craftCost.getText()));
@@ -114,6 +122,15 @@ public class EffectSpell extends Effect {
 		return result;
 	}
 	
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) 
+	{
+		this.type = type;
+	}
+
 	@XmlElement
 	public int getCraftPrice() 
 	{
