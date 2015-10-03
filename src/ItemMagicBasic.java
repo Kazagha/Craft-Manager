@@ -6,13 +6,22 @@ import javax.swing.JTextField;
 
 public class ItemMagicBasic extends ItemMagic {
 	
-	private ArrayList<Effect> effect;
-
 	public ItemMagicBasic() {}
 	
 	public ItemMagicBasic(String name)
 	{
-		this.setName(name);
+		super.setName(name);
+		this.setItemType(Item.TYPE.MAGIC);
+	}
+	
+	public static ItemMagicBasic create()
+	{
+		ItemMagicBasic newItem = new ItemMagicBasic("");
+		newItem.addEffect(new EffectBonus(1, EffectBonus.Type.ARMOR_BONUS));
+		if(newItem.edit() == JOptionPane.OK_OPTION)
+			return newItem;	
+		
+		return null;
 	}
 	
 	@Override
@@ -44,6 +53,14 @@ public class ItemMagicBasic extends ItemMagic {
 	@Override
 	public int getPrice() 
 	{
-		return 1;
+		int price = 0;
+		
+		for(Effect effect : this.getEffect())
+		{			
+			// Calculate the base price
+			price += effect.getPrice();						
+		}
+		
+		return price;
 	}
 }
