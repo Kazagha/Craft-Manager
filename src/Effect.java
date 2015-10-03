@@ -3,9 +3,9 @@ public abstract class Effect {
 
 	public abstract String getName();
 	
-	public abstract int getCost();
+	public abstract int getPrice();
 	
-	public abstract int getCraftCost();
+	public abstract int getCraftPrice();
 	
 	public abstract int getXPCost();	
 	
