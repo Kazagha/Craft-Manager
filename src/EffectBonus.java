@@ -1,4 +1,6 @@
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
 public class EffectBonus extends Effect {
@@ -73,7 +75,54 @@ public class EffectBonus extends Effect {
 	{
 		return this.getCost() / 25;
 	}
+	
+	public int getBonus()
+	{
+		return bonus;
+	}
+
+	public void setBonus(int bonus) 
+	{
+		this.bonus = bonus;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) 
+	{
+		this.type = type;
+	}
 
 	@Override
-	public int edit() { return 0; }
+	public int edit() 
+	{
+		Object[] array;// = new Object[4];
+		
+		JComboBox<EffectBonus.Type> bonusType =
+				new JComboBox<EffectBonus.Type>(EffectBonus.Type.values());
+		JTextField bonus = new JTextField(this.getBonus());
+		
+		array = new Object[] { "Bonus Type", bonusType, "Number", bonus };
+		
+		int result = JOptionPane.OK_OPTION;
+		while(result == JOptionPane.OK_OPTION)
+		{
+			try
+			{
+				result = Controller.getInstance().editArray(array);
+				
+				// Set changes 
+				this.setType((EffectBonus.Type) bonusType.getSelectedItem());
+				this.setBonus(Integer.valueOf(bonus.getText()));				
+				return result;
+			} catch (Exception e) {
+				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
+			}
+			
+		}
+		
+		return result;
+	}
 }
