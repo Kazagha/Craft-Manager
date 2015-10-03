@@ -108,14 +108,14 @@ public class EffectBonus extends Effect {
 	@Override
 	public int edit() 
 	{
-		Object[] array;// = new Object[4];
+		Object[] array;
 		
 		JComboBox<EffectBonus.Type> bonusType =
 				new JComboBox<EffectBonus.Type>(EffectBonus.Type.values());
 		bonusType.setSelectedItem(this.getType());
 		JTextField bonus = new JTextField(String.valueOf(this.getBonus()));
 		
-		array = new Object[] { "Bonus Type", bonusType, "Number", bonus };
+		array = new Object[] { "Bonus Type", bonusType, "Bonus", bonus };
 		
 		int result = JOptionPane.OK_OPTION;
 		while(result == JOptionPane.OK_OPTION)
