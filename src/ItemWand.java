@@ -10,18 +10,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder={ "eternal", "effect" })
+@XmlType(propOrder={ "eternal" })
 public class ItemWand extends ItemMagic {
 
 	private boolean eternal;
-	private ArrayList<Effect> effect;
 	
 	public ItemWand() {}
 	
 	public ItemWand(String name) 
 	{
 		setName(name);
-		effect = new ArrayList<Effect>();
+		setEffect(new ArrayList<Effect>());
 		super.setItemType(Item.TYPE.MAGIC);
 	}
 
@@ -66,19 +65,7 @@ public class ItemWand extends ItemMagic {
 			
 		}
 		return result;
-	}	
-	
-	@XmlElementRef
-	public ArrayList<Effect> getEffect() 
-	{
-		return effect;
-	}
-	
-	public void setEffect(ArrayList<Effect> effects)
-	{
-		this.effect = effects;
-		this.setChanged();
-	}
+	}		
 
 	public void addEffect(Effect newEffect) {
 		if(newEffect == null)
@@ -111,32 +98,12 @@ public class ItemWand extends ItemMagic {
 				price += 750 * spell.getCasterLevel() * spell.getSpellLevel();
 				// Additional costly 'material components'
 				price += spell.getCraftCost() * 50;
+				// Additional cost for 'XP components'
+				price += spell.getXPCost() * 50 * 5;
 			}
 		}
 		
 		return price;			
-	}
-	
-	@Override 
-	public int getCraftPrice()
-	{
-		if(getPrice() == 0)
-			return 0;		
-		
-		return getPrice() / 2;
-	}
-
-	public int getXP()
-	{				
-		if(this.hasSpellEffect() && getPrice() > 0)
-		{
-			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
-			
-			return (this.getPrice() / 25) 
-					+ (effect.getXPCost() * 50);
-		}
-		
-		return 0;
 	}
 	
 	public boolean isEternal() 
@@ -157,10 +124,5 @@ public class ItemWand extends ItemMagic {
 	{
 		this.eternal = eternal;
 		this.setChanged();
-	}
-	
-	private boolean hasSpellEffect()
-	{
-		return effect.size() > 0 && this.getEffect().get(0) instanceof SpellEffect;
 	}
 }
