@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlElementRef;
 
 public abstract class ItemMagic extends Item {
 
-	private ArrayList<Effect> effect;
+	private ArrayList<Effect> effect = new ArrayList<Effect>();
 	
 	@XmlElementRef
 	public ArrayList<Effect> getEffect()
