@@ -33,7 +33,12 @@ public class EffectBonus extends Effect {
 		public int getCost()
 		{
 			return cost;
-		}		
+		}	
+		
+		public String toString()
+		{
+			return getDesc();
+		}
 	}
 	
 	int bonus;
@@ -130,8 +135,7 @@ public class EffectBonus extends Effect {
 				return result;
 			} catch (Exception e) {
 				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
-			}
-			
+			}			
 		}
 		
 		return result;
