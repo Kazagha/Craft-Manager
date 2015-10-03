@@ -132,7 +132,7 @@ public class ItemWand extends ItemMagic {
 		{
 			SpellEffect effect = (SpellEffect) this.getEffect().get(0);
 			
-			return (this.getCraftPrice() / 25) 
+			return (this.getPrice() / 25) 
 					+ (effect.getXPCost() * 50);
 		}
 		
