@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder={ "name", "casterLevel", "spellLevel", "craftCost", "XPCost" })
-public class SpellEffect extends Effect {
+public class EffectSpell extends Effect {
 
 	private String name;
 	private int casterLevel;
@@ -20,9 +20,9 @@ public class SpellEffect extends Effect {
 	private int craftCost;
 	private int xpCost;
 	
-	public SpellEffect() {}
+	public EffectSpell() {}
 	
-	public SpellEffect(String name, int casterLevel, int spellLevel, int craftCost, int xpCost)
+	public EffectSpell(String name, int casterLevel, int spellLevel, int craftCost, int xpCost)
 	{
 		this.name = name;
 		this.casterLevel = casterLevel;
@@ -31,9 +31,9 @@ public class SpellEffect extends Effect {
 		this.xpCost = xpCost;
 	}
 	
-	public static SpellEffect create()
+	public static EffectSpell create()
 	{
-		SpellEffect newEffect = new SpellEffect("", 0, 0, 0, 0);
+		EffectSpell newEffect = new EffectSpell("", 0, 0, 0, 0);
 		
 		if(newEffect.edit() == JOptionPane.OK_OPTION)
 			return newEffect;
