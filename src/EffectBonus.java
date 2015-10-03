@@ -94,6 +94,16 @@ public class EffectBonus extends Effect {
 	{
 		this.type = type;
 	}
+	
+	public static EffectBonus create()
+	{
+		EffectBonus newEffect = new EffectBonus(0, EffectBonus.Type.ABILITY_BONUS);
+		
+		if(newEffect.edit() == JOptionPane.OK_OPTION)
+			return newEffect;
+		
+		return null;
+	}
 
 	@Override
 	public int edit() 
@@ -102,7 +112,8 @@ public class EffectBonus extends Effect {
 		
 		JComboBox<EffectBonus.Type> bonusType =
 				new JComboBox<EffectBonus.Type>(EffectBonus.Type.values());
-		JTextField bonus = new JTextField(this.getBonus());
+		bonusType.setSelectedItem(this.getType());
+		JTextField bonus = new JTextField(String.valueOf(this.getBonus()));
 		
 		array = new Object[] { "Bonus Type", bonusType, "Number", bonus };
 		
