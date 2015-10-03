@@ -97,7 +97,7 @@ public class ItemWand extends ItemMagic {
 				// Calculate the base price
 				price += 750 * spell.getCasterLevel() * spell.getSpellLevel();
 				// Additional costly 'material components'
-				price += spell.getCraftCost() * 50;
+				price += spell.getCraftPrice() * 50;
 				// Additional cost for 'XP components'
 				price += spell.getXPCost() * 50 * 5;
 			}

@@ -64,21 +64,22 @@ public class EffectBonus extends Effect {
 	}
 
 	@Override
-	public int getCost()
+	public int getPrice()
 	{
 		return squared(bonus) * type.getCost();
 	}
-
+	
 	@Override
-	public int getCraftCost() 
+	public int getCraftPrice() 
 	{
-		return this.getCost() / 2;
+		// No additional price to craft
+		return 0;
 	}
 
 	@Override
 	public int getXPCost() 
 	{
-		return this.getCost() / 25;
+		return 0;
 	}
 	
 	public int getBonus()
