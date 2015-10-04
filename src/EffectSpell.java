@@ -208,22 +208,80 @@ public class EffectSpell extends Effect {
 	public int getPrice() {
 		int price = 0;
 		// Calculate the base price depending on the type of spell
-		price += this.getCasterLevel() * this.getSpellLevel() * this.type.getPrice();
-		// Is the Spell Effect single use
-		if(isSingleUse()) {
-			price += this.getCraftPrice() + this.getXPCost();
-		} else {
-			// Add 50 charges 
-			price += 50 * this.getCraftPrice();
-			price += 50 * 5 * this.getXPCost();
+		price += this.getType().getPrice() * this.getCasterLevel() * this.getSpellLevel();
+		
+		// Set Number of charges required
+		int charges = 1; 
+		switch(this.getType())
+		{
+			case SINGLE_USE_SPELL_COMPLETION:
+			case SINGLE_USE_USE_ACTIVATED:
+				charges = 1;
+				break;
+			case CHARGES_SPELL_TRIGGER:
+				charges = 50;
+				break;
+			case COMMAND_WORD:
+			case USE_ACTIVATED:
+				if(dailyUses.equals(EffectSpell.Daily_Uses.UNLIMITED))				
+					charges = 100;				
+				break;
+			case CONTINOUS:
+				charges = 100;
+				break;				
 		}
+		// Material Cost			
+		price += charges * this.getCraftPrice();
+		// XP Cost
+		price += charges * 5 * this.getXPCost();
+		
+		
+		/*
+		// Is the Spell Effect single use
+		switch(this.getType())
+		{
+		case SINGLE_USE_SPELL_COMPLETION:		
+			// Spell Cost
+			price += 25 * this.getCasterLevel() * this.getSpellLevel();
+			// Costly material Components
+			price += this.craftCost;
+			break;
+		case SINGLE_USE_USE_ACTIVATED:
+			// Spell Cost
+			price += 50 * this.getCasterLevel() * this.getSpellLevel();
+			// Costly material components
+			break;
+		case CHARGES_SPELL_TRIGGER:
+			// Spell Cost
+			price += 750 * this.getCasterLevel() * this.getSpellLevel();
+			// Material Cost
+			price += 50 * this.getCraftPrice();
+			// XP Cost
+			price += 50 * 5 * this.getXPCost();
+			break;
+		case COMMAND_WORD:	
+			// Spell Cost
+			price += 1800 * this.getCasterLevel() * this.getSpellLevel();
+			// Number of charges required
+			int charges = 50;
+			if(this.dailyUses == EffectSpell.Daily_Uses.UNLIMITED)
+				charges = 100;
+			// Material Cost			
+			price += charges * this.getCraftPrice();
+			// XP Cost
+			price += charges * 5 * this.getXPCost();			
+			// Discount for uses per day
+			price *= this.getDailyUses().getMultiplier();
+			break;		
+		case USE_ACTIVATED:
+		case CONTINOUS:
+			// Spell Cost
+			price += 2000 * this.getCasterLevel() * this.getSpellLevel();
+			break;		
+		}
+		
+		*/
 		 return price;
-	}
-	
-	private boolean isSingleUse()
-	{
-		return this.getType() == Type.SINGLE_USE_SPELL_COMPLETION ||
-				this.getType() == Type.SINGLE_USE_USE_ACTIVATED;
 	}
 
 	@XmlElement
@@ -278,7 +336,41 @@ public class EffectSpell extends Effect {
 
 	@Override
 	@XmlElement
-	public String getName() {
+	public String getName() 
+	{
 		return this.name;
+	}
+			
+	public int getXpCost() {
+		return xpCost;
+	}
+
+	public void setXpCost(int xpCost) {
+		this.xpCost = xpCost;
+	}
+
+	public Daily_Uses getDailyUses() {
+		return dailyUses;
+	}
+
+	public void setDailyUses(Daily_Uses dailyUses) {
+		this.dailyUses = dailyUses;
+	}
+
+	public Spell_Duration getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Spell_Duration duration) {
+		this.duration = duration;
+	}
+
+	public int getCraftCost() {
+		return craftCost;
+	}
+
+	public String toString()
+	{
+		return getName();
 	}
 }
