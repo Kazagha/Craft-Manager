@@ -17,15 +17,20 @@ public class EffectSpell extends Effect {
 
 	public enum Type
 	{
-		SINGLE_USE_SPELL_COMPLETION		("Single use, spell completion", 25),
-		SINGLE_USE_USE_ACTIVATED		("Single use, use-activated", 50),
-		CHARGES_SPELL_TRIGGER			("50 charges, spell trigger", 750),
-		COMMAND_WORD					("Command Word", 1800),
-		CONTINOUS						("Use-activated or continuous", 2000);	
+		SINGLE_USE_SPELL_COMPLETION		("Single use, spell completion", 25, 1),
+		SINGLE_USE_USE_ACTIVATED		("Single use, use-activated", 50, 1),
+		CHARGES_SPELL_TRIGGER			("50 charges, spell trigger", 750, 1),
+		COMMAND_WORD					("Command Word", 1800, 1),
+		USE_ACTIVATED					("Use-activated", 2000, 1),
+		CONTINOUS_ROUND					("Continuous - round / level", 2000, 4),
+		CONTINOUS_1_MIN					("Continuous - 1 min / level", 2000, 2),
+		CONTINOUS_10_MIN				("Continuous - 10 min / level", 2000, 1.5),
+		CONTINOUS_24_HOUR				("Continuous - > 24 hours", 2000, .5);
 		
 		String desc;
 		int price;
-		Type(String desc, int price)
+		int mulitplier;
+		Type(String desc, int price, double multiplier)
 		{
 			this.desc = desc;
 			this.price = price;
@@ -130,6 +135,28 @@ public class EffectSpell extends Effect {
 	{
 		this.type = type;
 	}
+	
+	@Override
+	public int getPrice() {
+		int price = 0;
+		// Calculate the base price depending on the type of spell
+		price += this.getCasterLevel() * this.getSpellLevel() * this.type.getPrice();
+		// Is the Spell Effect single use
+		if(isSingleUse()) {
+			price += this.getCraftPrice() + this.getXPCost();
+		} else {
+			// Add 50 charges 
+			price += 50 * this.getCraftPrice();
+			price += 50 * 5 * this.getXPCost();
+		}
+		 return price;
+	}
+	
+	private boolean isSingleUse()
+	{
+		return this.getType() == Type.SINGLE_USE_SPELL_COMPLETION ||
+				this.getType() == Type.SINGLE_USE_USE_ACTIVATED;
+	}
 
 	@XmlElement
 	public int getCraftPrice() 
@@ -185,11 +212,5 @@ public class EffectSpell extends Effect {
 	@XmlElement
 	public String getName() {
 		return this.name;
-	}
-
-	@Override
-	public int getPrice() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }
