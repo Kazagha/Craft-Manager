@@ -71,7 +71,7 @@ public class EffectSpell extends Effect {
 		}
 	}
 	
-	public enum SpellDuration
+	public enum Spell_Duration
 	{
 		ROUNDS							("Rounds / level", 4),
 		ONE_MINUTE						("1 minute / level", 2),
@@ -80,7 +80,7 @@ public class EffectSpell extends Effect {
 		
 		String desc;
 		double multiplier;
-		SpellDuration(String desc, double multiplier)
+		Spell_Duration(String desc, double multiplier)
 		{
 			this.desc = desc;
 			this.multiplier = multiplier;
@@ -104,9 +104,12 @@ public class EffectSpell extends Effect {
 	private int craftCost;
 	private int xpCost;
 	
+	private Daily_Uses dailyUses;
+	private Spell_Duration duration;
+	
 	public EffectSpell() {}
 	
-	public EffectSpell(String name, Type type, int casterLevel, int spellLevel, int craftCost, int xpCost)
+	public EffectSpell(String name, Type type, Daily_Uses dailyUses, Spell_Duration duration, int casterLevel, int spellLevel, int craftCost, int xpCost)
 	{
 		this.name = name;
 		this.type = type;
@@ -114,11 +117,18 @@ public class EffectSpell extends Effect {
 		this.spellLevel = spellLevel;
 		this.craftCost = craftCost;
 		this.xpCost = xpCost;
+		this.dailyUses = dailyUses;
+		this.duration = duration;
 	}
 	
 	public static EffectSpell create()
 	{
-		EffectSpell newEffect = new EffectSpell("", EffectSpell.Type.CHARGES_SPELL_TRIGGER, 0, 0, 0, 0);
+		EffectSpell newEffect = new EffectSpell(
+				"", 
+				EffectSpell.Type.CHARGES_SPELL_TRIGGER, 
+				EffectSpell.Daily_Uses.UNLIMITED, 
+				EffectSpell.Spell_Duration.ROUNDS, 
+				0, 0, 0, 0);
 		
 		if(newEffect.edit() == JOptionPane.OK_OPTION)
 			return newEffect;
@@ -137,15 +147,23 @@ public class EffectSpell extends Effect {
 		JTextField xpCost = new JTextField(String.valueOf(getXPCost()));
 		
 		JComboBox<EffectSpell.Type> spellType = new JComboBox<EffectSpell.Type>(EffectSpell.Type.values());
-		spellType.setSelectedItem(type);
+		spellType.setSelectedItem(this.type);
+		
+		JComboBox<EffectSpell.Daily_Uses> dailyUses = new JComboBox<EffectSpell.Daily_Uses>(EffectSpell.Daily_Uses.values());
+		dailyUses.setSelectedItem(this.dailyUses);
+		
+		JComboBox<EffectSpell.Spell_Duration> duration = new JComboBox<EffectSpell.Spell_Duration>(EffectSpell.Spell_Duration.values());
+		duration.setSelectedItem(this.duration);
 		
 		array.addAll(Arrays.asList(new Object[] { 
-				"Name", name, 
-				"Type", type,
+				"Name", name,	
+				"Type", spellType,		
 				"Caster Level", casterLevel, 
 				"Spell Level", spellLevel, 
 				"Material Cost", craftCost, 
-				"XP Cost", xpCost 
+				"XP Cost", xpCost,				
+				"Daily Uses", dailyUses,
+				"Duration", duration
 				}));
 		
 		FocusSelectAll focus = new FocusSelectAll();
