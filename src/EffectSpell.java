@@ -17,20 +17,16 @@ public class EffectSpell extends Effect {
 
 	public enum Type
 	{
-		SINGLE_USE_SPELL_COMPLETION		("Single use, spell completion", 25, 1),
-		SINGLE_USE_USE_ACTIVATED		("Single use, use-activated", 50, 1),
-		CHARGES_SPELL_TRIGGER			("50 charges, spell trigger", 750, 1),
-		COMMAND_WORD					("Command Word", 1800, 1),
-		USE_ACTIVATED					("Use-activated", 2000, 1),
-		CONTINOUS_ROUND					("Continuous - round / level", 2000, 4),
-		CONTINOUS_1_MIN					("Continuous - 1 min / level", 2000, 2),
-		CONTINOUS_10_MIN				("Continuous - 10 min / level", 2000, 1.5),
-		CONTINOUS_24_HOUR				("Continuous - > 24 hours", 2000, .5);
+		SINGLE_USE_SPELL_COMPLETION		("Single use, spell completion", 25),
+		SINGLE_USE_USE_ACTIVATED		("Single use, use-activated", 50),
+		CHARGES_SPELL_TRIGGER			("50 charges, spell trigger", 750),
+		COMMAND_WORD					("Command Word", 1800),
+		USE_ACTIVATED					("Use-activated", 2000),
+		CONTINOUS						("Continuous", 2000);
 		
 		String desc;
 		int price;
-		int mulitplier;
-		Type(String desc, int price, double multiplier)
+		Type(String desc, int price)
 		{
 			this.desc = desc;
 			this.price = price;
@@ -45,7 +41,45 @@ public class EffectSpell extends Effect {
 		{
 			return desc;
 		}
-	}	
+	}
+	
+	public enum DailyUses
+	{
+		UNLIMITED						("Unlimited Uses", 1),
+		FIVE							("5 per day @ 100%", 5/5),
+		FOUR							("4 per day @ 80%", 4/5),
+		THREE							("3 per day @ 60%", 3/5),
+		TWO								("2 per day @ 40%", 2/5),
+		ONE								("1 per day @ 20%", 1/5);
+		
+		String desc;
+		double multiplier;
+		DailyUses(String desc, double multiplier)
+		{
+			this.desc = desc;
+			this.multiplier = multiplier;
+		}		
+		
+		public String getDesc()
+		{
+			return desc;
+		}
+
+		public double getMultiplier() 
+		{
+			return multiplier;
+		}
+
+		public String toString()
+		{
+			return this.getDesc();
+		}
+	}
+	
+	public enum SpellDuration
+	{
+		
+	}
 	
 	private String name;
 	private Type type;
