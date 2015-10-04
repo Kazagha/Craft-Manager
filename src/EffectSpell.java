@@ -43,7 +43,7 @@ public class EffectSpell extends Effect {
 		}
 	}
 	
-	public enum DailyUses
+	public enum Daily_Uses
 	{
 		UNLIMITED						("Unlimited Uses", 1),
 		FIVE							("5 per day @ 100%", 5/5),
@@ -54,31 +54,47 @@ public class EffectSpell extends Effect {
 		
 		String desc;
 		double multiplier;
-		DailyUses(String desc, double multiplier)
+		Daily_Uses(String desc, double multiplier)
 		{
 			this.desc = desc;
 			this.multiplier = multiplier;
-		}		
-		
-		public String getDesc()
-		{
-			return desc;
-		}
+		}	
 
 		public double getMultiplier() 
 		{
-			return multiplier;
+			return this.multiplier;
 		}
 
 		public String toString()
 		{
-			return this.getDesc();
+			return this.desc;
 		}
 	}
 	
 	public enum SpellDuration
 	{
+		ROUNDS							("Rounds / level", 4),
+		ONE_MINUTE						("1 minute / level", 2),
+		TEN_MINUTE						("10 minutes / level", 1.5),
+		DAY								("> 24 hour", .5);
 		
+		String desc;
+		double multiplier;
+		SpellDuration(String desc, double multiplier)
+		{
+			this.desc = desc;
+			this.multiplier = multiplier;
+		}
+		
+		public double getMultiplier()
+		{
+			return this.multiplier;
+		}
+		
+		public String toString()
+		{
+			return this.desc;
+		}
 	}
 	
 	private String name;
