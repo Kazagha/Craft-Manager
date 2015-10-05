@@ -91,9 +91,9 @@ public class ItemWand extends ItemMagic {
 		
 		for(Effect effect : this.getEffect())
 		{
-			if(effect instanceof SpellEffect)
+			if(effect instanceof EffectSpell)
 			{
-				SpellEffect spell = (SpellEffect) effect;
+				EffectSpell spell = (EffectSpell) effect;
 				// Calculate the base price
 				price += 750 * spell.getCasterLevel() * spell.getSpellLevel();
 				// Additional costly 'material components'
