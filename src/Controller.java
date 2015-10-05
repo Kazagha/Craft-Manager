@@ -131,6 +131,16 @@ public class Controller {
 		return JOptionPane.showConfirmDialog(view, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
+	/**
+	 * Prompt the user to edit <code>array</code> using  the <code>JOptionPane</code>
+	 * @param array
+	 * @return
+	 */
+	public int editArray(Object[] array) 
+	{
+		return JOptionPane.showConfirmDialog(view, array, "New Item", JOptionPane.OK_CANCEL_OPTION);
+	}
+	
 	public void showMessage(String message) 
 	{
 		JOptionPane.showMessageDialog(view, message);
@@ -193,14 +203,19 @@ public class Controller {
 						break;
 					case NEWITEM: 
 						//model.appendQueue(ItemMundane.create());
-						ItemWand newItem = (ItemWand) ItemWand.create();
-						//newItem.addEffect(new SpellEffect().create());						
+						//ItemWand newItem = (ItemWand) ItemWand.create();
+						//newItem.addEffect(new SpellEffect().create());
+						ItemMagicBasic newItem = ItemMagicBasic.create();
 						model.appendQueue(newItem);
 						break;
 					case NEWEFFECT:
 						{
 							ItemMagic item = (ItemMagic) source.getClientProperty(key);
-							item.addEffect(SpellEffect.create());	
+							item.addEffect(EffectSpell.create());
+							//item.addEffect(EffectBonus.create());
+							
+							// TODO: Hack to force item to update
+							item.setName(item.getName());
 							item.notifyObservers();
 						}
 						break;
@@ -321,7 +336,7 @@ public class Controller {
 			// Edit existing Effects
 			for(Effect effect : ((ItemMagic) item).getEffect())
 			{				
-				jmi = new JMenuItem(effect.getName());
+				jmi = new JMenuItem(effect.toString());
 				jmi.addActionListener(listener);
 				jmi.setActionCommand(Controller.Action.EDIT.toString());		
 				jmi.putClientProperty(key, effect);
