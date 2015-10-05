@@ -22,7 +22,7 @@ public class EffectSpell extends Effect {
 		CHARGES_SPELL_TRIGGER			("50 charges, spell trigger", 750),
 		COMMAND_WORD					("Command Word", 1800),
 		USE_ACTIVATED					("Use-activated", 2000),
-		CONTINOUS						("Continuous", 2000);
+		CONTINUOUS						("Continuous", 2000);
 		
 		String desc;
 		int price;
@@ -209,7 +209,7 @@ public class EffectSpell extends Effect {
 	
 	@Override
 	public int getPrice() {
-		int price = 0;
+		double price = 0;
 		// Calculate the base price depending on the type of spell
 		price += this.getType().getPrice() * this.getCasterLevel() * this.getSpellLevel();
 		
@@ -230,7 +230,7 @@ public class EffectSpell extends Effect {
 				if(dailyUses.equals(EffectSpell.DailyUses.UNLIMITED))				
 					charges = 100;				
 				break;
-			case CONTINOUS:
+			case CONTINUOUS:
 				charges = 100;
 				break;				
 		}
@@ -239,6 +239,14 @@ public class EffectSpell extends Effect {
 		// XP Cost
 		price += charges * 5 * this.getXPCost();
 		
+		// Discount for '# uses per day'
+		price *= this.getDailyUses().getMultiplier();
+		
+		// If the item is Continuous 
+		if(this.getType() == Type.CONTINUOUS)
+		{
+			price *= this.getDuration().getMultiplier();
+		}
 		
 		/*
 		// Is the Spell Effect single use
@@ -285,7 +293,7 @@ public class EffectSpell extends Effect {
 		}
 		
 		*/
-		 return price;
+		 return (int) price;
 	}
 
 	@XmlElement
