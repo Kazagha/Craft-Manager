@@ -221,8 +221,14 @@ public class EffectSpell extends Effect {
 		price += this.getType().getPrice() * this.getCasterLevel() * this.getSpellLevel();
 
 		// Add Costly Material and XP Components
-		price += this.getType().getCharges() *
-				(this.getCraftPrice() + (this.getXpCost() * 5));
+		price += addChargeCost(this.getType().getCharges());
+		
+		// Additional charges if the Item has Unlimited daily uses 
+		if ((this.getType() == Type.USE_ACTIVATED || this.getType() == Type.COMMAND_WORD)
+				&& this.getDailyUses() == DailyUses.UNLIMITED) 
+				{
+					price += addChargeCost(50);
+				}
 		
 		// Discount for '# uses per day'
 		price *= this.getDailyUses().getMultiplier();
@@ -279,6 +285,11 @@ public class EffectSpell extends Effect {
 		
 		*/
 		 return (int) price;
+	}
+	
+	private int addChargeCost(int charges)
+	{
+		return charges * (this.getCraftPrice() + (this.getXpCost() * 5));
 	}
 
 	@XmlElement
