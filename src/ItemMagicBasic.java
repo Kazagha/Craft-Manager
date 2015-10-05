@@ -17,7 +17,6 @@ public class ItemMagicBasic extends ItemMagic {
 	public static ItemMagicBasic create()
 	{
 		ItemMagicBasic newItem = new ItemMagicBasic("");
-		newItem.addEffect(new EffectBonus(1, EffectBonus.Type.ARMOR_BONUS));
 		if(newItem.edit() == JOptionPane.OK_OPTION)
 			return newItem;	
 		
