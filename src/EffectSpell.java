@@ -43,7 +43,7 @@ public class EffectSpell extends Effect {
 		}
 	}
 	
-	public enum Daily_Uses
+	public enum DailyUses
 	{
 		UNLIMITED						("Unlimited Uses", 1),
 		FIVE							("5 per day @ 100%", 5/5),
@@ -54,7 +54,7 @@ public class EffectSpell extends Effect {
 		
 		String desc;
 		double multiplier;
-		Daily_Uses(String desc, double multiplier)
+		DailyUses(String desc, double multiplier)
 		{
 			this.desc = desc;
 			this.multiplier = multiplier;
@@ -71,7 +71,7 @@ public class EffectSpell extends Effect {
 		}
 	}
 	
-	public enum Spell_Duration
+	public enum SpellDuration
 	{
 		ROUNDS							("Rounds / level", 4),
 		ONE_MINUTE						("1 minute / level", 2),
@@ -80,7 +80,7 @@ public class EffectSpell extends Effect {
 		
 		String desc;
 		double multiplier;
-		Spell_Duration(String desc, double multiplier)
+		SpellDuration(String desc, double multiplier)
 		{
 			this.desc = desc;
 			this.multiplier = multiplier;
@@ -104,12 +104,12 @@ public class EffectSpell extends Effect {
 	private int craftCost;
 	private int xpCost;
 	
-	private Daily_Uses dailyUses;
-	private Spell_Duration duration;
+	private DailyUses dailyUses;
+	private SpellDuration duration;
 	
 	public EffectSpell() {}
 	
-	public EffectSpell(String name, Type type, Daily_Uses dailyUses, Spell_Duration duration, int casterLevel, int spellLevel, int craftCost, int xpCost)
+	public EffectSpell(String name, Type type, DailyUses dailyUses, SpellDuration duration, int casterLevel, int spellLevel, int craftCost, int xpCost)
 	{
 		this.name = name;
 		this.type = type;
@@ -126,8 +126,8 @@ public class EffectSpell extends Effect {
 		EffectSpell newEffect = new EffectSpell(
 				"", 
 				EffectSpell.Type.CHARGES_SPELL_TRIGGER, 
-				EffectSpell.Daily_Uses.UNLIMITED, 
-				EffectSpell.Spell_Duration.ROUNDS, 
+				EffectSpell.DailyUses.UNLIMITED, 
+				EffectSpell.SpellDuration.ROUNDS, 
 				0, 0, 0, 0);
 		
 		if(newEffect.edit() == JOptionPane.OK_OPTION)
@@ -149,10 +149,10 @@ public class EffectSpell extends Effect {
 		JComboBox<EffectSpell.Type> spellType = new JComboBox<EffectSpell.Type>(EffectSpell.Type.values());
 		spellType.setSelectedItem(this.type);
 		
-		JComboBox<EffectSpell.Daily_Uses> dailyUses = new JComboBox<EffectSpell.Daily_Uses>(EffectSpell.Daily_Uses.values());
+		JComboBox<EffectSpell.DailyUses> dailyUses = new JComboBox<EffectSpell.DailyUses>(EffectSpell.DailyUses.values());
 		dailyUses.setSelectedItem(this.dailyUses);
 		
-		JComboBox<EffectSpell.Spell_Duration> duration = new JComboBox<EffectSpell.Spell_Duration>(EffectSpell.Spell_Duration.values());
+		JComboBox<EffectSpell.SpellDuration> duration = new JComboBox<EffectSpell.SpellDuration>(EffectSpell.SpellDuration.values());
 		duration.setSelectedItem(this.duration);
 		
 		array.addAll(Arrays.asList(new Object[] { 
@@ -187,8 +187,8 @@ public class EffectSpell extends Effect {
 				this.setXPCost(Integer.valueOf(xpCost.getText()));
 				
 				this.setType((EffectSpell.Type) spellType.getSelectedItem());
-				this.setDailyUses((EffectSpell.Daily_Uses) dailyUses.getSelectedItem());
-				this.setDuration((EffectSpell.Spell_Duration) duration.getSelectedItem());
+				this.setDailyUses((EffectSpell.DailyUses) dailyUses.getSelectedItem());
+				this.setDuration((EffectSpell.SpellDuration) duration.getSelectedItem());
 				return result;
 			} catch (Exception e) {
 				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
@@ -227,7 +227,7 @@ public class EffectSpell extends Effect {
 			case COMMAND_WORD:
 			case USE_ACTIVATED:
 				charges = 50;
-				if(dailyUses.equals(EffectSpell.Daily_Uses.UNLIMITED))				
+				if(dailyUses.equals(EffectSpell.DailyUses.UNLIMITED))				
 					charges = 100;				
 				break;
 			case CONTINOUS:
@@ -353,19 +353,19 @@ public class EffectSpell extends Effect {
 		this.xpCost = xpCost;
 	}
 
-	public Daily_Uses getDailyUses() {
+	public DailyUses getDailyUses() {
 		return dailyUses;
 	}
 
-	public void setDailyUses(Daily_Uses dailyUses) {
+	public void setDailyUses(DailyUses dailyUses) {
 		this.dailyUses = dailyUses;
 	}
 
-	public Spell_Duration getDuration() {
+	public SpellDuration getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Spell_Duration duration) {
+	public void setDuration(SpellDuration duration) {
 		this.duration = duration;
 	}
 
