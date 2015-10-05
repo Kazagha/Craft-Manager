@@ -156,12 +156,12 @@ public class EffectSpell extends Effect {
 		duration.setSelectedItem(this.duration);
 		
 		array.addAll(Arrays.asList(new Object[] { 
-				"Name", name,	
-				"Type", spellType,		
+				"Name", name,						
 				"Caster Level", casterLevel, 
 				"Spell Level", spellLevel, 
 				"Material Cost", craftCost, 
-				"XP Cost", xpCost,				
+				"XP Cost", xpCost,
+				"Type", spellType,	
 				"Daily Uses", dailyUses,
 				"Duration", duration
 				}));
@@ -180,12 +180,15 @@ public class EffectSpell extends Effect {
 			{
 				result = Controller.getInstance().editArray(array);
 				
-				this.setName(name.getText());
-				this.setType((EffectSpell.Type) spellType.getSelectedItem());
+				this.setName(name.getText());				
 				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
 				this.setSpellLevel(Integer.valueOf(spellLevel.getText()));
 				this.setCraftCost(Integer.valueOf(craftCost.getText()));
 				this.setXPCost(Integer.valueOf(xpCost.getText()));
+				
+				this.setType((EffectSpell.Type) spellType.getSelectedItem());
+				this.setDailyUses((EffectSpell.Daily_Uses) dailyUses.getSelectedItem());
+				this.setDuration((EffectSpell.Spell_Duration) duration.getSelectedItem());
 				return result;
 			} catch (Exception e) {
 				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
@@ -223,6 +226,7 @@ public class EffectSpell extends Effect {
 				break;
 			case COMMAND_WORD:
 			case USE_ACTIVATED:
+				charges = 50;
 				if(dailyUses.equals(EffectSpell.Daily_Uses.UNLIMITED))				
 					charges = 100;				
 				break;
