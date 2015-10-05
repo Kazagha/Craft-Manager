@@ -53,11 +53,11 @@ public class EffectSpell extends Effect {
 	public enum DailyUses
 	{
 		UNLIMITED						("Unlimited Uses", 1),
-		FIVE							("5 per day @ 100%", 5/5),
-		FOUR							("4 per day @ 80%", 4/5),
-		THREE							("3 per day @ 60%", 3/5),
-		TWO								("2 per day @ 40%", 2/5),
-		ONE								("1 per day @ 20%", 1/5);
+		FIVE							("5 per day @ 100%", (double) 5/5),
+		FOUR							("4 per day @ 80%", (double) 4/5),
+		THREE							("3 per day @ 60%", (double) 3/5),
+		TWO								("2 per day @ 40%", (double) 2/5),
+		ONE								("1 per day @ 20%", (double) 1/5);
 		
 		String desc;
 		double multiplier;
