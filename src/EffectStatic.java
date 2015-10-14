@@ -49,6 +49,10 @@ public class EffectStatic extends Effect {
 			{
 				result = Controller.getInstance().editArray(array);
 				
+				this.setName(name.getText());
+				this.setPrice(Integer.valueOf(price.getText()));
+				this.setXpCost(Integer.valueOf(xp.getText()));
+				return result;				
 			} catch (Exception e) {
 				Controller.getInstance().showMessage("Input Error:" + e.getMessage());
 			}
