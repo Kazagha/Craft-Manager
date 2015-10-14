@@ -316,36 +316,31 @@ public class Controller {
 		
 		// TODO: Different menu for different types of items
 		
-		jmi = new JMenuItem("Edit Item");
+		subMenu = new JMenu("Edit");
+		menu.add(subMenu);
+		
+		jmi = new JMenuItem("Rename Item");
 		jmi.addActionListener(listener);
 		jmi.setActionCommand(Controller.Action.EDIT.toString());	
 		jmi.putClientProperty(key, item);
-		menu.add(jmi);		
+		subMenu.add(jmi);		
 		
-		subMenu = new JMenu("Edit");
-		menu.add(subMenu);
-				
 		// Check if the item is 'magic' 
 		if(item instanceof ItemMagic) {
 			
 			// Add a new magical Effects
-			jmi = new JMenuItem("New Effect");
+			/*
+			jmi = new JMenuItem("Effect");
 			jmi.addActionListener(listener);
 			jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
 			jmi.putClientProperty(key, item);
 			jmi.putClientProperty(keyEffect, EffectSpell.class);
 			subMenu.add(jmi);
-			subMenu.addSeparator();
+			*/
 			
-			for(Effect effect: new Effect[] { new EffectBonus(), new EffectSpell() })
-			{
-				jmi = new JMenuItem(effect.classToString());
-				jmi.addActionListener(listener);
-				jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
-				jmi.putClientProperty(key, item);
-				jmi.putClientProperty(keyEffect, effect);
-				subMenu.add(jmi);
-			}
+			subMenu.addSeparator();
+			//subMenu.add(new JMenuItem("Effects"));
+			//subMenu.addSeparator();
 			
 			// Edit existing Effects
 			for(Effect effect : ((ItemMagic) item).getEffect())
@@ -355,6 +350,20 @@ public class Controller {
 				jmi.setActionCommand(Controller.Action.EDIT.toString());		
 				jmi.putClientProperty(key, effect);
 				jmi.putClientProperty(keyItem, item);
+				subMenu.add(jmi);
+			}
+			
+			// Create new effects
+			subMenu = new JMenu("New");
+			menu.add(subMenu);
+						
+			for(Effect effect: new Effect[] { new EffectBonus(), new EffectSpell() })
+			{
+				jmi = new JMenuItem(effect.classToString());
+				jmi.addActionListener(listener);
+				jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
+				jmi.putClientProperty(key, item);
+				jmi.putClientProperty(keyEffect, effect);
 				subMenu.add(jmi);
 			}
 		}
