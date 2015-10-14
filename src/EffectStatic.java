@@ -1,3 +1,6 @@
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 
 public class EffectStatic extends Effect {
 
@@ -29,8 +32,28 @@ public class EffectStatic extends Effect {
 	}
 
 	@Override
-	public int edit() {
-		return 0;
+	public int edit() 
+	{
+		Object[] array;
+		
+		JTextField name = new JTextField(this.getName());
+		JTextField price = new JTextField(String.valueOf(this.getPrice()));
+		JTextField xp = new JTextField(String.valueOf(this.getXPCost()));
+		
+		array = new Object[] { "Name", name, "Price", price, "Additional XP Cost", xp };
+		
+		int result = JOptionPane.OK_OPTION;
+		while(result == JOptionPane.OK_OPTION)
+		{
+			try 
+			{
+				result = Controller.getInstance().editArray(array);
+				
+			} catch (Exception e) {
+				Controller.getInstance().showMessage("Input Error:" + e.getMessage());
+			}
+		}
+		
+		return result;
 	}
-
 }
