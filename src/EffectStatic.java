@@ -39,6 +39,16 @@ public class EffectStatic extends Effect {
 	{
 		return xpCost;
 	}	
+	
+	public static EffectStatic create()
+	{
+		EffectStatic newEffect = new EffectStatic("", 0, 0);
+		
+		if(newEffect.edit() == JOptionPane.OK_OPTION)		
+			return newEffect;
+		
+		return null;		
+	}
 
 	@Override
 	public int edit() 
