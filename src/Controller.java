@@ -210,9 +210,12 @@ public class Controller {
 						break;
 					case NEWEFFECT:
 						{
-							ItemMagic item = (ItemMagic) source.getClientProperty(key);
-							item.addEffect(EffectSpell.create());
-							//item.addEffect(EffectBonus.create());
+							// Get the Item
+							ItemMagic item = (ItemMagic) source.getClientProperty(key);							
+							// Get the effect
+							Effect effect = (Effect) source.getClientProperty(keyEffect);					
+							// Create the new effect on the specified item
+							item.addEffect(effect.create());
 							
 							// TODO: Hack to force item to update
 							item.setName(item.getName());
@@ -330,8 +333,19 @@ public class Controller {
 			jmi.addActionListener(listener);
 			jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
 			jmi.putClientProperty(key, item);
+			jmi.putClientProperty(keyEffect, EffectSpell.class);
 			subMenu.add(jmi);
 			subMenu.addSeparator();
+			
+			for(Effect effect: new Effect[] { new EffectBonus(), new EffectSpell() })
+			{
+				jmi = new JMenuItem(effect.classToString());
+				jmi.addActionListener(listener);
+				jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
+				jmi.putClientProperty(key, item);
+				jmi.putClientProperty(keyEffect, effect);
+				subMenu.add(jmi);
+			}
 			
 			// Edit existing Effects
 			for(Effect effect : ((ItemMagic) item).getEffect())
