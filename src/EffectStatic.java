@@ -93,4 +93,9 @@ public class EffectStatic extends Effect {
 	{
 		this.price = price;
 	}
+	
+	public String toString()
+	{
+		return this.getName();
+	}
 }
