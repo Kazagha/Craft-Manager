@@ -8,6 +8,15 @@ public class EffectStatic extends Effect {
 	int price;
 	int xpCost;
 	
+	public EffectStatic() {};
+	
+	public EffectStatic(String name, int price, int XP)
+	{
+		this.name = name;
+		this.price = price;
+		this.xpCost = XP;
+	}
+	
 	@Override
 	public String getName() 
 	{
@@ -29,7 +38,7 @@ public class EffectStatic extends Effect {
 	public int getXPCost() 
 	{
 		return xpCost;
-	}
+	}	
 
 	@Override
 	public int edit() 
