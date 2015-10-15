@@ -128,7 +128,7 @@ public class EffectSpell extends Effect {
 		this.duration = duration;
 	}
 	
-	public static EffectSpell create()
+	public EffectSpell create()
 	{
 		EffectSpell newEffect = new EffectSpell(
 				"", 
@@ -380,5 +380,10 @@ public class EffectSpell extends Effect {
 	public String toString()
 	{
 		return getName();
+	}
+	
+	public String classToString()
+	{
+		return "Spell";
 	}
 }

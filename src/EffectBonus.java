@@ -101,7 +101,7 @@ public class EffectBonus extends Effect {
 		this.type = type;
 	}
 	
-	public static EffectBonus create()
+	public EffectBonus create()
 	{
 		EffectBonus newEffect = new EffectBonus(1, EffectBonus.Type.ABILITY_BONUS);
 		
@@ -145,5 +145,10 @@ public class EffectBonus extends Effect {
 	public String toString()
 	{
 		return String.format("+%d %s", this.getBonus(), this.getType());
+	}
+	
+	public String classToString()
+	{
+		return "Enhancement Bonus";
 	}
 }
