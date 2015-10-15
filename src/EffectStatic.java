@@ -102,6 +102,6 @@ public class EffectStatic extends Effect {
 	@Override
 	public String classToString() 
 	{
-		return "Set Price Effect";
+		return "Special (Set Price)";
 	}
 }
