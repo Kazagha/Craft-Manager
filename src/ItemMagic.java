@@ -20,6 +20,9 @@ public abstract class ItemMagic extends Item {
 	
 	public void addEffect(Effect effect)
 	{
+		if(effect == null)
+			return; 
+		
 		this.effect.add(effect);
 	}
 	
