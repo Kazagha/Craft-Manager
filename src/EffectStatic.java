@@ -40,7 +40,7 @@ public class EffectStatic extends Effect {
 		return xpCost;
 	}	
 	
-	public static EffectStatic create()
+	public Effect create()
 	{
 		EffectStatic newEffect = new EffectStatic("", 0, 0);
 		
@@ -97,5 +97,11 @@ public class EffectStatic extends Effect {
 	public String toString()
 	{
 		return this.getName();
+	}
+
+	@Override
+	public String classToString() 
+	{
+		return "Set Price Effect";
 	}
 }
