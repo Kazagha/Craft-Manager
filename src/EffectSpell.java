@@ -216,9 +216,16 @@ public class EffectSpell extends Effect {
 	
 	@Override
 	public int getPrice() {
+		// Set the price variable
 		double price = 0;
+		
+		// Get the spell level (where level 0 spells count as .5)
+		double spellLevel = this.getSpellLevel();
+		if(spellLevel == 0)
+			spellLevel = .5;
+		
 		// Calculate the base price depending on the type of spell
-		price += this.getType().getPrice() * this.getCasterLevel() * this.getSpellLevel();
+		price += this.getType().getPrice() * this.getCasterLevel() * spellLevel;
 
 		// Add Costly Material and XP Components
 		price += addChargeCost(this.getType().getCharges());
