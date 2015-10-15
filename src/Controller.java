@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.AbstractAction;
@@ -319,7 +320,7 @@ public class Controller {
 		subMenu = new JMenu("Edit");
 		menu.add(subMenu);
 		
-		jmi = new JMenuItem("Rename Item");
+		jmi = new JMenuItem("Item");
 		jmi.addActionListener(listener);
 		jmi.setActionCommand(Controller.Action.EDIT.toString());	
 		jmi.putClientProperty(key, item);
@@ -328,19 +329,7 @@ public class Controller {
 		// Check if the item is 'magic' 
 		if(item instanceof ItemMagic) {
 			
-			// Add a new magical Effects
-			/*
-			jmi = new JMenuItem("Effect");
-			jmi.addActionListener(listener);
-			jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
-			jmi.putClientProperty(key, item);
-			jmi.putClientProperty(keyEffect, EffectSpell.class);
-			subMenu.add(jmi);
-			*/
-			
 			subMenu.addSeparator();
-			//subMenu.add(new JMenuItem("Effects"));
-			//subMenu.addSeparator();
 			
 			// Edit existing Effects
 			for(Effect effect : ((ItemMagic) item).getEffect())
@@ -356,8 +345,9 @@ public class Controller {
 			// Create new effects
 			subMenu = new JMenu("New");
 			menu.add(subMenu);
-						
-			for(Effect effect: new Effect[] { new EffectBonus(), new EffectSpell() })
+			
+			Effect[] effectArray = new Effect[] { new EffectBonus(), new EffectSpell(), new EffectStatic() };						
+			for(Effect effect: effectArray)
 			{
 				jmi = new JMenuItem(effect.classToString());
 				jmi.addActionListener(listener);
