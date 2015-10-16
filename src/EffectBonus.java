@@ -1,11 +1,14 @@
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 public class EffectBonus extends Effect {
 
+	@XmlType(name = "ArmorType")
 	public enum Type
 	{
 		ABILITY_BONUS		("Ability Bonus (enhancement)", 1000),
@@ -92,7 +95,7 @@ public class EffectBonus extends Effect {
 	{
 		this.bonus = bonus;
 	}
-
+	
 	public Type getType() {
 		return type;
 	}
