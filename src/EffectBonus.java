@@ -1,8 +1,9 @@
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XmlRootElement
 public class EffectBonus extends Effect {
 
 	public enum Type
@@ -77,7 +78,7 @@ public class EffectBonus extends Effect {
 	}
 
 	@Override
-	public int getXPCost() 
+	public int getXpCost() 
 	{
 		return 0;
 	}
