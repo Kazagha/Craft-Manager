@@ -9,13 +9,14 @@ import javax.swing.JTextField;
 import javax.xml.bind.ValidationException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder={ "name", "casterLevel", "spellLevel", "craftCost", "XPCost" })
+@XmlType(propOrder={ "name", "casterLevel", "spellLevel", "xpCost", "trigger", "dailyUses", "duration" })
 public class EffectSpell extends Effect {
 
-	public enum Type
+	public enum Trigger
 	{
 		SINGLE_USE_SPELL_COMPLETION		("Single use, spell completion", 25, 1),
 		SINGLE_USE_USE_ACTIVATED		("Single use, use-activated", 50, 1),
@@ -27,7 +28,7 @@ public class EffectSpell extends Effect {
 		String desc;
 		int price;
 		int charges;
-		Type(String desc, int price, int charges)
+		Trigger(String desc, int price, int charges)
 		{
 			this.desc = desc;
 			this.price = price;
@@ -105,10 +106,10 @@ public class EffectSpell extends Effect {
 	}
 	
 	private String name;
-	private Type type;
+	private Trigger trigger;
 	private int casterLevel;
 	private int spellLevel;
-	private int craftCost;
+	private int craftPrice;
 	private int xpCost;
 	
 	private DailyUses dailyUses;
@@ -116,13 +117,13 @@ public class EffectSpell extends Effect {
 	
 	public EffectSpell() {}
 	
-	public EffectSpell(String name, Type type, DailyUses dailyUses, SpellDuration duration, int casterLevel, int spellLevel, int craftCost, int xpCost)
+	public EffectSpell(String name, Trigger type, DailyUses dailyUses, SpellDuration duration, int casterLevel, int spellLevel, int craftPrice, int xpCost)
 	{
 		this.name = name;
-		this.type = type;
+		this.trigger = type;
 		this.casterLevel = casterLevel;
 		this.spellLevel = spellLevel;
-		this.craftCost = craftCost;
+		this.craftPrice = craftPrice;
 		this.xpCost = xpCost;
 		this.dailyUses = dailyUses;
 		this.duration = duration;
@@ -132,7 +133,7 @@ public class EffectSpell extends Effect {
 	{
 		EffectSpell newEffect = new EffectSpell(
 				"", 
-				EffectSpell.Type.CHARGES_SPELL_TRIGGER, 
+				EffectSpell.Trigger.CHARGES_SPELL_TRIGGER, 
 				EffectSpell.DailyUses.UNLIMITED, 
 				EffectSpell.SpellDuration.ROUNDS, 
 				0, 0, 0, 0);
@@ -151,10 +152,10 @@ public class EffectSpell extends Effect {
 		JTextField casterLevel = new JTextField(String.valueOf(getCasterLevel()));
 		JTextField spellLevel = new JTextField(String.valueOf(getSpellLevel()));
 		JTextField craftCost = new JTextField(String.valueOf(getCraftPrice()));
-		JTextField xpCost = new JTextField(String.valueOf(getXPCost()));
+		JTextField xpCost = new JTextField(String.valueOf(getXpCost()));
 		
-		JComboBox<EffectSpell.Type> spellType = new JComboBox<EffectSpell.Type>(EffectSpell.Type.values());
-		spellType.setSelectedItem(this.type);
+		JComboBox<EffectSpell.Trigger> spellType = new JComboBox<EffectSpell.Trigger>(EffectSpell.Trigger.values());
+		spellType.setSelectedItem(this.trigger);
 		
 		JComboBox<EffectSpell.DailyUses> dailyUses = new JComboBox<EffectSpell.DailyUses>(EffectSpell.DailyUses.values());
 		dailyUses.setSelectedItem(this.dailyUses);
@@ -190,10 +191,10 @@ public class EffectSpell extends Effect {
 				this.setName(name.getText());				
 				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
 				this.setSpellLevel(Integer.valueOf(spellLevel.getText()));
-				this.setCraftCost(Integer.valueOf(craftCost.getText()));
-				this.setXPCost(Integer.valueOf(xpCost.getText()));
+				this.setCraftPrice(Integer.valueOf(craftCost.getText()));
+				this.setXpCost(Integer.valueOf(xpCost.getText()));
 				
-				this.setType((EffectSpell.Type) spellType.getSelectedItem());
+				this.setTrigger((EffectSpell.Trigger) spellType.getSelectedItem());
 				this.setDailyUses((EffectSpell.DailyUses) dailyUses.getSelectedItem());
 				this.setDuration((EffectSpell.SpellDuration) duration.getSelectedItem());
 				return result;
@@ -205,13 +206,13 @@ public class EffectSpell extends Effect {
 		return result;
 	}
 	
-	public Type getType() {
-		return type;
+	public Trigger getTrigger() {
+		return trigger;
 	}
 
-	public void setType(Type type) 
+	public void setTrigger(Trigger type) 
 	{
-		this.type = type;
+		this.trigger = type;
 	}
 	
 	@Override
@@ -225,13 +226,13 @@ public class EffectSpell extends Effect {
 			spellLevel = .5;
 		
 		// Calculate the base price depending on the type of spell
-		price += this.getType().getPrice() * this.getCasterLevel() * spellLevel;
+		price += this.getTrigger().getPrice() * this.getCasterLevel() * spellLevel;
 
 		// Add Costly Material and XP Components
-		price += addChargeCost(this.getType().getCharges());
+		price += addChargeCost(this.getTrigger().getCharges());
 		
 		// Additional charges if the Item has Unlimited daily uses 
-		if ((this.getType() == Type.USE_ACTIVATED || this.getType() == Type.COMMAND_WORD)
+		if ((this.getTrigger() == Trigger.USE_ACTIVATED || this.getTrigger() == Trigger.COMMAND_WORD)
 				&& this.getDailyUses() == DailyUses.UNLIMITED) 
 				{
 					price += addChargeCost(50);
@@ -241,7 +242,7 @@ public class EffectSpell extends Effect {
 		price *= this.getDailyUses().getMultiplier();
 		
 		// If the item is Continuous 
-		if(this.getType() == Type.CONTINUOUS)
+		if(this.getTrigger() == Trigger.CONTINUOUS)
 		{
 			price *= this.getDuration().getMultiplier();
 		}
@@ -299,26 +300,15 @@ public class EffectSpell extends Effect {
 		return charges * (this.getCraftPrice() + (this.getXpCost() * 5));
 	}
 
-	@XmlElement
+	@XmlTransient
 	public int getCraftPrice() 
 	{
-		return craftCost;
+		return craftPrice;
 	}
 
-	public void setCraftCost(int craftCost) 
+	public void setCraftPrice(int craftCost) 
 	{
-		this.craftCost = craftCost;
-	}
-
-	@XmlElement(name="XPCost")
-	public int getXPCost() 
-	{
-		return xpCost;
-	}
-
-	public void setXPCost(int xpCost) 
-	{
-		this.xpCost = xpCost;
+		this.craftPrice = craftCost;
 	}
 
 	public int getCasterLevel() 
@@ -356,11 +346,14 @@ public class EffectSpell extends Effect {
 		return this.name;
 	}
 			
-	public int getXpCost() {
+	@XmlElement
+	public int getXpCost() 
+	{
 		return xpCost;
 	}
 
-	public void setXpCost(int xpCost) {
+	public void setXpCost(int xpCost) 
+	{
 		this.xpCost = xpCost;
 	}
 
@@ -381,7 +374,7 @@ public class EffectSpell extends Effect {
 	}
 
 	public int getCraftCost() {
-		return craftCost;
+		return craftPrice;
 	}
 
 	public String toString()
