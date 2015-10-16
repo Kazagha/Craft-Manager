@@ -1,6 +1,7 @@
 import java.util.Observable;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 public abstract class Item  extends Observable {
@@ -8,6 +9,7 @@ public abstract class Item  extends Observable {
 	private int progress;
 	private TYPE itemType;
 	
+	@XmlType(name = "ItemType")
 	public static enum TYPE {MUNDANE, MAGIC};
 	
 	public Item() {}
