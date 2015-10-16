@@ -7,7 +7,7 @@ public abstract class Effect {
 	
 	public abstract int getCraftPrice();
 	
-	public abstract int getXPCost();	
+	public abstract int getXpCost();	
 	
 	public abstract int edit();
 	
