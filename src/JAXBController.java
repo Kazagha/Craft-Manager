@@ -21,7 +21,19 @@ public class JAXBController {
 	
 	private void setUp() {
 		try {
-			jaxbContext = JAXBContext.newInstance(Model.class, Item.class, ItemMundane.class, ItemMagic.class, ItemWand.class, Effect.class, SpellEffect.class);		
+			jaxbContext = JAXBContext.newInstance(
+					//  Model
+					Model.class,
+					// Items
+					Item.class,
+					ItemMundane.class,
+					ItemMagic.class,
+					ItemMagicBasic.class,
+					// Effects
+					Effect.class,
+					EffectSpell.class,
+					EffectBonus.class,
+					EffectStatic.class);		
 			unmarshaller = jaxbContext.createUnmarshaller();
 			marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
