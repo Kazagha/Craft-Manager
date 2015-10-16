@@ -1,5 +1,7 @@
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -19,13 +21,15 @@ public class EffectStatic extends Effect {
 		this.price = price;
 		this.xpCost = XP;
 	}
-	
+		
+	@XmlElement
 	@Override
 	public String getName() 
 	{
 		return name;
 	}
 
+	@XmlElement
 	@Override
 	public int getPrice() {
 		return price;
@@ -37,8 +41,9 @@ public class EffectStatic extends Effect {
 		return price / 2;
 	}
 
+	@XmlElement
 	@Override
-	public int getXPCost() 
+	public int getXpCost() 
 	{
 		return xpCost;
 	}	
@@ -60,7 +65,7 @@ public class EffectStatic extends Effect {
 		
 		JTextField name = new JTextField(this.getName());
 		JTextField price = new JTextField(String.valueOf(this.getPrice()));
-		JTextField xp = new JTextField(String.valueOf(this.getXPCost()));
+		JTextField xp = new JTextField(String.valueOf(this.getXpCost()));
 		
 		array = new Object[] { "Name", name, "Price", price, "Additional XP Cost", xp };
 		
