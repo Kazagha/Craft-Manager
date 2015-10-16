@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlRootElement(name = "Spell")
 @XmlType(propOrder={ "name", "casterLevel", "spellLevel", "xpCost", "trigger", "dailyUses", "duration" })
 public class EffectSpell extends Effect {
 
