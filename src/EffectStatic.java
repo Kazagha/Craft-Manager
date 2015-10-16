@@ -1,7 +1,10 @@
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-
+@XmlRootElement
+@XmlType(propOrder={ "name", "price", "xpCost"})
 public class EffectStatic extends Effect {
 
 	String name;
