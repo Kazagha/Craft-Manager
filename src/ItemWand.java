@@ -99,7 +99,7 @@ public class ItemWand extends ItemMagic {
 				// Additional costly 'material components'
 				price += spell.getCraftPrice() * 50;
 				// Additional cost for 'XP components'
-				price += spell.getXPCost() * 50 * 5;
+				price += spell.getXpCost() * 50 * 5;
 			}
 		}
 		
