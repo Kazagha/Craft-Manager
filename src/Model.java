@@ -16,8 +16,8 @@ public class Model extends Observable {
 	private ArrayList<Item> complete = new ArrayList<Item>();
 		
 	public Model()
-	{
-		
+	{		
+		setChanged();
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class Model extends Observable {
 	public void setGold(int num)
 	{
 		this.gold = num;
-		this.hasChanged();
+		setChanged();
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class Model extends Observable {
 	public void setXP(int num)
 	{
 		this.XP = num;
-		this.hasChanged();
+		this.setChanged();
 	}
 	
 	/**
