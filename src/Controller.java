@@ -420,7 +420,10 @@ public class Controller {
 		int progress = 2000;		
 		while(progress > 0 && getNextItem(Item.TYPE.MAGIC) != null)
 		{
+			// Fetch the next Magic Item
 			ItemMagic item = (ItemMagic) getNextItem(Item.TYPE.MAGIC);
+			
+			// Find the remaining work to complete the item
 			int diff = item.getPrice() - item.getProgress();
 						
 			// Subtract gold and XP when beginning a new item
@@ -431,16 +434,19 @@ public class Controller {
 				model.notifyObservers();
 			}			
 						
+			// Check if the item can be completed with this craft check
 			if(diff >= progress)
 			{
+				// Item won't be completed; add the entire check
 				item.setProgress(item.getProgress() + progress);
 				progress = 0;
 			} else {
+				// Item will be completed; add part if the check required to complete the item
 				item.setProgress(item.getProgress() + diff);
 				progress -= diff;
 			}			
 			
-			item.hasChanged();
+			// Notify the Observers  that the item has changed
 			item.notifyObservers();
 		}
 	}
