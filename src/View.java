@@ -70,11 +70,11 @@ public class View extends JPanel implements Observer {
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(title)
+					.addComponent(title)					
+					.addComponent(goldLabel)
+					.addComponent(XPLabel)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addGroup(layout.createParallelGroup()
-						.addComponent(goldLabel)
-						.addComponent(XPLabel)
 						.addComponent(craftButton)
 						.addComponent(newItemButton)
 						.addComponent(clearButton)
@@ -90,8 +90,8 @@ public class View extends JPanel implements Observer {
 	
 	private void init()
 	{
-		goldLabel = new JLabel();
-		XPLabel = new JLabel();
+		goldLabel = new JLabel("Gold: ");
+		XPLabel = new JLabel("XP: ");
 		
 		itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));		
@@ -100,8 +100,7 @@ public class View extends JPanel implements Observer {
 		craftButton = new JButton("Craft");
 		clearButton = new JButton("Clear Completed");
 		testButton01 = new JButton("Save");
-		testButton02 = new JButton("Load");
-		
+		testButton02 = new JButton("Load");		
 	}
 	
 	public void setActionListener(ActionListener listener)
@@ -205,6 +204,9 @@ public class View extends JPanel implements Observer {
 			}
 		}
 		*/
+		
+		this.XPLabel.setText("XP: " + m.getXP());
+		this.goldLabel.setText("Gold: " + m.getGold());
 		
 		this.revalidate();		
 	}
