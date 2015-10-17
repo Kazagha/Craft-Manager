@@ -365,16 +365,21 @@ public class Controller {
 	
 	public void craftMundane()
 	{
-		//ItemMundane iMundane = (ItemMundane) getNextItem(Model.ITEM.MUNDANE);
 		int check = this.check("Roll Craft Check:");
 		int checkPart = check;
 		
-		//int progress = iMundane.getDC() * check;
 		
 		while(checkPart > 0 && getNextItem(Item.TYPE.MUNDANE) != null)
 		{
 			ItemMundane iMundane = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
 			int progress = iMundane.getDC() * checkPart;
+			
+			// Subtract gold and XP when beginning a new item
+			if(iMundane.getProgress() == 0)
+			{
+				model.setGold(model.getGold() - iMundane.getCraftPrice());
+				model.notifyObservers();
+			}
 			
 			if(check >= iMundane.getDC()) 
 			{
@@ -399,7 +404,8 @@ public class Controller {
 				iMundane.notifyObservers();
 			} else if (check < iMundane.getDC() - 4) {						
 				// Check Failed by 5 or more: Half raw materials have been destroyed				
-				int cost = iMundane.getCraftPrice() / 2;
+				int halfMatCost = iMundane.getCraftPrice() / 2;
+				model.setGold(model.getGold() - halfMatCost);
 				// All progress is lost
 				checkPart = 0;
 			} else {
@@ -414,7 +420,7 @@ public class Controller {
 		int progress = 2000;		
 		while(progress > 0 && getNextItem(Item.TYPE.MAGIC) != null)
 		{
-			ItemMagic item = (ItemMagic) getNextItem(Item.TYPE.MAGIC);			
+			ItemMagic item = (ItemMagic) getNextItem(Item.TYPE.MAGIC);
 			int diff = item.getPrice() - item.getProgress();
 						
 			// Subtract gold and XP when beginning a new item
