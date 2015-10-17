@@ -27,6 +27,7 @@ public class Model extends Observable {
 	public void setGold(int num)
 	{
 		this.gold = num;
+		this.hasChanged();
 	}
 	
 	/**
@@ -45,6 +46,7 @@ public class Model extends Observable {
 	public void setXP(int num)
 	{
 		this.XP = num;
+		this.hasChanged();
 	}
 	
 	/**
