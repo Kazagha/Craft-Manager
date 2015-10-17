@@ -71,7 +71,9 @@ public class Controller {
 		v.setActionListener(new MyActionListener());
 		v.setMouseListener(new mouseListener());
 		// Populate the view with items from the model
-		//this.appendItemPanels(model.getQueue());		
+		//this.appendItemPanels(model.getQueue());
+		//model.setGold(1000);
+		model.notifyObservers();
 	}
 	
 	public static Controller getInstance()
@@ -412,8 +414,16 @@ public class Controller {
 		int progress = 2000;		
 		while(progress > 0 && getNextItem(Item.TYPE.MAGIC) != null)
 		{
-			Item item = getNextItem(Item.TYPE.MAGIC);			
+			ItemMagic item = (ItemMagic) getNextItem(Item.TYPE.MAGIC);			
 			int diff = item.getPrice() - item.getProgress();
+						
+			// Subtract gold and XP when beginning a new item
+			if(item.getProgress() == 0)
+			{
+				model.setGold(model.getGold() - item.getCraftPrice());
+				model.setXP(model.getXP() - item.getXP());
+				model.notifyObservers();
+			}			
 						
 			if(diff >= progress)
 			{
@@ -482,7 +492,7 @@ public class Controller {
 		}
 		*/
 		
-		Controller con = new Controller(m, v);
+		new Controller(m, v);
 		v.createAndShowGUI();
 	}	
 }
