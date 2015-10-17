@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "MagicItem")
 public class ItemMagicBasic extends ItemMagic {
 	
 	public ItemMagicBasic() {}
