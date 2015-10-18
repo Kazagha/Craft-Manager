@@ -7,20 +7,32 @@ import javax.swing.JMenuItem;
 
 public class MainMenu extends JMenuBar {
 
+	private ActionListener listener;
+	
 	public MainMenu(ActionListener listener)
 	{
+		this.listener = listener;
+		
 		JMenu subMenu;		
-		JMenuItem jmi;
+		ActionMenu menu;
 		
 		subMenu = new JMenu("File");
 		this.add(subMenu);
 	
-		jmi = new JMenuItem("SAVE");
-		jmi.addActionListener(listener);
-		subMenu.add(jmi);
-		jmi = new JMenuItem("Open");
-		subMenu.add(jmi);
-		jmi = new JMenuItem("Exit");
-		subMenu.add(jmi);		
+		menu = new ActionMenu(Controller.Action.SAVE.toString());
+		subMenu.add(menu);
+		menu = new ActionMenu(Controller.Action.LOAD.toString());
+		subMenu.add(menu);
+		menu = new ActionMenu(Controller.Action.EXIT.toString());
+		subMenu.add(menu);		
+	}
+	
+	class ActionMenu extends JMenuItem
+	{
+		ActionMenu(String str)
+		{
+			super(str);
+			this.addActionListener(listener);
+		}
 	}
 }
