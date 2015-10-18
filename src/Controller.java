@@ -42,7 +42,7 @@ public class Controller {
 		NEWEFFECT("New Effect"),
 		EDIT("Edit Item"),
 		CRAFT("Craft"),
-		CLEAR("Clear Completed Items"),
+		CLEAR("Clear Completed"),
 		LOAD("Load from XML"),
 		SAVE("Save to XML"),
 		INVALID("Invalid Action");
@@ -51,6 +51,22 @@ public class Controller {
 		Action(String str)
 		{
 			this.command = str;
+		}
+		
+		public String toString()
+		{
+			return command;
+		}
+		
+		public static Action valueOfCommand(String str)
+		{
+			for(Action action : Action.values())
+			{
+				if(action.toString().equals(str))
+					return action;
+			}
+			
+			return null;
 		}
 	}
 		
@@ -139,6 +155,7 @@ public class Controller {
 	 * @param array
 	 * @return
 	 */
+
 	public int editArray(Object[] array) 
 	{
 		return JOptionPane.showConfirmDialog(view, array, "New Item", JOptionPane.OK_CANCEL_OPTION);
@@ -195,7 +212,7 @@ public class Controller {
 					int index = view.indexOf(parent);
 					edit(index);
 				} else {
-					switch(Controller.Action.valueOf(event.getActionCommand()))
+					switch(Controller.Action.valueOfCommand(event.getActionCommand()))
 					{
 					case LOAD:
 						Controller.getInstance().load(new File("user.xml"));
@@ -345,7 +362,7 @@ public class Controller {
 			}
 			
 			// Create new effects
-			subMenu = new JMenu("New");
+			subMenu = new JMenu("Add Enchantment");
 			menu.add(subMenu);
 			
 			Effect[] effectArray = new Effect[] { new EffectBonus(), new EffectSpell(), new EffectStatic() };						
