@@ -180,7 +180,7 @@ public class View extends JPanel implements Observer {
 		frame.getContentPane().add(this);
 		
 		//Add the Menu
-		//frame.setJMenuBar(createMenu());
+		frame.setJMenuBar(new MainMenu(listener));
 		
 		//Display the window
 		frame.pack();
