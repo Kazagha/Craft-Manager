@@ -13,6 +13,7 @@ public class MainMenu extends JMenuBar {
 	{
 		this.listener = listener;
 		
+		JMenu rootMenu;
 		JMenu subMenu;		
 		ActionMenu menu;
 		
@@ -24,7 +25,17 @@ public class MainMenu extends JMenuBar {
 		menu = new ActionMenu(Controller.Action.LOAD.toString());
 		subMenu.add(menu);
 		menu = new ActionMenu(Controller.Action.EXIT.toString());
-		subMenu.add(menu);		
+		subMenu.add(menu);	
+		
+		rootMenu = new JMenu("Crafting");
+		this.add(rootMenu);
+				
+		subMenu = new JMenu("New Item");		
+		rootMenu.add(subMenu);
+		subMenu.add(new ActionMenu("Magical"));
+		subMenu.add(new ActionMenu("Mundane"));
+		
+		rootMenu.add(new ActionMenu(Controller.Action.CRAFT.toString()));
 	}
 	
 	class ActionMenu extends JMenuItem
