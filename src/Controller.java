@@ -38,13 +38,18 @@ public class Controller {
 	
 	public enum Action 
 	{
+		ADDGOLD("Gold"),
+		ADDXP("XP"),
 		NEWITEM("New Item"),
+		NEWMAGICITEM("Magic"),
+		NEWMUNDANEITEM("Mundane"),
 		NEWEFFECT("New Effect"),
 		EDIT("Edit Item"),
-		CRAFT("Craft"),
+		CRAFT("Craft Item"),
 		CLEAR("Clear Completed"),
-		LOAD("Load from XML"),
-		SAVE("Save to XML"),
+		LOAD("Open"),
+		SAVE("Save"),
+		EXIT("Exit"),
 		INVALID("Invalid Action");
 		
 		String command;
@@ -222,12 +227,26 @@ public class Controller {
 						Controller.getInstance().save(model);
 						break;
 					case NEWITEM: 
+					{
 						//model.appendQueue(ItemMundane.create());
 						//ItemWand newItem = (ItemWand) ItemWand.create();
 						//newItem.addEffect(new SpellEffect().create());
 						ItemMagicBasic newItem = ItemMagicBasic.create();
 						model.appendQueue(newItem);
 						break;
+					}
+					case NEWMAGICITEM:
+					{
+						ItemMagicBasic newItem = ItemMagicBasic.create();
+						model.appendQueue(newItem);
+						break;
+					}
+					case NEWMUNDANEITEM:
+					{
+						Item newItem = ItemMundane.create();
+						model.appendQueue(newItem);
+						break;
+					}						
 					case NEWEFFECT:
 						{
 							// Get the Item
