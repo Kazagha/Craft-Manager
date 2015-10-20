@@ -109,9 +109,11 @@ public class ViewItem extends JPanel implements Observer {
 	
 	public void setProgressBar(int value, int total)
 	{
-		progressBar.setMaximum(0);
+		progressBar.setMinimum(0);
 		progressBar.setMaximum(total);
 		progressBar.setValue(value);
+		progressBar.setString(String.format("%d / %d", value, total));
+		progressBar.setStringPainted(true);
 	}
 	
 	public void setActionListener(ActionListener listener)
