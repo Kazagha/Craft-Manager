@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,6 +10,7 @@ import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -28,6 +30,7 @@ public class View extends JPanel implements Observer {
 	JLabel XPLabel;
 	
 	JPanel itemPanel;
+	JPanel resourcesPanel;
 	
 	JButton newItemButton;
 	JButton craftButton;
@@ -54,14 +57,13 @@ public class View extends JPanel implements Observer {
 						.addGroup(layout.createParallelGroup()
 								.addGroup(layout.createSequentialGroup()
 										.addComponent(craftButton)
-										.addComponent(newItemButton)
+										//.addComponent(newItemButton)
 										.addComponent(clearButton)
-										.addComponent(testButton01)
-										.addComponent(testButton02)
+										//.addComponent(testButton01)
+										//.addComponent(testButton02)
 										)
-								.addComponent(title)
-								.addComponent(goldLabel)
-								.addComponent(XPLabel)
+								//.addComponent(title)
+								.addComponent(resourcesPanel)
 								.addComponent(itemPanel)								
 								)							
 					.addContainerGap()
@@ -70,19 +72,19 @@ public class View extends JPanel implements Observer {
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(title)					
-					.addComponent(goldLabel)
-					.addComponent(XPLabel)
+					//.addComponent(title)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addGroup(layout.createParallelGroup()
 						.addComponent(craftButton)
-						.addComponent(newItemButton)
+						//.addComponent(newItemButton)
 						.addComponent(clearButton)
-						.addComponent(testButton01)
-						.addComponent(testButton02)
+						//.addComponent(testButton01)
+						//.addComponent(testButton02)
 						)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(itemPanel)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)										
+					.addComponent(resourcesPanel)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addContainerGap()
 			);
@@ -90,9 +92,14 @@ public class View extends JPanel implements Observer {
 	
 	private void init()
 	{
-		goldLabel = new JLabel("Gold: ");
-		XPLabel = new JLabel("XP: ");
+		goldLabel = new JLabel();
+		XPLabel = new JLabel();	
 		
+		resourcesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		resourcesPanel.add(goldLabel);
+		resourcesPanel.add(new JLabel(new ImageIcon("images/gold.png")));
+		resourcesPanel.add(XPLabel);
+				
 		itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));		
 		//itemPanel.add(Box.createVerticalGlue());
@@ -205,8 +212,8 @@ public class View extends JPanel implements Observer {
 		}
 		*/
 		
-		this.XPLabel.setText("XP: " + m.getXP());
-		this.goldLabel.setText("Gold: " + m.getGold());
+		this.goldLabel.setText("" + m.getGold());
+		this.XPLabel.setText(m.getXP() + " XP");
 		
 		this.revalidate();		
 	}
