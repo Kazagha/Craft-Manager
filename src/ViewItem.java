@@ -72,6 +72,7 @@ public class ViewItem extends JPanel implements Observer {
 		checkButton = new JButton("Check");
 		
 		progressBar = new JProgressBar();
+		
 		image = new ImageIcon("images/craftIconSmall.png");
 		imagePanel = new JLabel(image);
 	}
@@ -82,6 +83,8 @@ public class ViewItem extends JPanel implements Observer {
 		setBaseCost(model.getPrice());
 		setMatCost(model.getCraftPrice());
 		setProgress(model.getProgress());
+		
+		setProgressBar(model.getProgress(), model.getPrice());
 	}
 	
 	public void setName(String str)
@@ -102,6 +105,13 @@ public class ViewItem extends JPanel implements Observer {
 	public void setProgress(int num)
 	{
 		progress.setText(String.valueOf(num));
+	}
+	
+	public void setProgressBar(int value, int total)
+	{
+		progressBar.setMaximum(0);
+		progressBar.setMaximum(total);
+		progressBar.setValue(value);
 	}
 	
 	public void setActionListener(ActionListener listener)
