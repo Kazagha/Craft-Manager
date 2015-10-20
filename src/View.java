@@ -16,6 +16,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SpringLayout;
@@ -29,8 +30,10 @@ public class View extends JPanel implements Observer {
 	JLabel goldLabel;
 	JLabel XPLabel;
 	
+	ResourceBar resourcesPanel;
+	JScrollPane scrollPane;
 	JPanel itemPanel;
-	JPanel resourcesPanel;
+	
 	
 	JButton newItemButton;
 	JButton craftButton;
@@ -44,7 +47,7 @@ public class View extends JPanel implements Observer {
 	public View()
 	{
 		// Run the setup
-		init();
+		initComponents();
 		
 		GroupLayout layout = new GroupLayout(this);
 		setLayout(layout);
@@ -64,7 +67,7 @@ public class View extends JPanel implements Observer {
 										)
 								//.addComponent(title)
 								.addComponent(resourcesPanel)
-								.addComponent(itemPanel)								
+								.addComponent(scrollPane)								
 								)							
 					.addContainerGap()
 			);
@@ -82,26 +85,26 @@ public class View extends JPanel implements Observer {
 						//.addComponent(testButton02)
 						)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(itemPanel)
+					.addComponent(scrollPane)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)										
-					.addComponent(resourcesPanel)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addContainerGap()
+					.addComponent(resourcesPanel, 25, 25, 25)
+					//.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					//.addContainerGap()
 			);
 	}
 	
-	private void init()
+	private void initComponents()
 	{
 		goldLabel = new JLabel();
-		XPLabel = new JLabel();	
-		
-		resourcesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		resourcesPanel.add(goldLabel);
-		resourcesPanel.add(new JLabel(new ImageIcon("images/gold.png")));
-		resourcesPanel.add(XPLabel);
+		XPLabel = new JLabel();		
+		resourcesPanel = new ResourceBar();		
 				
 		itemPanel = new JPanel();
-		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));		
+		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+		scrollPane = new JScrollPane(itemPanel);
+		//scrollPane.setVisible(true);
+		//scrollPane.setMinimumSize(new Dimension(300, 0));
+		
 		//itemPanel.add(Box.createVerticalGlue());
 		newItemButton= new JButton("New Item");
 		craftButton = new JButton("Craft");
@@ -212,8 +215,8 @@ public class View extends JPanel implements Observer {
 		}
 		*/
 		
-		this.goldLabel.setText("" + m.getGold());
-		this.XPLabel.setText(m.getXP() + " XP");
+		resourcesPanel.setGP(m.getGold());
+		resourcesPanel.setXP(m.getXP());
 		
 		this.revalidate();		
 	}
