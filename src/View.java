@@ -24,7 +24,7 @@ import javax.swing.SpringLayout;
 public class View extends JPanel implements Observer {
 
 	//Frame Width and Height
-	final int FRAME_WIDTH = 300;
+	final int FRAME_WIDTH = 450;
 	final int FRAME_HEIGHT = 650;
 	
 	JLabel goldLabel;
@@ -89,12 +89,12 @@ public class View extends JPanel implements Observer {
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)										
 					.addComponent(resourcesPanel, 25, 25, 25)
 					//.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					//.addContainerGap()
+					
 			);
 	}
 	
 	private void initComponents()
-	{
+	{		
 		goldLabel = new JLabel();
 		XPLabel = new JLabel();		
 		resourcesPanel = new ResourceBar();		
@@ -184,7 +184,7 @@ public class View extends JPanel implements Observer {
 		//Create frame setup Window
 		JFrame frame = new JFrame("Craft Manager");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(FRAME_HEIGHT, FRAME_WIDTH));
+		frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		
 		//Add the content  
 		frame.getContentPane().add(this);
