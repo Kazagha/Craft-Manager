@@ -47,6 +47,6 @@ public class ResourceBar extends JPanel {
 		int y = 0;
 		g.setColor(new Color(156, 154, 140));
 		g.drawLine(0, y, getWidth(), y);
-		g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
+		//g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
 	}
 }
