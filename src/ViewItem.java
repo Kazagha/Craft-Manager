@@ -6,9 +6,15 @@ import java.util.Observer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.LayoutStyle;
 
 public class ViewItem extends JPanel implements Observer {
 	private JLabel name;
@@ -16,9 +22,48 @@ public class ViewItem extends JPanel implements Observer {
 	private JLabel matCost;
 	private JLabel progress;
 	
+	private ImageIcon image;
+	private JLabel imagePanel;
+	private JProgressBar progressBar;
+	
 	private JButton checkButton;
 	
 	public ViewItem(Item model) 
+	{
+		initComponents();
+
+		GroupLayout layout = new GroupLayout(this);
+		setLayout(layout);
+		
+		layout.setHorizontalGroup(layout.createSequentialGroup()
+				.addContainerGap()
+				.addComponent(imagePanel)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup()
+						.addComponent(name)
+						.addComponent(progressBar)
+						)				
+				.addContainerGap()
+				);
+		
+		layout.setVerticalGroup(layout.createSequentialGroup()
+				.addContainerGap()
+				.addGroup(layout.createParallelGroup()
+						.addComponent(imagePanel)
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(name)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(progressBar)
+								)						
+						)
+				.addContainerGap()
+				);
+
+		
+		updateItem(model);
+	}
+	
+	private void initComponents()
 	{
 		name = new JLabel();
 		baseCost = new JLabel();
@@ -26,14 +71,9 @@ public class ViewItem extends JPanel implements Observer {
 		progress = new JLabel();
 		checkButton = new JButton("Check");
 		
-		this.setLayout(new FlowLayout(FlowLayout.LEADING, 8, 4));
-		this.add(name);
-		this.add(baseCost);
-		this.add(matCost);
-		this.add(progress);
-		this.add(checkButton);
-		
-		updateItem(model);
+		progressBar = new JProgressBar();
+		image = new ImageIcon("images/craftIconSmall.png");
+		imagePanel = new JLabel(image);
 	}
 	
 	public void updateItem(Item model) 
