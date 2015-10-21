@@ -160,10 +160,8 @@ public class View extends JPanel implements Observer {
 	
 	public void removeAllPanels()
 	{
-		while(itemPanel.getComponentCount() > 0)
-		{
-			itemPanel.remove(0);
-		}
+		itemPanel.removeAll();
+		itemPanel.repaint();
 	}
 	
 	public int indexOf(JComponent component)
