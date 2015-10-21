@@ -280,7 +280,7 @@ public class Controller {
 						break;
 					case CRAFT:
 						// Check there are items in the queue to craft
-						if(model.getQueue().size() == 0) 
+						if(getNextItem(null) == null) 
 						{
 							JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
 							break;
