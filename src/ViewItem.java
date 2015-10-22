@@ -1,9 +1,12 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -48,7 +51,7 @@ public class ViewItem extends JPanel implements Observer {
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
 				.addContainerGap()
-				.addGroup(layout.createParallelGroup()
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
 						.addComponent(imagePanel)
 						.addGroup(layout.createSequentialGroup()
 								.addComponent(name)
@@ -59,7 +62,6 @@ public class ViewItem extends JPanel implements Observer {
 				.addContainerGap()
 				);
 
-		
 		updateItem(model);
 	}
 	
