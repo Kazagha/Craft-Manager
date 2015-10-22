@@ -226,6 +226,12 @@ public class Controller {
 					case SAVE:
 						Controller.getInstance().save(model);
 						break;
+					case ADDGOLD:
+						addGold();
+						break;
+					case ADDXP:
+						addXP();
+						break;
 					case NEWITEM: 
 					{
 						//model.appendQueue(ItemMundane.create());
@@ -485,6 +491,35 @@ public class Controller {
 			// Notify the Observers  that the item has changed
 			item.notifyObservers();
 		}
+	}
+	
+	public int addGold()
+	{		
+		JTextField gold = new JTextField();
+		Object[] array = new Object[] { "Add Gold", gold };
+		
+		int result = JOptionPane.OK_OPTION;
+		while(result == JOptionPane.OK_OPTION) 
+		{
+			try
+			{
+				result = this.editArray(array);
+				
+				model.setGold(model.getGold() + Integer.valueOf(gold.getText()));
+				return result;
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		return result;
+	}
+	
+	public int addXP()
+	{
+		int result = JOptionPane.OK_OPTION;
+		
+		return result;
 	}
 	
 	public void edit(int index)
