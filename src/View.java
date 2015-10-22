@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SpringLayout;
@@ -32,7 +33,10 @@ public class View extends JPanel implements Observer {
 	
 	ResourceBar resourcesPanel;
 	JScrollPane scrollPane;
-	JPanel itemPanel;
+	
+	JTabbedPane tabbedPane;
+	JPanel itemQueuePanel;
+	JPanel itemCompletePanel;
 	
 	
 	JButton newItemButton;
@@ -66,8 +70,8 @@ public class View extends JPanel implements Observer {
 										//.addComponent(testButton02)
 										)
 								//.addComponent(title)
-								.addComponent(resourcesPanel)
-								.addComponent(scrollPane)								
+								.addComponent(tabbedPane)
+								.addComponent(resourcesPanel)																
 								)							
 					.addContainerGap()
 			);
@@ -85,7 +89,7 @@ public class View extends JPanel implements Observer {
 						//.addComponent(testButton02)
 						)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(scrollPane)
+					.addComponent(tabbedPane)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)										
 					.addComponent(resourcesPanel, 25, 25, 25)
 					//.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -98,10 +102,17 @@ public class View extends JPanel implements Observer {
 		goldLabel = new JLabel();
 		XPLabel = new JLabel();		
 		resourcesPanel = new ResourceBar();		
-				
-		itemPanel = new JPanel();
-		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
-		scrollPane = new JScrollPane(itemPanel);
+			
+		itemQueuePanel = new JPanel();
+		itemQueuePanel.setLayout(new BoxLayout(itemQueuePanel, BoxLayout.Y_AXIS));
+		itemCompletePanel = new JPanel();
+		itemCompletePanel.setLayout(new BoxLayout(itemCompletePanel, BoxLayout.Y_AXIS));
+		
+		//scrollPane = new JScrollPane(itemQueuePanel);
+		
+		tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("Queue", new JScrollPane(itemQueuePanel));
+		tabbedPane.addTab("Complete", new JScrollPane(itemCompletePanel));
 		//scrollPane.setVisible(true);
 		//scrollPane.setMinimumSize(new Dimension(300, 0));
 		
@@ -150,25 +161,25 @@ public class View extends JPanel implements Observer {
 		// Set the Mouse Listener
 		panel.addMouseListener(mouseListener);
 		// Add the panel to the view
-		itemPanel.add(panel);
+		itemQueuePanel.add(panel);
 	}
 	
 	public void removePanel(JPanel panel)
 	{
-		itemPanel.remove(panel);
+		itemQueuePanel.remove(panel);
 	}
 	
 	public void removeAllPanels()
 	{
-		itemPanel.removeAll();
-		itemPanel.repaint();
+		itemQueuePanel.removeAll();
+		itemQueuePanel.repaint();
 	}
 	
 	public int indexOf(JComponent component)
 	{
-		for(int i = 0; i < itemPanel.getComponentCount(); i++) 
+		for(int i = 0; i < itemQueuePanel.getComponentCount(); i++) 
 		{
-			if(itemPanel.getComponent(i) == component) 
+			if(itemQueuePanel.getComponent(i) == component) 
 			{
 				return i;
 			}
