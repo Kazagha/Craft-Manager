@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -109,10 +110,12 @@ public class View extends JPanel implements Observer {
 		itemCompletePanel.setLayout(new BoxLayout(itemCompletePanel, BoxLayout.Y_AXIS));
 		
 		//scrollPane = new JScrollPane(itemQueuePanel);
-		
+						
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Queue", new JScrollPane(itemQueuePanel));
 		tabbedPane.addTab("Complete", new JScrollPane(itemCompletePanel));
+		tabbedPane.setTabPlacement(JTabbedPane.TOP);
+		
 		//scrollPane.setVisible(true);
 		//scrollPane.setMinimumSize(new Dimension(300, 0));
 		
@@ -154,14 +157,12 @@ public class View extends JPanel implements Observer {
 		this.mouseListener = listener;
 	}
 	
-	public void appendPanel(JPanel panel) 
+	public void setUpPanel(JPanel panel) 
 	{		
 		// Set the Action Listener
 		((ViewItem) panel).setActionListener(listener);
 		// Set the Mouse Listener
 		panel.addMouseListener(mouseListener);
-		// Add the panel to the view
-		itemQueuePanel.add(panel);
 	}
 	
 	public void removePanel(JPanel panel)
@@ -173,6 +174,9 @@ public class View extends JPanel implements Observer {
 	{
 		itemQueuePanel.removeAll();
 		itemQueuePanel.repaint();
+		
+		itemCompletePanel.removeAll();
+		itemCompletePanel.repaint();
 	}
 	
 	public int indexOf(JComponent component)
@@ -212,7 +216,8 @@ public class View extends JPanel implements Observer {
 		this.removeAllPanels();
 	
 		Model m = (Model) arg0;
-		Controller.getInstance().appendItemPanels(m.getQueue());
+		Controller.getInstance().appendItemPanels(m.getQueue(), itemQueuePanel);
+		Controller.getInstance().appendItemPanels(m.getComplete(), itemCompletePanel);
 		System.out.format("View has been updated %n");
 		/* Adding completed items
 		for(Item item : m.getQueue())
