@@ -517,7 +517,22 @@ public class Controller {
 	
 	public int addXP()
 	{
+		JTextField xp = new JTextField();
+		Object[] array = new Object[] { "Add XP", xp };
+		
 		int result = JOptionPane.OK_OPTION;
+		while(result == JOptionPane.OK_OPTION) 
+		{
+			try
+			{
+				result = this.editArray(array);
+				
+				model.setXP(model.getXP() + Integer.valueOf(xp.getText()));
+				return result;
+			} catch (Exception e) {
+				
+			}
+		}
 		
 		return result;
 	}
