@@ -174,13 +174,14 @@ public class Controller {
 	/**
 	 * Add the <code>array</code> of items to the View 
 	 * @param array
+	 * @param panel
 	 */
-	public void appendItemPanels(ArrayList<Item> array) 
+	public void appendItemPanels(ArrayList<Item> array, JPanel panel) 
 	{
 		// For all items in the model
 		for(Item item : array)
 		{
-			this.appendItemPanel(item);
+			this.appendItemPanel(item, panel);
 		}	
 		
 		view.revalidate();
@@ -189,16 +190,19 @@ public class Controller {
 	/**
 	 * Add the specified <code>item</code> to the  View
 	 * @param item
+	 * @param panel
 	 */
-	public void appendItemPanel(Item item)
+	public void appendItemPanel(Item item, JPanel panel)
 	{
 		// Create an item panel
 		ViewItem panelView = new ViewItem(item);
 					
 		// Link the model to the item panel
 		item.addObserver(panelView);			
-		// Add the item panel to the main view
-		view.appendPanel(panelView);
+		// Add Action and Mouse Listener to the panel
+		view.setUpPanel(panelView);
+		// Add the item panel to the specified Panel
+		panel.add(panelView);
 		// Revalidates the view
 		view.revalidate();
 	}
