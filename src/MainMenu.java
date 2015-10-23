@@ -38,8 +38,6 @@ public class MainMenu extends JMenuBar {
 		rootMenu.add(subMenu);
 		
 		rootMenu.add(new ActionMenu(Controller.Action.CLEAR.toString()));
-		
-		this.add(new ActionMenu(Controller.Action.CRAFT.toString()));
 	}
 	
 	class ActionMenu extends JMenuItem
