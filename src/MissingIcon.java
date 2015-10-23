@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -36,15 +37,21 @@ public class MissingIcon implements Icon
 	{
 		Graphics2D g2d = (Graphics2D) g.create();
 		
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(x, y, width, height);
+		
 		g2d.setColor(Color.BLACK);
 		// Top
-		g2d.drawRect(x + 1, y + 1, width, y + 1);
+		g2d.drawLine(x, y, x + width, y);
 		// Bottom
-		//g2d.drawRect(x + 1, y + 1 + height - 2, x + width, y + height);
+		g2d.drawLine(x, y + height, x + width, y + height);
 		// Left
-		//g2d.drawRect(x, y, x + width, y + height);
+		g2d.drawLine(x, y, x, y + height);
 		// Right
-		//g2d.drawRect(x + width - 1, y, x + width - 1, y + height);
+		g2d.drawLine(x + width, y, x + width, y + height);
+		
+		g2d.setFont(new Font("SansSerif", Font.BOLD, 10));
+		g2d.drawString(str, x + 5, y + (height / 2));
 	}
 
 }
