@@ -121,8 +121,12 @@ public class View extends JPanel implements Observer {
 		
 		//itemPanel.add(Box.createVerticalGlue());
 		newItemButton= new JButton("New Item");
-		craftButton = new JButton("Craft");
-		clearButton = new JButton("Clear Completed");
+		
+		craftButton = new JButton(new MissingIcon("Craft", 40, 40));
+		craftButton.setBorder(BorderFactory.createEmptyBorder());		
+		clearButton = new JButton(new MissingIcon("Clear", 40, 40));
+		clearButton.setBorder(BorderFactory.createEmptyBorder());
+		
 		testButton01 = new JButton("Save");
 		testButton02 = new JButton("Load");		
 	}
