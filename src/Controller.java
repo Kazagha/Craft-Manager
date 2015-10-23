@@ -269,8 +269,9 @@ public class Controller {
 							// TODO: Hack to force item to update
 							item.setName(item.getName());
 							item.notifyObservers();
-						}
-						break;
+							
+							break;
+						}						
 					case EDIT:
 						Object obj = source.getClientProperty(key);
 						// Check if the object is an item or effect
@@ -286,8 +287,10 @@ public class Controller {
 							Item item = (Item) source.getClientProperty(keyItem);
 							item.setName(item.getName());
 							item.notifyObservers();
+							
+							break;
 						}
-						break;
+						
 					case CRAFT:
 						// Check there are items in the queue to craft
 						if(getNextItem(null) == null) 
