@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,6 +37,22 @@ public class DragMouseAdapter extends MouseAdapter {
 			return;
 		}
 		
-		startPt = e.getPoint();			
+		startPt = e.getPoint();		
+	}
+	
+	/**
+	 * 
+	 * @param parent - The parent of the specified components
+	 * @param remove - Remove this component
+	 * @param add    - Insert this component at the specified index
+	 * @param idx    - The index to insert the component
+	 */
+	private static void swapComponentLocation(
+			Container parent, Component remove, Component add, int idx)
+	{
+		parent.remove(remove);
+		parent.add(add, idx);
+		parent.revalidate();
+		parent.repaint();
 	}
 }
