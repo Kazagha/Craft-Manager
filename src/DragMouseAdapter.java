@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,7 +12,8 @@ import javax.swing.JWindow;
 public class DragMouseAdapter extends MouseAdapter {
 	
 	private final JWindow window = new JWindow();
-	private Point startPt;
+	private Point startPt;	
+	private final int gestureMotionThreshold = DragSource.getDragThreshold();
 
 	public DragMouseAdapter()
 	{
@@ -26,9 +28,9 @@ public class DragMouseAdapter extends MouseAdapter {
 	 * Check there are at least two components present to swap places
 	 */
 	@Override
-	public void mousePressed(MouseEvent e)
+	public void mousePressed(MouseEvent evt)
 	{
-		JComponent parent = (JComponent) e.getComponent();
+		JComponent parent = (JComponent) evt.getComponent();
 		
 		// Check if there are at least two components to select 
 		if (parent.getComponentCount() <= 1)
@@ -37,7 +39,21 @@ public class DragMouseAdapter extends MouseAdapter {
 			return;
 		}
 		
-		startPt = e.getPoint();		
+		startPt = evt.getPoint();		
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent evt)
+	{
+		Point pt = evt.getPoint();
+		JComponent parent = (JComponent) evt.getComponent();
+		
+		// Check the Motion Threshold has been met
+		double a = Math.pow(pt.x - startPt.x, 2);
+		double b = Math.pow(pt.y - startPt.y, 2);
+		// Check the dragging component is not null and the threshold has been met
+				
+		System.out.format("Mouse Dragged Event: %n");
 	}
 	
 	/**
