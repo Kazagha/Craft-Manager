@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.Observable;
@@ -205,6 +207,11 @@ public class View extends JPanel implements Observer {
 		
 		//Add the content  
 		frame.getContentPane().add(this);
+		
+		// Set Size
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		// Display in the middle of the screen
+		frame.setLocationRelativeTo(null);
 		
 		//Add the Menu
 		frame.setJMenuBar(new MainMenu(listener));
