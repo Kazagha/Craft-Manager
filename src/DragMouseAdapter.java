@@ -18,6 +18,11 @@ public class DragMouseAdapter extends MouseAdapter {
 		window.setBackground(new Color(0, true));
 	}
 	
+	
+	/**
+	 * Determine the point where the mouse event occurred
+	 * Check there are at least two components present to swap places
+	 */
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
