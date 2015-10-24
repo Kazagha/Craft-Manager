@@ -74,9 +74,8 @@ public class ViewItem extends JPanel implements Observer {
 		checkButton = new JButton("Check");
 		
 		progressBar = new JProgressBar();
-		
-		image = new ImageIcon("images/craftIconSmall.png");
-		imagePanel = new JLabel(image);
+				
+		imagePanel = new JLabel(new MissingIcon("Item", 40, 40));		
 	}
 	
 	public void updateItem(Item model) 
