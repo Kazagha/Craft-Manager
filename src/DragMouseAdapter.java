@@ -20,6 +20,8 @@ public class DragMouseAdapter extends MouseAdapter {
 	private Component draggingComponent;
 	private Component gap;
 	private static Rectangle prevRect;
+	private static final Rectangle R1 = new Rectangle();
+	private static final Rectangle R2 = new Rectangle();
 	private Point startPt;	
 	private Point dragOffset;
 	private int index = -1;
@@ -87,7 +89,7 @@ public class DragMouseAdapter extends MouseAdapter {
 		if (prevRect != null && prevRect.contains(pt))
 			return;
 		
-		// Change the location of the filler		
+		// Change the location of the filler	
 		
 		System.out.format("Mouse Dragged Event: %n");
 	}
@@ -163,5 +165,38 @@ public class DragMouseAdapter extends MouseAdapter {
 		SwingUtilities.convertPointToScreen(p, parent);
 		// Update the location of the window
 		window.setLocation(p);
+	}
+	
+	/**
+	 * Split the rectangle horizontally and determine of the point is in the top or bottom
+	 * Then return the index <code>i</code> of the component 
+	 * @param r
+	 * @param pt
+	 * @param i
+	 * @return
+	 */
+	private static int getTargetIndex(Rectangle r, Point pt, int i)
+	{
+		// Calculate half the height of the component
+		int ht2 = (int)(.5 + r.height * .5);
+	
+		// Split the component into two rectangles
+		R1.setBounds(r.x, r.y, r.width, ht2);
+		R2.setBounds(r.x, r.y + ht2, r.width, ht2);
+		
+		// Check if the point exists in the first or second part of the component
+		if (R1.contains(pt))
+		{
+			prevRect = R1;
+			// Return index, if no previous component exists return 0
+			return i - 1 > 0 ? i : 0;
+		} else if (R2.contains(pt)) {
+			prevRect = R2;
+			// Return the index of the component
+			return i;
+		}
+		
+		// Not inserting between components, return -1
+		return -1;
 	}
 }
