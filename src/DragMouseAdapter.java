@@ -1,18 +1,25 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
+import javax.swing.Box;
 import javax.swing.JComponent;
 import javax.swing.JWindow;
 
 public class DragMouseAdapter extends MouseAdapter {
 	
 	private final JWindow window = new JWindow();
+	private Component draggingComponent;
+	private Component gap;
 	private Point startPt;	
+	private Point dragOffset;
+	private int index = -1;
 	private final int gestureMotionThreshold = DragSource.getDragThreshold();
 
 	public DragMouseAdapter()
@@ -42,16 +49,29 @@ public class DragMouseAdapter extends MouseAdapter {
 		startPt = evt.getPoint();		
 	}
 	
+	/**
+	 * Drag the selected component; update the position of the component and insert gaps 
+	 * 
+	 * Determine if the mouse drag threshold has been met
+	 * Create the dragging component
+	 * Update the dragging component's position
+	 */
 	@Override
 	public void mouseDragged(MouseEvent evt)
 	{
 		Point pt = evt.getPoint();
 		JComponent parent = (JComponent) evt.getComponent();
 		
-		// Check the Motion Threshold has been met
+		// Check the Motion threshold has been met (a^2 + b^2 = c^2)
+		// Check the dragging component is currently null
 		double a = Math.pow(pt.x - startPt.x, 2);
-		double b = Math.pow(pt.y - startPt.y, 2);
-		// Check the dragging component is not null and the threshold has been met
+		double b = Math.pow(pt.y - startPt.y, 2);				
+		if (draggingComponent == null && (Math.sqrt(a + b) > gestureMotionThreshold))
+		{
+			// Create the dragging component, insert gaps
+			startDragging(parent, pt);
+			return;
+		}
 				
 		System.out.format("Mouse Dragged Event: %n");
 	}
@@ -70,5 +90,39 @@ public class DragMouseAdapter extends MouseAdapter {
 		parent.add(add, idx);
 		parent.revalidate();
 		parent.repaint();
+	}
+	
+	public void startDragging(JComponent parent, Point pt)
+	{
+		// Fetch the component at the specified point
+		Component c = parent.getComponentAt(pt);
+		
+		// Return if the component is the parent panel
+		// Return if the parent has no child components 
+		index = parent.getComponentZOrder(c);		
+		if (Objects.equals(c, parent) || index < 0)
+			return;		
+		
+		// Set the dragging component
+		draggingComponent = c;
+		Dimension dSize = draggingComponent.getSize();
+		
+		// Calculate offset (between the mouse and origin of component)
+		Point dPoint = draggingComponent.getLocation();
+		dragOffset = new Point(pt.x - dPoint.x, pt.y - dPoint.y);
+		
+		// Create filler gap of the same size as the dragged component
+		gap = Box.createRigidArea(dSize);
+		swapComponentLocation(parent, c, gap, index);
+		
+		// Create the 'dragging' window
+		window.add(draggingComponent);
+		window.pack();
+		
+		// Update the location of the window
+		window.setVisible(true);
+		
+		System.out.format("Start Dragging: %d", index);
+				
 	}
 }
