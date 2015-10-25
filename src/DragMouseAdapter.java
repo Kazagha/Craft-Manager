@@ -3,6 +3,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,7 @@ public class DragMouseAdapter extends MouseAdapter {
 	private final JWindow window = new JWindow();
 	private Component draggingComponent;
 	private Component gap;
+	private static Rectangle prevRect;
 	private Point startPt;	
 	private Point dragOffset;
 	private int index = -1;
@@ -80,7 +82,13 @@ public class DragMouseAdapter extends MouseAdapter {
 		
 		// Update the location of the dragging window
 		updateWindowLocation(pt, parent);
-				
+		
+		// TODO: Add comments
+		if (prevRect != null && prevRect.contains(pt))
+			return;
+		
+		// Change the location of the filler		
+		
 		System.out.format("Mouse Dragged Event: %n");
 	}
 	
