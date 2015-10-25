@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.swing.Box;
 import javax.swing.JComponent;
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 
 public class DragMouseAdapter extends MouseAdapter {
 	
@@ -92,6 +93,17 @@ public class DragMouseAdapter extends MouseAdapter {
 		parent.repaint();
 	}
 	
+	/**
+	 * Begin dragging the component at the specified point
+	 * 
+	 * Check the component is not the parent
+	 * Calculate the offset between the origin of the component and the point it was clicked
+	 * Create gap of the same size where the component was
+	 * Set the specified component as the 'window'
+	 * Initial update of the location of the window
+	 * @param parent
+	 * @param pt
+	 */
 	public void startDragging(JComponent parent, Point pt)
 	{
 		// Fetch the component at the specified point
@@ -120,9 +132,21 @@ public class DragMouseAdapter extends MouseAdapter {
 		window.pack();
 		
 		// Update the location of the window
-		window.setVisible(true);
-		
-		System.out.format("Start Dragging: %d", index);
-				
+		updateWindowLocation(pt, parent);
+		window.setVisible(true);				
+	}
+	
+	/**
+	 * Update the location of the specified panel 
+	 * @param pt
+	 * @param parent - Relative to this parent component
+	 */
+	private void updateWindowLocation(Point pt, JComponent parent)
+	{
+		// Find the location of the panel including the offset
+		Point p = new Point(pt.x - dragOffset.x, pt.y - dragOffset.y);
+		SwingUtilities.convertPointFromScreen(p, parent);
+		// Update the location of the window
+		window.setLocation(p);
 	}
 }
