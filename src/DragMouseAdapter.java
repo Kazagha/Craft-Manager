@@ -73,6 +73,13 @@ public class DragMouseAdapter extends MouseAdapter {
 			startDragging(parent, pt);
 			return;
 		}
+		
+		// Return if the there is no dragging occurring
+		if (!window.isVisible() || draggingComponent == null)
+			return;
+		
+		// Update the location of the dragging window
+		updateWindowLocation(pt, parent);
 				
 		System.out.format("Mouse Dragged Event: %n");
 	}
@@ -135,7 +142,7 @@ public class DragMouseAdapter extends MouseAdapter {
 		updateWindowLocation(pt, parent);
 		window.setVisible(true);				
 	}
-	
+		
 	/**
 	 * Update the location of the specified panel 
 	 * @param pt
@@ -145,7 +152,7 @@ public class DragMouseAdapter extends MouseAdapter {
 	{
 		// Find the location of the panel including the offset
 		Point p = new Point(pt.x - dragOffset.x, pt.y - dragOffset.y);
-		SwingUtilities.convertPointFromScreen(p, parent);
+		SwingUtilities.convertPointToScreen(p, parent);
 		// Update the location of the window
 		window.setLocation(p);
 	}
