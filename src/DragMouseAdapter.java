@@ -89,9 +89,29 @@ public class DragMouseAdapter extends MouseAdapter {
 		if (prevRect != null && prevRect.contains(pt))
 			return;
 		
-		// Change the location of the filler	
+		// Change the location of the filler
+		// Iterate through all components
+		for (int i = 0; i < parent.getComponentCount(); i++)
+		{
+			Component c = parent.getComponent(i);
+			Rectangle r = c.getBounds();
+			
+			// Return if the current component is the gap
+			if (Objects.equals(c, gap) && r.contains(pt))
+				return;
+			
+			// Using the bounds of the current component and current mouse point
+			// Determine where the gap should move to 
+			int tgt = getTargetIndex(r, pt, i);
+			if (tgt >= 0) 
+			{
+				swapComponentLocation(parent, gap, gap, tgt);
+				return;
+			}
+		}
 		
-		System.out.format("Mouse Dragged Event: %n");
+		parent.remove(gap);
+		parent.revalidate();	
 	}
 	
 	/**
