@@ -209,7 +209,7 @@ public class DragMouseAdapter extends MouseAdapter {
 		{
 			prevRect = R1;
 			// Return index, if no previous component exists return 0
-			return i - 1 > 0 ? i : 0;
+			return i - 1 >= 0 ? i : 0;
 		} else if (R2.contains(pt)) {
 			prevRect = R2;
 			// Return the index of the component
