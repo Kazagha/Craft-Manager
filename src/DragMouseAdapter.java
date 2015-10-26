@@ -113,6 +113,70 @@ public class DragMouseAdapter extends MouseAdapter {
 		parent.remove(gap);
 		parent.revalidate();	
 	}
+
+	/**
+	 * Place the dragging component into the specified location
+	 * 
+	 * - Cleanup the dragging component windows
+	 * - Check where the component is inserted
+	 *   - In the filler gap
+	 *   - On top of another component
+	 *   - Somewhere inside the frame
+	 *   - Somewhere outside the frame
+	 */
+	@Override
+	public void mouseReleased(MouseEvent evt) 
+	{
+		startPt = null;
+		// Release the start point 
+		
+		// Return if there is no component getting dragged
+		if (!window.isVisible() || draggingComponent == null)
+			return;
+		
+		Point pt = evt.getPoint();
+		JComponent parent = (JComponent) evt.getComponent();
+		
+		// Cleanup the dragging window
+		Component cmp = draggingComponent;
+		draggingComponent = null;
+		prevRect = null;
+		startPt = null;
+		dragOffset = null;
+		window.setVisible(false);
+		
+		// Iterate through the components
+		for (int i = 0; i < parent.getComponentCount(); i++)
+		{
+			Component c = parent.getComponent(i);
+			
+			// Check if this component is the gap
+			if (Objects.equals(c, gap))
+			{
+				// Put the dragging component into the gap
+				swapComponentLocation(parent, gap, cmp, i);
+				return;
+			}
+			
+			// If the target is inside the bounds of another component
+			int tgt = getTargetIndex(c.getBounds(), pt, i);
+			// Not in the first position
+			if (tgt >= 0) 
+			{
+				swapComponentLocation(parent, gap, c, tgt);
+				return;
+			}
+		}
+
+		if (parent.getParent().getBounds().contains(pt))
+		{
+			// Component is not over any existing component, insert at the end
+			swapComponentLocation(parent, gap, cmp, parent.getComponentCount());
+		} else {
+			// Component is outside the frame bounds, return to the original index 
+			swapComponentLocation(parent, gap, cmp, index);
+		}
+	}
 	
 	/**
 	 * 
