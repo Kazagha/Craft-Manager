@@ -200,11 +200,25 @@ public class Controller {
 		// Link the model to the item panel
 		item.addObserver(panelView);			
 		// Add Action and Mouse Listener to the panel
-		view.setUpPanel(panelView);
+		// TODO: The existing mouse Listener has been disabled
+		//view.setUpPanel(panelView);
 		// Add the item panel to the specified Panel
 		panel.add(panelView);
 		// Revalidates the view
 		view.revalidate();
+	}
+	
+	public void changeItemLocation(int idxA, int idxB)
+	{
+		ArrayList<Item> array = model.getQueue();
+				
+		Item itemA = array.get(idxA);
+		
+		array.remove(itemA);		
+		array.add(idxB, itemA);
+		
+		model.setGold(model.getGold());
+		model.notifyObservers();
 	}
 	
 	public class MyActionListener implements ActionListener 
