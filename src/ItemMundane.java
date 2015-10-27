@@ -98,6 +98,6 @@ public class ItemMundane extends Item {
 
 	@Override
 	public int getCraftPrice() {
-		return price / 3;
+		return price / 3 / 10;
 	}
 }
