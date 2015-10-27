@@ -145,6 +145,8 @@ public class DragMouseAdapter extends MouseAdapter {
 		dragOffset = null;
 		window.setVisible(false);
 		
+		Controller controller = Controller.getInstance();
+		
 		// Iterate through the components
 		for (int i = 0; i < parent.getComponentCount(); i++)
 		{
@@ -155,6 +157,7 @@ public class DragMouseAdapter extends MouseAdapter {
 			{
 				// Put the dragging component into the gap
 				swapComponentLocation(parent, gap, cmp, i);
+				System.out.format("The object at index %d has been moved to %d%n", index, i);				
 				return;
 			}
 			
