@@ -150,6 +150,11 @@ public class View extends JPanel implements Observer {
 			clearButton.setActionCommand(Controller.Action.CLEAR.toString());
 			testButton01.setActionCommand(Controller.Action.SAVE.toString());
 			testButton02.setActionCommand(Controller.Action.LOAD.toString());
+			
+			// TODO: Streamline setup of mouse adapter
+			DragMouseAdapter adapter = new DragMouseAdapter();			
+			itemQueuePanel.addMouseListener(adapter);
+			itemQueuePanel.addMouseMotionListener(adapter);
 		}
 	}
 	
