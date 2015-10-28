@@ -145,13 +145,12 @@ public class View extends JPanel implements Observer {
 			testButton01.addActionListener(listener);
 			testButton02.addActionListener(listener);
 			
-			newItemButton.setActionCommand(Controller.Action.NEWITEM.toString());
 			craftButton.setActionCommand(Controller.Action.CRAFT.toString());
 			clearButton.setActionCommand(Controller.Action.CLEAR.toString());
 			testButton01.setActionCommand(Controller.Action.SAVE.toString());
 			testButton02.setActionCommand(Controller.Action.LOAD.toString());
 			
-			// TODO: Streamline setup of mouse adapter
+			// TODO: Streamline setup of mouse listener
 			DragMouseAdapter adapter = new DragMouseAdapter();			
 			itemQueuePanel.addMouseListener(adapter);
 			itemQueuePanel.addMouseMotionListener(adapter);
@@ -163,11 +162,13 @@ public class View extends JPanel implements Observer {
 		return this.listener;
 	}
 	
+	@Deprecated
 	public void setMouseListener(MouseAdapter listener)
 	{
 		this.mouseListener = listener;
 	}
 	
+	@Deprecated
 	public void setUpPanel(JPanel panel) 
 	{		
 		// Set the Action Listener
