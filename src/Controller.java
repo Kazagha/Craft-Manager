@@ -40,7 +40,6 @@ public class Controller {
 	{
 		ADDGOLD("Gold"),
 		ADDXP("XP"),
-		NEWITEM("New Item"),
 		NEWMAGICITEM("Magic"),
 		NEWMUNDANEITEM("Mundane"),
 		NEWEFFECT("New Effect"),
@@ -88,13 +87,11 @@ public class Controller {
 		this.view = v;
 		
 		// Setup the observer pattern, wire the actions into view
-		model.addObserver(view);		
-		v.setActionListener(new MyActionListener());
-		//v.setMouseListener(new mouseListener());
-		// Populate the view with items from the model
-		//this.appendItemPanels(model.getQueue());
-		//model.setGold(1000);
+		model.addObserver(view);
+		// Send through initial updated model
 		model.notifyObservers();
+		// Setup the action listener
+		v.setActionListener(new MyActionListener());		
 	}
 	
 	public static Controller getInstance()
@@ -228,109 +225,90 @@ public class Controller {
 			
 			if(event.getSource() instanceof JComponent) {
 				JComponent source = ((JComponent) event.getSource());
-				JComponent parent = (JComponent) source.getParent();
-				
-				if(parent instanceof ViewItem) 
+
+				switch(Controller.Action.valueOfCommand(event.getActionCommand()))
 				{
-					int index = view.indexOf(parent);
-					edit(index);
-				} else {
-					switch(Controller.Action.valueOfCommand(event.getActionCommand()))
+				case LOAD:
+					Controller.getInstance().load(new File("user.xml"));
+					break;
+				case SAVE:
+					Controller.getInstance().save(model);
+					break;
+				case ADDGOLD:
+					addGold();
+					break;
+				case ADDXP:
+					addXP();
+					break;
+				case NEWMAGICITEM:
+				{
+					ItemMagicBasic newItem = ItemMagicBasic.create();
+					model.appendQueue(newItem);
+					break;
+				}
+				case NEWMUNDANEITEM:
+				{
+					Item newItem = ItemMundane.create();
+					model.appendQueue(newItem);
+					break;
+				}						
+				case NEWEFFECT:
 					{
-					case LOAD:
-						Controller.getInstance().load(new File("user.xml"));
-						clearComplete();
-						break;
-					case SAVE:
-						Controller.getInstance().save(model);
-						break;
-					case ADDGOLD:
-						addGold();
-						break;
-					case ADDXP:
-						addXP();
-						break;
-					case NEWITEM: 
-					{
-						//model.appendQueue(ItemMundane.create());
-						//ItemWand newItem = (ItemWand) ItemWand.create();
-						//newItem.addEffect(new SpellEffect().create());
-						ItemMagicBasic newItem = ItemMagicBasic.create();
-						model.appendQueue(newItem);
-						break;
-					}
-					case NEWMAGICITEM:
-					{
-						ItemMagicBasic newItem = ItemMagicBasic.create();
-						model.appendQueue(newItem);
-						break;
-					}
-					case NEWMUNDANEITEM:
-					{
-						Item newItem = ItemMundane.create();
-						model.appendQueue(newItem);
+						// Get the Item
+						ItemMagic item = (ItemMagic) source.getClientProperty(key);							
+						// Get the effect
+						Effect effect = (Effect) source.getClientProperty(keyEffect);					
+						// Create the new effect on the specified item
+						item.addEffect(effect.create());
+						
+						// TODO: Hack to force item to update
+						item.setName(item.getName());
+						item.notifyObservers();
+						
 						break;
 					}						
-					case NEWEFFECT:
-						{
-							// Get the Item
-							ItemMagic item = (ItemMagic) source.getClientProperty(key);							
-							// Get the effect
-							Effect effect = (Effect) source.getClientProperty(keyEffect);					
-							// Create the new effect on the specified item
-							item.addEffect(effect.create());
-							
-							// TODO: Hack to force item to update
-							item.setName(item.getName());
-							item.notifyObservers();
-							
-							break;
-						}						
-					case EDIT:
-						Object obj = source.getClientProperty(key);
-						// Check if the object is an item or effect
-						if(obj instanceof Item)
-						{
-							Item item = (Item) obj;
-							item.edit();
-							item.notifyObservers();
-						} else if (obj instanceof Effect) {							
-							((Effect) obj).edit();
-							
-							//TODO: Hack to update the item when the price changes
-							Item item = (Item) source.getClientProperty(keyItem);
-							item.setName(item.getName());
-							item.notifyObservers();
-							
-							break;
-						}
+				case EDIT:
+					Object obj = source.getClientProperty(key);
+					// Check if the object is an item or effect
+					if(obj instanceof Item)
+					{
+						Item item = (Item) obj;
+						item.edit();
+						item.notifyObservers();
+					} else if (obj instanceof Effect) {							
+						((Effect) obj).edit();
 						
-					case CRAFT:
-						// Check there are items in the queue to craft
-						if(getNextItem(null) == null) 
-						{
-							JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
-							break;
-						}
-													
-						switch(getNextItem(null).getItemType())
-						{
-						case MUNDANE:
-							craftMundane();
-							break;
-						case MAGIC:
-							craftMagic();
-							break;
-						}						
-						break;
-					case CLEAR:
-						clearComplete();
-						break;
-					default:						
+						//TODO: Hack to update the item when the price changes
+						Item item = (Item) source.getClientProperty(keyItem);
+						item.setName(item.getName());
+						item.notifyObservers();							
 					}
-					
-					model.notifyObservers();
-				}				
+					break;						
+				case CRAFT:
+					// Check there are items in the queue to craft
+					if(getNextItem(null) == null) 
+					{
+						JOptionPane.showMessageDialog(view, "There are no items to craft", "Error", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+												
+					switch(getNextItem(null).getItemType())
+					{
+					case MUNDANE:
+						craftMundane();
+						break;
+					case MAGIC:
+						craftMagic();
+						break;
+					}						
+					break;
+				case CLEAR:
+					clearComplete();
+					break;
+				default:						
+				}
+				
+				model.notifyObservers();				
 			}
 		}
 	}
