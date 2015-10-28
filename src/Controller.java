@@ -90,7 +90,7 @@ public class Controller {
 		// Setup the observer pattern, wire the actions into view
 		model.addObserver(view);		
 		v.setActionListener(new MyActionListener());
-		v.setMouseListener(new mouseListener());
+		//v.setMouseListener(new mouseListener());
 		// Populate the view with items from the model
 		//this.appendItemPanels(model.getQueue());
 		//model.setGold(1000);
@@ -196,7 +196,7 @@ public class Controller {
 	{
 		// Create an item panel
 		ViewItem panelView = new ViewItem(item);
-					
+							
 		// Link the model to the item panel
 		item.addObserver(panelView);			
 		// Add Action and Mouse Listener to the panel
@@ -335,39 +335,7 @@ public class Controller {
 		}
 	}
 	
-	class mouseListener extends MouseAdapter
-	{
-		public void mousePressed(MouseEvent event)
-		{
-			//System.out.format("Mouse Pressed%n");
-			showPopup(event);
-		}
-		
-		public void mouseReleased(MouseEvent event)
-		{
-			//System.out.format("Mouse Released%n");
-			showPopup(event);
-		}
-		
-		private void showPopup(MouseEvent event)
-		{
-			if(event.isPopupTrigger())
-			{
-				JComponent source = (JComponent) event.getSource();
-				
-				if(source instanceof ViewItem)
-				{
-					int index = view.indexOf(source);					
-					//System.out.format("Popup Triggered%n%s%n", index);
-					
-					JPopupMenu menu = createItemMenu(index);
-					menu.show(event.getComponent(), event.getX(), event.getY());					
-				}
-			}
-		}
-	}
-	
-	private JPopupMenu createItemMenu(int index)
+	public JPopupMenu createItemMenu(int index)
 	{
 		ActionListener listener = view.getActionListener();
 		Item item = model.getQueue().get(index);
@@ -576,7 +544,7 @@ public class Controller {
 	}
 	
 	public void clearComplete()
-	{
+	{		
 		// Collect completed items in the 'remove' array
 		ArrayList<Item> remove = new ArrayList<Item>();
 		for(Item item : model.getQueue())
@@ -584,7 +552,7 @@ public class Controller {
 			if(item.isComplete())
 			{			
 				remove.add(item);				
-				model.getComplete().add(item);
+				model.getComplete().add(0, item);
 			}			
 		}
 		
