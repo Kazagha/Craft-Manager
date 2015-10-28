@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
+import javax.swing.JPopupMenu;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
@@ -126,7 +127,9 @@ public class DragMouseAdapter extends MouseAdapter {
 	 */
 	@Override
 	public void mouseReleased(MouseEvent evt) 
-	{
+	{		
+		showPopup(evt);
+		
 		startPt = null;
 		// Release the start point 
 		
@@ -180,6 +183,33 @@ public class DragMouseAdapter extends MouseAdapter {
 		} else {
 			// Component is outside the frame bounds, return to the original index 
 			swapComponentLocation(parent, gap, cmp, index);
+		}
+	}
+	
+	/**
+	 * Show the right click context menu to edit an item
+	 * @param evt - The triggering mouse event
+	 */
+	private void showPopup(MouseEvent evt)
+	{
+		// Check the event is triggering a pop-up trigger
+		if(evt.isPopupTrigger())
+		{			
+			// Find the parent and target components
+			JComponent parent = (JComponent) evt.getComponent();
+			JComponent tgt = (JComponent) parent.getComponentAt(evt.getPoint());						
+			
+			// Check the event came from an item
+			if(tgt instanceof ViewItem)
+			{				
+				// Find the index of the item in the list
+				int idx = parent.getComponentZOrder(tgt);
+				
+				// Create and display the right click menu
+				Controller controller = Controller.getInstance();
+				JPopupMenu menu = controller.createItemMenu(idx);
+				menu.show(evt.getComponent(), evt.getX(), evt.getY());					
+			}
 		}
 	}
 	
