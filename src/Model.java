@@ -120,6 +120,14 @@ public class Model extends Observable {
 	
 	public void afterUnmarshal(Unmarshaller unmarshaller, Object parent) 
 	{
+		// Move all completed items to the completed array
+		for (Item item : this.queue)
+		{
+			if (item.isComplete())
+				complete.add(item);
+		}
 		
+		// Remove completed items from the queue
+		this.queue.removeAll(complete);
 	}
 }
