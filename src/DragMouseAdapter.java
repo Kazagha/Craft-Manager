@@ -167,6 +167,7 @@ public class DragMouseAdapter extends MouseAdapter {
 			if (tgt >= 0) 
 			{
 				swapComponentLocation(parent, gap, c, tgt);
+				controller.changeItemLocation(index, tgt);
 				return;
 			}
 		}
@@ -175,6 +176,7 @@ public class DragMouseAdapter extends MouseAdapter {
 		{
 			// Component is not over any existing component, insert at the end
 			swapComponentLocation(parent, gap, cmp, parent.getComponentCount());
+			controller.changeItemLocation(index, parent.getComponentCount());
 		} else {
 			// Component is outside the frame bounds, return to the original index 
 			swapComponentLocation(parent, gap, cmp, index);
