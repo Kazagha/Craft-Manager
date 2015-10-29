@@ -45,8 +45,9 @@ public class DragMouseAdapter extends MouseAdapter {
 	{
 		JComponent parent = (JComponent) evt.getComponent();
 		
-		// Check if there are at least two components to select 
-		if (parent.getComponentCount() <= 1)
+		// Return if less than two components are available
+		// Return if the mouse click was not a left click
+		if (parent.getComponentCount() <= 1 || evt.getButton() != 1)
 		{
 			startPt = null;
 			return;
@@ -67,6 +68,9 @@ public class DragMouseAdapter extends MouseAdapter {
 	{
 		Point pt = evt.getPoint();
 		JComponent parent = (JComponent) evt.getComponent();
+		
+		if (startPt == null)
+			return;
 		
 		// Check the Motion threshold has been met (a^2 + b^2 = c^2)
 		// Check the dragging component is currently null
