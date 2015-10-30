@@ -1,19 +1,12 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -21,9 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.SpringLayout;
 
 public class View extends JPanel implements Observer {
 
@@ -45,8 +36,6 @@ public class View extends JPanel implements Observer {
 	JButton newItemButton;
 	JButton craftButton;
 	JButton clearButton;
-	JButton testButton01;
-	JButton testButton02;
 	
 	ActionListener listener = null;
 	MouseAdapter mouseListener = null;
@@ -58,8 +47,6 @@ public class View extends JPanel implements Observer {
 		
 		GroupLayout layout = new GroupLayout(this);
 		setLayout(layout);
-		
-		JLabel title = new JLabel("Title");
 				
 		layout.setHorizontalGroup(
 				layout.createSequentialGroup()
@@ -67,12 +54,8 @@ public class View extends JPanel implements Observer {
 						.addGroup(layout.createParallelGroup()
 								.addGroup(layout.createSequentialGroup()
 										.addComponent(craftButton)
-										//.addComponent(newItemButton)
 										.addComponent(clearButton)
-										//.addComponent(testButton01)
-										//.addComponent(testButton02)
 										)
-								//.addComponent(title)
 								.addComponent(tabbedPane)
 								.addComponent(resourcesPanel)																
 								)							
@@ -82,21 +65,15 @@ public class View extends JPanel implements Observer {
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
 					.addContainerGap()
-					//.addComponent(title)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addGroup(layout.createParallelGroup()
 						.addComponent(craftButton)
-						//.addComponent(newItemButton)
 						.addComponent(clearButton)
-						//.addComponent(testButton01)
-						//.addComponent(testButton02)
 						)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(tabbedPane)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)										
-					.addComponent(resourcesPanel, 25, 25, 25)
-					//.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					
+					.addComponent(resourcesPanel, 25, 25, 25)					
 			);
 	}
 	
@@ -110,27 +87,18 @@ public class View extends JPanel implements Observer {
 		itemQueuePanel.setLayout(new BoxLayout(itemQueuePanel, BoxLayout.Y_AXIS));
 		itemCompletePanel = new JPanel();
 		itemCompletePanel.setLayout(new BoxLayout(itemCompletePanel, BoxLayout.Y_AXIS));
-		
-		//scrollPane = new JScrollPane(itemQueuePanel);
 						
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Queue", new JScrollPane(itemQueuePanel));
 		tabbedPane.addTab("Complete", new JScrollPane(itemCompletePanel));
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
-		
-		//scrollPane.setVisible(true);
-		//scrollPane.setMinimumSize(new Dimension(300, 0));
-		
-		//itemPanel.add(Box.createVerticalGlue());
+;
 		newItemButton= new JButton("New Item");
 		
 		craftButton = new JButton(new MissingIcon("Craft", 40, 40));
 		craftButton.setBorder(BorderFactory.createEmptyBorder());		
 		clearButton = new JButton(new MissingIcon("Clear", 40, 40));
-		clearButton.setBorder(BorderFactory.createEmptyBorder());
-		
-		testButton01 = new JButton("Save");
-		testButton02 = new JButton("Load");		
+		clearButton.setBorder(BorderFactory.createEmptyBorder());	
 	}
 	
 	public void setActionListener(ActionListener listener)
@@ -142,13 +110,9 @@ public class View extends JPanel implements Observer {
 			newItemButton.addActionListener(listener);
 			craftButton.addActionListener(listener);
 			clearButton.addActionListener(listener);
-			testButton01.addActionListener(listener);
-			testButton02.addActionListener(listener);
 			
 			craftButton.setActionCommand(Controller.Action.CRAFT.toString());
 			clearButton.setActionCommand(Controller.Action.CLEAR.toString());
-			testButton01.setActionCommand(Controller.Action.SAVE.toString());
-			testButton02.setActionCommand(Controller.Action.LOAD.toString());
 			
 			// TODO: Streamline setup of mouse listener
 			DragMouseAdapter adapter = new DragMouseAdapter();			
@@ -221,7 +185,7 @@ public class View extends JPanel implements Observer {
 		
 		//Add the Menu
 		frame.setJMenuBar(new MainMenu(listener));
-		
+				
 		//Display the window
 		frame.pack();
 		frame.setVisible(true);		
@@ -236,15 +200,6 @@ public class View extends JPanel implements Observer {
 		Controller.getInstance().appendItemPanels(m.getQueue(), itemQueuePanel);
 		Controller.getInstance().appendItemPanels(m.getComplete(), itemCompletePanel);
 		System.out.format("View has been updated %n");
-		/* Adding completed items
-		for(Item item : m.getQueue())
-		{
-			if(! item.isComplete())
-			{
-				Controller.getInstance().appendItemPanel(item);
-			}
-		}
-		*/
 		
 		resourcesPanel.setGP(m.getGold());
 		resourcesPanel.setXP(m.getXP());
