@@ -56,6 +56,12 @@ public abstract class Item  extends Observable {
 		return progress >= getPrice();
 	}	
 	
+	@Override
+	public void setChanged()
+	{
+		super.setChanged();
+	}
+	
 	public abstract int edit();
 	
 	public abstract int getPrice();
