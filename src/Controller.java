@@ -12,6 +12,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,6 +32,9 @@ public class Controller {
 	private Model model;
 	private View view;
 	
+	private File openFile;
+	private JFileChooser fc;
+	
 	public static Controller controller;
 	public static String key = new String("key");
 	public static String keyItem = new String("keyItem");
@@ -38,10 +42,10 @@ public class Controller {
 	
 	public enum Action 
 	{
-		ADDGOLD("Gold"),
-		ADDXP("XP"),
-		NEWMAGICITEM("Magic"),
-		NEWMUNDANEITEM("Mundane"),
+		ADDGOLD("Add Gold"),
+		ADDXP("Add XP"),
+		NEWMAGICITEM("Item Creation Feat"),
+		NEWMUNDANEITEM("Craft Skill"),
 		NEWEFFECT("New Effect"),
 		EDIT("Edit Item"),
 		CRAFT("Craft Item"),
@@ -78,7 +82,19 @@ public class Controller {
 	{	
 		this.controller = this;
 		
+		init();
+		
 		setUp(m, v);
+	}
+	
+	private void init()
+	{
+		openFile = null;
+		
+		fc = new JFileChooser();
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		// TODO: Create file filter
+		//fc.setFileFilter(new Filter());
 	}
 	
 	private void setUp(Model m, View v)
@@ -113,11 +129,12 @@ public class Controller {
 	 * Load the specified XML File into the model
 	 * @param file
 	 */
-	public void load(File file)
+	public void load()
 	{
-		JAXBController jaxb = new JAXBController(file);
-		model = jaxb.load();		
+		fc.showOpenDialog(view);		
+		JAXBController jaxb = new JAXBController(fc.getSelectedFile());
 		
+		model = jaxb.load();		
 		setUp(model, view);
 	}
 		
@@ -229,7 +246,7 @@ public class Controller {
 				switch(Controller.Action.valueOfCommand(event.getActionCommand()))
 				{
 				case LOAD:
-					Controller.getInstance().load(new File("user.xml"));
+					Controller.getInstance().load();
 					break;
 				case SAVE:
 					Controller.getInstance().save(model);
@@ -261,8 +278,8 @@ public class Controller {
 						// Create the new effect on the specified item
 						item.addEffect(effect.create());
 						
-						// TODO: Hack to force item to update
-						item.setName(item.getName());
+						// Let the item know something has changed
+						item.setChanged();
 						item.notifyObservers();
 						
 						break;
@@ -304,6 +321,9 @@ public class Controller {
 					break;
 				case CLEAR:
 					clearComplete();
+					break;
+				case EXIT:
+					System.exit(0);
 					break;
 				default:						
 				}
