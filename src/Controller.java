@@ -431,40 +431,40 @@ public class Controller {
 		
 		while(checkPart > 0 && getNextItem(Item.TYPE.MUNDANE) != null)
 		{
-			ItemMundane iMundane = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
-			int progress = iMundane.getDC() * checkPart;
+			ItemMundane item = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
+			int progress = item.getDC() * checkPart;
 			
 			// Subtract gold and XP when beginning a new item
-			if(iMundane.getProgress() == 0)
+			if(item.getProgress() == 0)
 			{
-				model.setGold(model.getGold() - iMundane.getCraftPrice());
+				model.setGold(model.getGold() - item.getCraftPrice());
 				model.notifyObservers();
 			}
 			
-			if(check >= iMundane.getDC()) 
+			if(check >= item.getDC()) 
 			{
 				// Successful check	
-				int diff = iMundane.getPrice() - iMundane.getProgress();
+				int diff = item.getPrice() - item.getProgress();
 				
 				// Check if the item will be finished on this craft check
 				if(diff >= progress) 
 				{
 					// Add entire check to the item 
-					iMundane.setProgress(iMundane.getProgress() + progress);
+					item.setProgress(item.getProgress() + progress);
 					checkPart = 0;
 				} else {
 					// Add the difference required to complete the item
-					iMundane.setProgress(iMundane.getProgress() + diff);
+					item.setProgress(item.getProgress() + diff);
 					// Calculate the remaining craft check
 					progress -= diff;					
-					checkPart = (progress / iMundane.getDC());
+					checkPart = (progress / item.getDC());
 				}
 				
 				// Notify the Observers that this item has been updated
-				iMundane.notifyObservers();
-			} else if (check < iMundane.getDC() - 4) {						
+				item.notifyObservers();
+			} else if (check < item.getDC() - 4) {						
 				// Check Failed by 5 or more: Half raw materials have been destroyed				
-				int halfMatCost = iMundane.getCraftPrice() / 2;
+				int halfMatCost = item.getCraftPrice() / 2;
 				model.setGold(model.getGold() - halfMatCost);
 				// All progress is lost
 				checkPart = 0;
