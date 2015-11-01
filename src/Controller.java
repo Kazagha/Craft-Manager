@@ -52,6 +52,7 @@ public class Controller {
 		CLEAR("Clear Completed"),
 		LOAD("Open"),
 		SAVE("Save"),
+		SAVE_AS("Save As..."),
 		EXIT("Exit"),
 		INVALID("Invalid Action");
 		
@@ -124,7 +125,22 @@ public class Controller {
 		{
 			jaxb.save(model);
 		} else {
-			// Save As
+			saveAs();
+		}
+	}
+	
+	public void saveAs()
+	{
+		int result = fc.showOpenDialog(view);
+		
+		// Check if the user has selected OK
+		if (result == JFileChooser.APPROVE_OPTION)
+		{
+			// Set the file location
+			jaxb.setfile(fc.getSelectedFile());
+			
+			// Save the model
+			jaxb.save(model);
 		}
 	}
 		
@@ -262,6 +278,9 @@ public class Controller {
 					break;
 				case SAVE:
 					Controller.getInstance().save();
+					break;
+				case SAVE_AS:
+					Controller.getInstance().saveAs();
 					break;
 				case ADDGOLD:
 					addGold();
