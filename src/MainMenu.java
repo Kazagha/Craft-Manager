@@ -32,7 +32,7 @@ public class MainMenu extends JMenuBar {
 		subMenu.add(new ActionMenu(Controller.Action.NEWMUNDANEITEM.toString()));
 		rootMenu.add(subMenu);
 		
-		subMenu = new JMenu("Add Resources");		
+		subMenu = new JMenu("Craft Reserve");		
 		subMenu.add(new ActionMenu(Controller.Action.ADDGOLD.toString()));
 		subMenu.add(new ActionMenu(Controller.Action.ADDXP.toString()));
 		rootMenu.add(subMenu);
