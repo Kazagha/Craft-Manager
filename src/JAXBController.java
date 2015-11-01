@@ -19,6 +19,11 @@ public class JAXBController {
 		this.setUp();
 	}
 	
+	public JAXBController()
+	{
+		this.setUp();
+	}
+	
 	private void setUp() {
 		try {
 			jaxbContext = JAXBContext.newInstance(
