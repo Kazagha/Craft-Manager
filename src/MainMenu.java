@@ -20,8 +20,9 @@ public class MainMenu extends JMenuBar {
 		subMenu = new JMenu("File");
 		this.add(subMenu);
 			
-		subMenu.add(new ActionMenu(Controller.Action.SAVE.toString()));
 		subMenu.add(new ActionMenu(Controller.Action.LOAD.toString()));
+		subMenu.add(new ActionMenu(Controller.Action.SAVE.toString()));
+		subMenu.add(new ActionMenu(Controller.Action.SAVE_AS.toString()));
 		subMenu.add(new ActionMenu(Controller.Action.EXIT.toString()));		
 		
 		rootMenu = new JMenu("Crafting");
