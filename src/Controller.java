@@ -93,8 +93,7 @@ public class Controller {
 		
 		fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		// TODO: Create file filter
-		//fc.setFileFilter(new Filter());
+		fc.setFileFilter(new XMLFilter());
 	}
 	
 	private void setUp(Model m, View v)
