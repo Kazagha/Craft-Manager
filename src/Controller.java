@@ -131,11 +131,21 @@ public class Controller {
 	 */
 	public void load()
 	{
-		fc.showOpenDialog(view);		
-		JAXBController jaxb = new JAXBController(fc.getSelectedFile());
+		int result = fc.showOpenDialog(view);		
 		
-		model = jaxb.load();		
-		setUp(model, view);
+		// Check if the user has select OK
+		if (result == JFileChooser.APPROVE_OPTION)
+		{		
+			// Keep reference to the file location 
+			openFile = fc.getSelectedFile();
+			
+			// Create the JAXB Controller and load the file
+			JAXBController jaxb = new JAXBController(fc.getSelectedFile());						
+			model = jaxb.load();
+			
+			// Setup the new model/view observers 
+			setUp(model, view);
+		}
 	}
 		
 	/**
