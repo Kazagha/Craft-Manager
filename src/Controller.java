@@ -32,8 +32,8 @@ public class Controller {
 	private Model model;
 	private View view;
 	
-	private File openFile;
 	private JFileChooser fc;
+	private JAXBController jaxb;
 	
 	public static Controller controller;
 	public static String key = new String("key");
@@ -89,7 +89,7 @@ public class Controller {
 	
 	private void init()
 	{
-		openFile = null;
+		jaxb = new JAXBController();
 		
 		fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -119,10 +119,14 @@ public class Controller {
 	 * Save the specified object <code>obj</code> to XML
 	 * @param obj
 	 */
-	public void save(Object obj) 
+	public void save() 
 	{
-		JAXBController jaxb = new JAXBController(new File("user.xml"));
-		jaxb.save(model);		
+		if (jaxb.getFile() != null)
+		{
+			jaxb.save(model);
+		} else {
+			// Save As
+		}
 	}
 		
 	/**
@@ -136,11 +140,10 @@ public class Controller {
 		// Check if the user has select OK
 		if (result == JFileChooser.APPROVE_OPTION)
 		{		
-			// Keep reference to the file location 
-			openFile = fc.getSelectedFile();
-			
-			// Create the JAXB Controller and load the file
-			JAXBController jaxb = new JAXBController(fc.getSelectedFile());						
+			// Set the file location in the JAXBController
+			jaxb.setfile(fc.getSelectedFile());
+						
+			// Load the specified file
 			model = jaxb.load();
 			
 			// Setup the new model/view observers 
@@ -259,7 +262,7 @@ public class Controller {
 					Controller.getInstance().load();
 					break;
 				case SAVE:
-					Controller.getInstance().save(model);
+					Controller.getInstance().save();
 					break;
 				case ADDGOLD:
 					addGold();
