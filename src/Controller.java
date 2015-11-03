@@ -437,6 +437,9 @@ public class Controller {
 			// Subtract gold and XP when beginning a new item
 			if(item.getProgress() == 0)
 			{
+				// Start crafting the item, even if the initial check failed
+				item.setProgress(1);
+				
 				model.setGold(model.getGold() - item.getCraftPrice());
 				model.notifyObservers();
 			}
