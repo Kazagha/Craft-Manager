@@ -237,13 +237,9 @@ public class Controller {
 	public void appendItemPanel(Item item, JPanel panel)
 	{
 		// Create an item panel
-		ViewItem panelView = new ViewItem(item);
-							
+		ViewItem panelView = new ViewItem(item);							
 		// Link the model to the item panel
 		item.addObserver(panelView);			
-		// Add Action and Mouse Listener to the panel
-		// TODO: The existing mouse Listener has been disabled
-		//view.setUpPanel(panelView);
 		// Add the item panel to the specified Panel
 		panel.add(panelView);
 		// Revalidates the view
