@@ -11,11 +11,14 @@ public class ViewFX implements Observer {
 
 	Scene scene;
 	
+	final int SCENE_WIDTH = 450;
+	final int SCENE_HEIGHT = 650;
+	
 	public ViewFX()
 	{
 		GridPane grid = new GridPane();		
 		
-		scene = new Scene(grid);
+		scene = new Scene(grid, SCENE_WIDTH, SCENE_HEIGHT);
 	}
 	
 	private void removeAllItems() {}
