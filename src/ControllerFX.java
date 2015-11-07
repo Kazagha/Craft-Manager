@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.stage.FileChooser;
+
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -32,7 +36,7 @@ public class ControllerFX {
 	private Model model;
 	private ViewFX ViewFX;
 	
-	private JFileChooser fc;
+	private FileChooser fc;
 	private JAXBController jaxb;
 	
 	public static ControllerFX controller;
@@ -92,9 +96,10 @@ public class ControllerFX {
 	{
 		jaxb = new JAXBController();
 		
-		fc = new JFileChooser();
-		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		fc.setFileFilter(new XMLFilter());
+		fc = new FileChooser();
+		// TODO: Set selection mode and file filter 
+		//fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		//fc.setFileFilter(new XMLFilter());
 	}
 	
 	private void setUp(Model m, ViewFX v)
@@ -107,7 +112,7 @@ public class ControllerFX {
 		// Send through initial updated model
 		model.notifyObservers();
 		// Setup the action listener
-		v.setActionListener(new MyActionListener());		
+		//v.setActionListener(new MyActionListener());		
 	}
 	
 	public static ControllerFX getInstance()
@@ -131,13 +136,13 @@ public class ControllerFX {
 	
 	public void saveAs()
 	{
-		int result = fc.showOpenDialog(ViewFX);
+		File file = fc.showOpenDialog(ViewFX.getScene().getWindow());
 		
-		// Check if the user has selected OK
-		if (result == JFileChooser.APPROVE_OPTION)
+		// Check if the file has been selected
+		if (file != null)
 		{
 			// Set the file location
-			jaxb.setfile(fc.getSelectedFile());
+			jaxb.setfile(file);
 			
 			// Save the model
 			jaxb.save(model);
@@ -150,13 +155,13 @@ public class ControllerFX {
 	 */
 	public void load()
 	{
-		int result = fc.showOpenDialog(ViewFX);		
+		File file = fc.showOpenDialog(ViewFX.getScene().getWindow());		
 		
 		// Check if the user has select OK
-		if (result == JFileChooser.APPROVE_OPTION)
+		if (file != null)
 		{		
 			// Set the file location in the JAXBController
-			jaxb.setfile(fc.getSelectedFile());
+			jaxb.setfile(file);
 						
 			// Load the specified file
 			model = jaxb.load();
@@ -237,7 +242,7 @@ public class ControllerFX {
 	public void appendItemPanel(Item item, JPanel panel)
 	{
 		// Create an item panel
-		ViewFXItem panelViewFX = new ViewFXItem(item);							
+		ViewItem panelViewFX = new ViewItem(item);							
 		// Link the model to the item panel
 		item.addObserver(panelViewFX);			
 		// Add the item panel to the specified Panel
@@ -258,11 +263,11 @@ public class ControllerFX {
 		model.setGold(model.getGold());
 		model.notifyObservers();
 	}
-	
-	public class MyActionListener implements ActionListener 
+	/*
+	public class MyEventHandler implements EventHandler 
 	{
 		@Override
-		public void actionPerformed(ActionEvent event) {
+		public void handle(Event event) {
 			
 			if(event.getSource() instanceof JComponent) {
 				JComponent source = ((JComponent) event.getSource());
@@ -359,6 +364,7 @@ public class ControllerFX {
 			}
 		}
 	}
+	*/
 	
 	public JPopupMenu createItemMenu(int index)
 	{
