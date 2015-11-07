@@ -3,7 +3,7 @@ import javafx.stage.Stage;
 
 public class CraftManager extends Application {
 
-	private ViewFX v;
+	private static ViewFX v;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception 
@@ -16,9 +16,9 @@ public class CraftManager extends Application {
 	public static void main (String[] args)
 	{
 		Model m = new Model();
-		ViewFX v = new ViewFX();
+		v = new ViewFX();
 		
-		//new Controller(m, v);		
+		new ControllerFX(m, v);		
 		
 		launch();
 	}
