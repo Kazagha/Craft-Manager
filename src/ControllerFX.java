@@ -369,9 +369,11 @@ public class ControllerFX {
 	}
 	*/
 	
+	
 	public JPopupMenu createItemMenu(int index)
 	{
-		ActionListener listener = view.getActionListener();
+		// TODO: Replace the action listener
+		//ActionListener listener = view.getActionListener();
 		Item item = model.getQueue().get(index);
 		
 		JPopupMenu menu = new JPopupMenu();		
@@ -388,7 +390,7 @@ public class ControllerFX {
 		menu.add(subMenu);
 		
 		jmi = new JMenuItem("Item");
-		jmi.addActionListener(listener);
+		//jmi.addActionListener(listener);
 		jmi.setActionCommand(ControllerFX.Action.EDIT.toString());	
 		jmi.putClientProperty(key, item);
 		subMenu.add(jmi);		
@@ -402,7 +404,7 @@ public class ControllerFX {
 			for(Effect effect : ((ItemMagic) item).getEffect())
 			{				
 				jmi = new JMenuItem(effect.toString());
-				jmi.addActionListener(listener);
+				//jmi.addActionListener(listener);
 				jmi.setActionCommand(ControllerFX.Action.EDIT.toString());		
 				jmi.putClientProperty(key, effect);
 				jmi.putClientProperty(keyItem, item);
@@ -417,7 +419,7 @@ public class ControllerFX {
 			for(Effect effect: effectArray)
 			{
 				jmi = new JMenuItem(effect.classToString());
-				jmi.addActionListener(listener);
+				//jmi.addActionListener(listener);
 				jmi.setActionCommand(ControllerFX.Action.NEWEFFECT.toString());
 				jmi.putClientProperty(key, item);
 				jmi.putClientProperty(keyEffect, effect);
@@ -427,6 +429,7 @@ public class ControllerFX {
 		
 		return menu;
 	}
+	
 	
 	public void craftMundane()
 	{
