@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ControllerFX {
 	private Model model;
-	private ViewFX ViewFX;
+	private ViewFX view;
 	
 	private FileChooser fc;
 	private JAXBController jaxb;
@@ -105,10 +105,10 @@ public class ControllerFX {
 	private void setUp(Model m, ViewFX v)
 	{
 		this.model = m;
-		this.ViewFX = v;
+		this.view = v;
 		
 		// Setup the observer pattern, wire the actions into ViewFX
-		model.addObserver(ViewFX);
+		model.addObserver(view);
 		// Send through initial updated model
 		model.notifyObservers();
 		// Setup the action listener
@@ -136,7 +136,7 @@ public class ControllerFX {
 	
 	public void saveAs()
 	{
-		File file = fc.showOpenDialog(ViewFX.getScene().getWindow());
+		File file = fc.showOpenDialog(view.getScene().getWindow());
 		
 		// Check if the file has been selected
 		if (file != null)
@@ -155,7 +155,7 @@ public class ControllerFX {
 	 */
 	public void load()
 	{
-		File file = fc.showOpenDialog(ViewFX.getScene().getWindow());		
+		File file = fc.showOpenDialog(view.getScene().getWindow());		
 		
 		// Check if the user has select OK
 		if (file != null)
@@ -167,7 +167,7 @@ public class ControllerFX {
 			model = jaxb.load();
 			
 			// Setup the new model/ViewFX observers 
-			setUp(model, ViewFX);
+			setUp(model, view);
 		}
 	}
 		
@@ -199,7 +199,7 @@ public class ControllerFX {
 	 */
 	public int editArray(ArrayList<Object> array) 
 	{
-		return JOptionPane.showConfirmDialog(ViewFX, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
+		return JOptionPane.showConfirmDialog(view, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	/**
@@ -210,12 +210,12 @@ public class ControllerFX {
 
 	public int editArray(Object[] array) 
 	{
-		return JOptionPane.showConfirmDialog(ViewFX, array, "New Item", JOptionPane.OK_CANCEL_OPTION);
+		return JOptionPane.showConfirmDialog(view, array, "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	public void showMessage(String message) 
 	{
-		JOptionPane.showMessageDialog(ViewFX, message);
+		JOptionPane.showMessageDialog(view, message);
 	}
 	
 	/**
@@ -231,7 +231,8 @@ public class ControllerFX {
 			this.appendItemPanel(item, panel);
 		}	
 		
-		ViewFX.revalidate();
+		// TODO: Will this need to be revalitaded
+		//ViewFX.revalidate();
 	}
 	
 	/**
@@ -248,7 +249,8 @@ public class ControllerFX {
 		// Add the item panel to the specified Panel
 		panel.add(panelViewFX);
 		// Revalidates the ViewFX
-		ViewFX.revalidate();
+		// TODO: Will this need to be revalidated
+		// ViewFX.revalidate();
 	}
 	
 	public void changeItemLocation(int idxA, int idxB)
@@ -368,7 +370,7 @@ public class ControllerFX {
 	
 	public JPopupMenu createItemMenu(int index)
 	{
-		ActionListener listener = ViewFX.getActionListener();
+		ActionListener listener = view.getActionListener();
 		Item item = model.getQueue().get(index);
 		
 		JPopupMenu menu = new JPopupMenu();		
