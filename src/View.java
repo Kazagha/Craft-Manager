@@ -92,7 +92,7 @@ public class View extends JPanel implements Observer {
 		tabbedPane.addTab("Queue", new JScrollPane(itemQueuePanel));
 		tabbedPane.addTab("Complete", new JScrollPane(itemCompletePanel));
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
-;
+
 		newItemButton= new JButton("New Item");
 		
 		craftButton = new JButton(new MissingIcon("Craft", 40, 40));
@@ -155,6 +155,7 @@ public class View extends JPanel implements Observer {
 		itemCompletePanel.repaint();
 	}
 	
+	@Deprecated
 	public int indexOf(JComponent component)
 	{
 		for(int i = 0; i < itemQueuePanel.getComponentCount(); i++) 
