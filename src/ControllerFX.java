@@ -199,7 +199,7 @@ public class ControllerFX {
 	 */
 	public int editArray(ArrayList<Object> array) 
 	{
-		return JOptionPane.showConfirmDialog(view, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
+		return JOptionPane.showConfirmDialog(null, array.toArray(), "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	/**
@@ -210,12 +210,13 @@ public class ControllerFX {
 
 	public int editArray(Object[] array) 
 	{
-		return JOptionPane.showConfirmDialog(view, array, "New Item", JOptionPane.OK_CANCEL_OPTION);
+		return JOptionPane.showConfirmDialog(null, array, "New Item", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	public void showMessage(String message) 
 	{
-		JOptionPane.showMessageDialog(view, message);
+		// TODO: Migrate away from JOptionPane
+		JOptionPane.showMessageDialog(null, message);
 	}
 	
 	/**
