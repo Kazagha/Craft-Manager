@@ -391,6 +391,21 @@ public class ControllerFX {
 		item.notifyObservers();
 	}
 	
+	public void edit(Item item)
+	{
+		item.edit();
+		item.notifyObservers();
+	}
+	
+	public void edit(Item item, Effect effect)
+	{
+		effect.edit();
+		
+		//TODO: Hack to update the item when the price changes
+		item.setName(item.getName());
+		item.notifyObservers();
+	}
+	
 	public JPopupMenu createItemMenu(int index)
 	{
 		// TODO: Replace the action listener
