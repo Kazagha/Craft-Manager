@@ -369,6 +369,27 @@ public class ControllerFX {
 	}
 	*/
 	
+	public void newItemMagic()
+	{
+		ItemMagicBasic newItem = ItemMagicBasic.create();
+		model.appendQueue(newItem);
+	}
+	
+	public void newItemMundane()
+	{
+		Item newItem = ItemMundane.create();
+		model.appendQueue(newItem);
+	}
+	
+	public void newEffect(ItemMagic item, Effect effect)
+	{					
+		// Create the new effect on the specified item
+		item.addEffect(effect.create());
+		
+		// Let the item know something has changed
+		item.setChanged();
+		item.notifyObservers();
+	}
 	
 	public JPopupMenu createItemMenu(int index)
 	{
