@@ -43,6 +43,7 @@ public class ViewFX implements Observer {
 		root.setTop(top);
 		
 		StackPane center = new StackPane();
+		center.setPadding(new Insets(10));
 		root.setCenter(center);
 		
 		HBox bottom = new HBox();
@@ -77,8 +78,7 @@ public class ViewFX implements Observer {
 		menuStack.setAlignment(Pos.BOTTOM_CENTER);
 		menuPane.setAlignment(Pos.BOTTOM_CENTER);	
 		menuPane.setId("MenuPane");
-		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 20, 100);
-		menuRect.setFill(Color.GREY);
+		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
 		
 		menuStack.getChildren().addAll(menuRect, menuPane);
 		
