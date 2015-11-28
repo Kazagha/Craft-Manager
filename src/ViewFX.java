@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class ViewFX implements Observer {
@@ -70,13 +72,28 @@ public class ViewFX implements Observer {
 		VBox itemPane = new VBox();
 		itemPane.setAlignment(Pos.TOP_CENTER);
 		VBox menuPane = new VBox();
+		
+		StackPane menuStack = new StackPane();
+		menuStack.setAlignment(Pos.BOTTOM_CENTER);
 		menuPane.setAlignment(Pos.BOTTOM_CENTER);	
-		center.getChildren().addAll(itemPane, menuPane);
+		menuPane.setId("MenuPane");
+		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 20, 100);
+		menuRect.setFill(Color.GREY);
+		
+		menuStack.getChildren().addAll(menuRect, menuPane);
+		
+		center.getChildren().addAll(itemPane, menuStack);
 		
 		for (int i = 0; i < 10; i++) 
 		{
 			itemPane.getChildren().add(new Text("Item: " + i));
 		}
+				
+		menuPane.getChildren().addAll(
+				new Text("Item Name"),
+				new HBox(new Text("150"), new Text("100")),
+				new Button("Craft")
+				);
 	}
 	
 	private void removeAllItems() {}
