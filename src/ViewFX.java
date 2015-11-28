@@ -4,6 +4,7 @@ import java.util.Observer;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class ViewFX implements Observer {
@@ -65,7 +67,16 @@ public class ViewFX implements Observer {
 		bottom.getChildren().addAll(bottomL, bottomR);		
 		
 		// Set the Center Pane
-		center.getChildren().add(new Label("Center"));
+		VBox itemPane = new VBox();
+		itemPane.setAlignment(Pos.TOP_CENTER);
+		VBox menuPane = new VBox();
+		menuPane.setAlignment(Pos.BOTTOM_CENTER);	
+		center.getChildren().addAll(itemPane, menuPane);
+		
+		for (int i = 0; i < 10; i++) 
+		{
+			itemPane.getChildren().add(new Text("Item: " + i));
+		}
 	}
 	
 	private void removeAllItems() {}
