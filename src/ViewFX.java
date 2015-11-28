@@ -3,12 +3,15 @@ import java.util.Observer;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class ViewFX implements Observer {
 
@@ -40,6 +43,29 @@ public class ViewFX implements Observer {
 		
 		HBox bottom = new HBox();
 		root.setBottom(bottom);
+		
+		// Set the top pane
+		top.getChildren().addAll(
+				new Button("New Item"),
+				new Button("Queue"),
+				new Button("Complete")
+				);
+		
+		// Set the bottom pane
+		HBox bottomL = new HBox();
+		bottomL.setPrefSize((root.getWidth() / 2) - 10, 25);
+		bottomL.setId("ResourceHBox");
+		HBox bottomR = new HBox();
+		bottomR.setPrefSize((root.getWidth() / 2) - 10, 25);
+		bottomR.setId("ResourceHBox");
+		
+		bottomL.getChildren().add(new Text("Gold: 10000"));
+		bottomR.getChildren().add(new Text("XP: 1500"));
+		
+		bottom.getChildren().addAll(bottomL, bottomR);		
+		
+		// Set the Center Pane
+		center.getChildren().add(new Label("Center"));
 	}
 	
 	private void removeAllItems() {}
