@@ -5,11 +5,27 @@
 HBox {
 	-fx-spacing: 20;
 	-fx-alignment: center;
-	-fx-padding: 10;
+	-fx-padding: 5;
 }
 
-Text {
-	-fx-fill: WHITE
+VBox {
+	-fx-spacing: 5;
+	-fx-padding: 5;
+}
+
+StackPane {
+	-fx-border-color: lightgray;
+}
+
+GridPane {
+	-fx-vgap: 10;
+	-fx-hgap: 10;
+}
+
+Rectangle {
+	-fx-fill: GREY;
+	-fx-stroke: rgba(100,100,100,0.5);
+	-fx-stroke-width: 2;
 }
 
 #ResourceHBox {
@@ -22,4 +38,12 @@ Text {
 	-fx-border-width: 2;	
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );	
 	-fx-font-weight: BOLD;
+}
+
+#MenuPane {
+	-fx-padding: 10;
+}
+
+#ResourceText {
+	-fx-fill: WHITE
 }
