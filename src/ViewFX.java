@@ -20,7 +20,7 @@ public class ViewFX implements Observer {
 	{
 		init();	
 		
-		grid.add(test, 0, 0);
+		
 	}
 	
 	public void init()
@@ -29,7 +29,12 @@ public class ViewFX implements Observer {
 		scene = new Scene(grid, SCENE_WIDTH, SCENE_HEIGHT);
 		
 		test = new Button(ControllerFX.Action.ADDGOLD.toString());
-		test.setOnAction(actionEvent -> ControllerFX.getInstance().addGold());
+		test.setOnAction(actionEvent -> ControllerFX.getInstance().addGold());		
+		grid.add(test, 0, 0);
+		
+		Button button = new Button(ControllerFX.Action.NEWMAGICITEM.toString());
+		button.setOnAction(actionEvent -> ControllerFX.getInstance().newItemMagic());
+		grid.add(button, 0, 1);
 	}
 	
 	private void removeAllItems() {}
