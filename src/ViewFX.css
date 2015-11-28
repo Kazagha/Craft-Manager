@@ -1,0 +1,25 @@
+.root {
+	-fx-font-size: 12;
+}
+ 
+HBox {
+	-fx-spacing: 20;
+	-fx-alignment: center;
+	-fx-padding: 10;
+}
+
+Text {
+	-fx-fill: WHITE
+}
+
+#ResourceHBox {
+	-fx-spacing: 20;
+	-fx-alignment: center;
+	-fx-padding: 0;	
+	-fx-background-color: rgba(100,100,100,0.5);
+	-fx-border-color: rgba(100,100,100,1);
+	-fx-border-radius: 2;
+	-fx-border-width: 2;	
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );	
+	-fx-font-weight: BOLD;
+}
