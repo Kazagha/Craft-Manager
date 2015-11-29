@@ -24,7 +24,7 @@ GridPane {
 }
 
 Rectangle {
-	-fx-fill: rgba(100,100,100,0.5);
+	-fx-fill: rgba(100,100,100,1);
 	-fx-stroke: rgba(100,100,100,1.0);
 	-fx-stroke-width: 2;
 }
@@ -39,6 +39,12 @@ Rectangle {
 	-fx-border-width: 2;	
 	/*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/	
 	-fx-font-weight: BOLD;
+}
+
+#CenterVBox {
+	-fx-spacing: 5;
+	-fx-padding: 5;
+	-fx-background-color: rgba(50,100,0,1);
 }
 
 #MenuPane {
