@@ -6,6 +6,7 @@ HBox {
 	-fx-spacing: 20;
 	-fx-alignment: center;
 	-fx-padding: 5;
+	-fx-border-color: lightgray;
 }
 
 VBox {
@@ -23,8 +24,8 @@ GridPane {
 }
 
 Rectangle {
-	-fx-fill: GREY;
-	-fx-stroke: rgba(100,100,100,0.5);
+	-fx-fill: rgba(100,100,100,0.5);
+	-fx-stroke: rgba(100,100,100,1.0);
 	-fx-stroke-width: 2;
 }
 
@@ -36,7 +37,7 @@ Rectangle {
 	-fx-border-color: rgba(100,100,100,1);
 	-fx-border-radius: 2;
 	-fx-border-width: 2;	
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );	
+	/*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/	
 	-fx-font-weight: BOLD;
 }
 
