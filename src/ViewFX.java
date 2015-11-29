@@ -62,36 +62,42 @@ public class ViewFX implements Observer {
 		bottomL.setId("ResourceHBox");
 		HBox bottomR = new HBox();
 		bottomR.setPrefSize((root.getWidth() / 2) - 10, 25);
-		bottomR.setId("ResourceHBox");
-		
+		bottomR.setId("ResourceHBox");		
 		bottomL.getChildren().add(new Text("Gold: 10000"));
 		bottomR.getChildren().add(new Text("XP: 1500"));
 		
 		bottom.getChildren().addAll(bottomL, bottomR);		
 		
 		// Set the Center Pane
-		VBox itemPane = new VBox();
-		itemPane.setAlignment(Pos.TOP_CENTER);
+		VBox queuePane = new VBox();
+		queuePane.setAlignment(Pos.TOP_CENTER);
+		queuePane.setId("CenterVBox");
+		
+		VBox completePane = new VBox();
+		completePane.setAlignment(Pos.TOP_CENTER);
+		completePane.setId("CenterVBox");
+		
+		completePane.getChildren().add(new Text("This is a test"));
 					
 		// Bottom Menu
 		StackPane menuStack = new StackPane();
 		menuStack.setAlignment(Pos.BOTTOM_CENTER);
-		VBox menuPane = new VBox();	
-		menuPane.setAlignment(Pos.BOTTOM_CENTER);	
-		menuPane.setId("MenuPane");
+		VBox centerMenuPane = new VBox();	
+		centerMenuPane.setAlignment(Pos.BOTTOM_CENTER);	
+		centerMenuPane.setId("MenuPane");
 		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
 		menuRect.widthProperty().bind(center.widthProperty().add(-30));
 		
-		menuStack.getChildren().addAll(menuRect, menuPane);
+		menuStack.getChildren().addAll(menuRect, centerMenuPane);
 		
-		center.getChildren().addAll(itemPane, menuStack);
+		center.getChildren().addAll(queuePane, completePane, menuStack);
 		
 		for (int i = 0; i < 10; i++) 
 		{
-			itemPane.getChildren().add(new Text("Item: " + i));
+			queuePane.getChildren().add(new Text("Item: " + i));
 		}
 				
-		menuPane.getChildren().addAll(
+		centerMenuPane.getChildren().addAll(
 				new Text("Item Name"),
 				new HBox(new Text("150"), new Text("100")),
 				new Button("Craft")
