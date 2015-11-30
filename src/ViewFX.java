@@ -1,16 +1,26 @@
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.sun.xml.internal.ws.encoding.soap.SerializerConstants;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.event.EventDispatchChain;
 import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -67,32 +77,38 @@ public class ViewFX implements Observer {
 		bottomR.getChildren().add(new Text("XP: 1500"));
 		
 		bottom.getChildren().addAll(bottomL, bottomR);		
-		
-		// Set the Center Pane
+				
+		// Set the Queue Pane
 		VBox queuePane = new VBox();
 		queuePane.setAlignment(Pos.TOP_CENTER);
 		queuePane.setId("CenterVBox");
 		
+		// Set the Complete Pane
 		VBox completePane = new VBox();
 		completePane.setAlignment(Pos.TOP_CENTER);
-		completePane.setId("CenterVBox");
-		
+		completePane.setId("CenterVBox");		
 		completePane.getChildren().add(new Text("This is a test"));
+		
+		// Set the Queue/Complete pane together in 
+		StackSelect centerSS = new StackSelect();
+		centerSS.getChildren();
+		centerSS.getChildren().addAll(completePane, queuePane);
+		centerSS.setSelected(1);
+		center.getChildren().addAll(queuePane, centerSS);
 					
-		// Bottom Menu
-		StackPane menuStack = new StackPane();
-		menuStack.setAlignment(Pos.BOTTOM_CENTER);
+		// Center Menu
 		VBox centerMenuPane = new VBox();	
 		centerMenuPane.setAlignment(Pos.BOTTOM_CENTER);	
 		centerMenuPane.setId("MenuPane");
 		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
 		menuRect.widthProperty().bind(center.widthProperty().add(-30));
-		
+				
+		// Put Center together into StackPane
+		StackPane menuStack = new StackPane();
+		menuStack.setAlignment(Pos.BOTTOM_CENTER);
 		menuStack.getChildren().addAll(menuRect, centerMenuPane);
 		
-		center.getChildren().addAll(queuePane, completePane, menuStack);
-		
-		for (int i = 0; i < 10; i++) 
+		for (int i = 0; i < 50; i++) 
 		{
 			queuePane.getChildren().add(new Text("Item: " + i));
 		}
