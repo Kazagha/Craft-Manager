@@ -32,6 +32,7 @@ class StackSelect extends StackPane
 		
 		private void init() 
 		{
+			panes = FXCollections.observableArrayList();
 			super.setAlignment(Pos.TOP_CENTER);
 		}
 		
