@@ -38,6 +38,9 @@ class StackSelect extends StackPane
 		
 		public void setSelected(int i) 
 		{
+			if (i >= panes.size())
+				return;
+			
 			super.getChildren().remove(panes);
 			super.getChildren().add(panes.get(i));
 		}
