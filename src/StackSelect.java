@@ -1,20 +1,16 @@
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 class StackSelect extends StackPane
 	{
 		private ObservableList<Node> panes;
+		private ScrollPane root;
 		
 		public StackSelect()
 		{
@@ -22,7 +18,7 @@ class StackSelect extends StackPane
 			init();
 		}
 		
-		public StackSelect(SelectPane...nodes)
+		public StackSelect(Node...nodes)
 		{
 			super();
 			init();			
@@ -32,8 +28,11 @@ class StackSelect extends StackPane
 		
 		private void init() 
 		{
-			panes = FXCollections.observableArrayList();
+			panes = FXCollections.observableArrayList();			
 			super.setAlignment(Pos.TOP_CENTER);
+			
+			root = new ScrollPane();
+			super.getChildren().add(root);
 		}
 		
 		public void setSelected(int i) 
@@ -41,32 +40,18 @@ class StackSelect extends StackPane
 			if (i >= panes.size())
 				return;
 			
-			super.getChildren().remove(panes);
-			super.getChildren().add(panes.get(i));
+			this.getChildren().removeAll(panes);
+			this.getChildren().add(panes.get(i));
 		}
 		
-		@Override
+		@Deprecated
 		public ObservableList<Node> getChildren()
 		{
-			return panes;
+			return super.getChildren();
 		}
 		
-		class SelectPane extends ScrollPane
-		{			
-			public SelectPane() 
-			{
-				this.init();
-			}
-			
-			public SelectPane(Node n)
-			{
-				super(n);
-				this.init();
-			}	
-			
-			private void init()
-			{
-				
-			}
+		public ObservableList<Node> getSwapChildren()
+		{
+			return panes;
 		}
 	}
