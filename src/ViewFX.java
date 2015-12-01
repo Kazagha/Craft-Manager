@@ -91,10 +91,9 @@ public class ViewFX implements Observer {
 		
 		// Set the Queue/Complete pane together in 
 		StackSelect centerSS = new StackSelect();
-		centerSS.getChildren();
-		centerSS.getChildren().addAll(completePane, queuePane);
+		centerSS.getSwapChildren().addAll(completePane, queuePane);
 		centerSS.setSelected(1);
-		center.getChildren().addAll(queuePane, centerSS);
+		center.getChildren().add(centerSS);
 					
 		// Center Menu
 		VBox centerMenuPane = new VBox();	
@@ -103,7 +102,7 @@ public class ViewFX implements Observer {
 		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
 		menuRect.widthProperty().bind(center.widthProperty().add(-30));
 				
-		// Put Center together into StackPane
+		// Put Center Menu together into StackPane
 		StackPane menuStack = new StackPane();
 		menuStack.setAlignment(Pos.BOTTOM_CENTER);
 		menuStack.getChildren().addAll(menuRect, centerMenuPane);
