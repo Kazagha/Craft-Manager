@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -29,9 +30,12 @@ class StackSelect extends StackPane
 		private void init() 
 		{
 			panes = FXCollections.observableArrayList();			
-			super.setAlignment(Pos.TOP_CENTER);
+			this.setAlignment(Pos.TOP_CENTER);
 			
 			root = new ScrollPane();
+			root.setHbarPolicy(ScrollBarPolicy.NEVER);
+			root.setVbarPolicy(ScrollBarPolicy.NEVER);
+			root.setFitToWidth(true);
 			super.getChildren().add(root);
 		}
 		
@@ -40,8 +44,9 @@ class StackSelect extends StackPane
 			if (i >= panes.size())
 				return;
 			
-			this.getChildren().removeAll(panes);
-			this.getChildren().add(panes.get(i));
+			//this.getChildren().removeAll(panes);
+			//this.getChildren().add(panes.get(i));
+			root.setContent(panes.get(i));
 		}
 		
 		@Deprecated
