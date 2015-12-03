@@ -52,7 +52,7 @@ public class ViewFX implements Observer {
 		HBox top = new HBox();
 		root.setTop(top);
 		
-		StackPane center = new StackPane();
+		VBox center = new VBox();
 		center.setPadding(new Insets(0, 10, 0, 10));
 		root.setCenter(center);
 		
@@ -84,45 +84,51 @@ public class ViewFX implements Observer {
 		queuePane.setId("CenterVBox");
 		
 		// Set the Complete Pane
-		VBox completePane = new VBox();
-		completePane.setAlignment(Pos.TOP_CENTER);
-		completePane.setId("CenterVBox");		
-		completePane.getChildren().add(new Text("This is a test"));
+		VBox historyPane = new VBox();
+		historyPane.setAlignment(Pos.TOP_CENTER);
+		historyPane.setId("CenterVBox");		
+		historyPane.getChildren().add(new Text("This is a test"));
 		
 		// Set the Queue/Complete pane together in 
 		StackSelect centerSS = new StackSelect();
-		centerSS.getSwapChildren().addAll(completePane, queuePane);
+		centerSS.getSwapChildren().addAll(historyPane, queuePane);
 		centerSS.setSelected(1);
 		center.getChildren().add(centerSS);
-					
+				
 		// Center Menu
+		/*
 		VBox centerMenuPane = new VBox();	
 		centerMenuPane.setAlignment(Pos.BOTTOM_CENTER);	
 		centerMenuPane.setId("MenuPane");
 		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
 		menuRect.widthProperty().bind(center.widthProperty().add(-30));
+		
 						
 		// Put Center Menu together into StackPane
 		StackPane menuStack = new StackPane();
 		menuStack.setAlignment(Pos.BOTTOM_CENTER);
 		menuStack.getChildren().addAll(menuRect, centerMenuPane);
 		center.getChildren().add(menuStack);
-		
+				
 		// Create Clip on the Center Stack
 		Rectangle menuClip = new Rectangle(SCENE_WIDTH - 30, 90);
 		menuClip.translateYProperty().bind(menuStack.heightProperty().add(- 90));
 		menuStack.setClip(menuClip);
+		*/
 		
 		for (int i = 0; i < 50; i++) 
 		{
 			queuePane.getChildren().add(new Text("Item: " + i));
 		}
-				
+			
+		VBox centerMenuPane = new VBox();
+		centerMenuPane.setAlignment(Pos.TOP_CENTER);
 		centerMenuPane.getChildren().addAll(
 				new Text("Item Name"),
 				new HBox(new Text("150"), new Text("100")),
 				new Button("Craft")
 				);
+		center.getChildren().add(centerMenuPane);
 	}
 	
 	private void removeAllItems() {}
