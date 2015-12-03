@@ -101,11 +101,17 @@ public class ViewFX implements Observer {
 		centerMenuPane.setId("MenuPane");
 		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
 		menuRect.widthProperty().bind(center.widthProperty().add(-30));
-				
+						
 		// Put Center Menu together into StackPane
 		StackPane menuStack = new StackPane();
 		menuStack.setAlignment(Pos.BOTTOM_CENTER);
 		menuStack.getChildren().addAll(menuRect, centerMenuPane);
+		center.getChildren().add(menuStack);
+		
+		// Create Clip on the Center Stack
+		Rectangle menuClip = new Rectangle(SCENE_WIDTH - 30, 90);
+		menuClip.translateYProperty().bind(menuStack.heightProperty().add(- 90));
+		menuStack.setClip(menuClip);
 		
 		for (int i = 0; i < 50; i++) 
 		{
