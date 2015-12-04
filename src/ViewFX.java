@@ -83,45 +83,26 @@ public class ViewFX implements Observer {
 		queuePane.setAlignment(Pos.TOP_CENTER);
 		queuePane.setId("CenterVBox");
 		
-		// Set the Complete Pane
+		// Set the History Pane
 		VBox historyPane = new VBox();
 		historyPane.setAlignment(Pos.TOP_CENTER);
 		historyPane.setId("CenterVBox");		
 		historyPane.getChildren().add(new Text("This is a test"));
 		
-		// Set the Queue/Complete pane together in 
-		StackSelect centerSS = new StackSelect();
-		centerSS.getSwapChildren().addAll(historyPane, queuePane);
-		centerSS.setSelected(1);
-		center.getChildren().add(centerSS);
-				
-		// Center Menu
-		/*
-		VBox centerMenuPane = new VBox();	
-		centerMenuPane.setAlignment(Pos.BOTTOM_CENTER);	
-		centerMenuPane.setId("MenuPane");
-		Rectangle menuRect = new Rectangle(SCENE_WIDTH - 30, 90);
-		menuRect.widthProperty().bind(center.widthProperty().add(-30));
-		
-						
-		// Put Center Menu together into StackPane
-		StackPane menuStack = new StackPane();
-		menuStack.setAlignment(Pos.BOTTOM_CENTER);
-		menuStack.getChildren().addAll(menuRect, centerMenuPane);
-		center.getChildren().add(menuStack);
-				
-		// Create Clip on the Center Stack
-		Rectangle menuClip = new Rectangle(SCENE_WIDTH - 30, 90);
-		menuClip.translateYProperty().bind(menuStack.heightProperty().add(- 90));
-		menuStack.setClip(menuClip);
-		*/
+		// Set the switch pane (queue/history)
+		StackSelect switchPane = new StackSelect();
+		switchPane.getSwapChildren().addAll(historyPane, queuePane);
+		switchPane.setSelected(1);
+		center.getChildren().add(switchPane);
 		
 		for (int i = 0; i < 50; i++) 
 		{
 			queuePane.getChildren().add(new Text("Item: " + i));
 		}
 			
+		// Set the Center Menu
 		VBox centerMenuPane = new VBox();
+		centerMenuPane.setStyle("-fx-background-color: LIGHTBLUE");
 		centerMenuPane.setAlignment(Pos.TOP_CENTER);
 		centerMenuPane.getChildren().addAll(
 				new Text("Item Name"),
