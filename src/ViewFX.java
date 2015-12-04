@@ -6,6 +6,7 @@ import com.sun.xml.internal.ws.encoding.soap.SerializerConstants;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventDispatchChain;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ import javafx.event.EventTarget;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +22,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -96,11 +99,6 @@ public class ViewFX implements Observer {
 		switchPane.getSwapChildren().addAll(historyPane, queuePane);
 		switchPane.setSelected(1);
 		center.getChildren().add(switchPane);
-		
-		for (int i = 0; i < 50; i++) 
-		{
-			queuePane.getChildren().add(new Text("Item: " + i));
-		}
 			
 		// Set the Center Menu
 		VBox centerMenuPane = new VBox();
@@ -121,9 +119,12 @@ public class ViewFX implements Observer {
 		return scene;
 	}	
 	
-	private void appendItemsTo(Node root, ArrayList<Item> children)
+	private void appendItemsTo(Pane root, ArrayList<Item> children)
 	{
-		
+		for (Item item : children) 
+		{		
+			root.getChildren().add(new Label(item.getName()));
+		}
 	}
 	
 	public void hookUpEvents(EventHandler<Event> handler) {}
