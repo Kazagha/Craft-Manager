@@ -23,6 +23,12 @@ GridPane {
 	-fx-hgap: 10;
 }
 
+ScrollPane {
+	-fx-fit-to-width: TRUE;
+	-fx-hbar-policy: NEVER;
+	-fx-vbar-policy: NEVER;	
+}
+
 Rectangle {
 	-fx-fill: rgba(100,100,100,1);
 	-fx-stroke: rgba(100,100,100,1.0);

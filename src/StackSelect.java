@@ -33,9 +33,6 @@ class StackSelect extends StackPane
 			this.setAlignment(Pos.TOP_CENTER);
 			
 			root = new ScrollPane();
-			root.setHbarPolicy(ScrollBarPolicy.NEVER);
-			root.setVbarPolicy(ScrollBarPolicy.NEVER);
-			root.setFitToWidth(true);
 			super.getChildren().add(root);
 		}
 		
