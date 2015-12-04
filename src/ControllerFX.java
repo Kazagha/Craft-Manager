@@ -107,6 +107,13 @@ public class ControllerFX {
 		this.model = m;
 		this.view = v;
 		
+		for (int i = 0; i < 50; i++)
+		{
+			ItemMundane item = new ItemMundane();
+			item.setName("Test Item: " + i);
+			model.getQueue().add(item);
+		}
+		
 		// Setup the observer pattern, wire the actions into ViewFX
 		model.addObserver(view);
 		// Send through initial updated model
