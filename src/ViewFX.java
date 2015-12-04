@@ -30,10 +30,12 @@ import javafx.scene.text.Text;
 public class ViewFX implements Observer {
 
 	private Scene scene;
-	private Button test;
 	
 	final int SCENE_WIDTH = 450;
 	final int SCENE_HEIGHT = 700;
+	
+	private VBox queuePane;
+	private VBox historyPane;
 	
 	public ViewFX()
 	{
@@ -79,12 +81,12 @@ public class ViewFX implements Observer {
 		bottom.getChildren().addAll(bottomL, bottomR);		
 				
 		// Set the Queue Pane
-		VBox queuePane = new VBox();
+		queuePane = new VBox();
 		queuePane.setAlignment(Pos.TOP_CENTER);
 		queuePane.setId("CenterVBox");
 		
 		// Set the History Pane
-		VBox historyPane = new VBox();
+		historyPane = new VBox();
 		historyPane.setAlignment(Pos.TOP_CENTER);
 		historyPane.setId("CenterVBox");		
 		historyPane.getChildren().add(new Text("This is a test"));
@@ -119,8 +121,21 @@ public class ViewFX implements Observer {
 		return scene;
 	}	
 	
+	private void appendItemsTo(Node root, ArrayList<Item> children)
+	{
+		
+	}
+	
 	public void hookUpEvents(EventHandler<Event> handler) {}
 
 	@Override
-	public void update(Observable obs, Object obj) {}	
+	public void update(Observable obs, Object obj) 
+	{
+		if (! (obs instanceof Model))
+			return;
+		
+		Model m = (Model) obs;
+		this.appendItemsTo(queuePane, m.getQueue());
+		this.appendItemsTo(historyPane, m.getComplete());		
+	}	
 }
