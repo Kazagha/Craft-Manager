@@ -1,3 +1,4 @@
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,23 @@ public class ViewItemFX extends Pane
 		HBox h = new HBox();
 		VBox v = new VBox();
 		
+		this.getChildren().add(h);
 		h.getChildren().addAll(icon, v);
 		v.getChildren().addAll(name, progress);
+	}
+	
+	public void setName(String str)
+	{
+		this.name.setText(str);
+	}
+	
+	public void setProgressBar(int value, int total)
+	{
+		if (total == 0) {
+			progress.setProgress(0);
+			return;
+		}
+		
+		progress.setProgress(value/total);
 	}
 }
