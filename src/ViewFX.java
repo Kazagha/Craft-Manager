@@ -138,7 +138,10 @@ public class ViewFX implements Observer {
 	{
 		for (Item item : children) 
 		{		
-			root.getChildren().add(new Label(item.getName()));
+			ViewItemFX pane = new ViewItemFX();
+			pane.setName(item.getName());
+			pane.setProgressBar(item.getProgress(), item.getPrice());
+			root.getChildren().add(pane);
 		}
 	}
 	
@@ -152,6 +155,6 @@ public class ViewFX implements Observer {
 		
 		Model m = (Model) obs;
 		this.appendItemsTo(queuePane, m.getQueue());
-		this.appendItemsTo(historyPane, m.getComplete());		
+		this.appendItemsTo(historyPane, m.getComplete());
 	}	
 }
