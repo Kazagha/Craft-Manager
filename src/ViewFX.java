@@ -112,16 +112,28 @@ public class ViewFX implements Observer {
 		center.getChildren().add(centerMenuPane);
 	}
 	
-	// Clear items from queue/history 
-	private void removeAllItems() {}
+	/**
+	 * Remove all <code>Item</code>s from the Queue and History panes
+	 */
+	private void removeAllItems() 
+	{
+		queuePane.getChildren().removeAll(queuePane.getChildren());
+		historyPane.getChildren().removeAll(historyPane.getChildren());
+	}
 	
-	// Return the root of the view, the 'scene' pane
+	/**
+	 * Return the <code>Scene</code> which is the root node of the view
+	 **/
 	public Scene getScene()
 	{
 		return scene;
 	}	
 	
-	// Append the children array to the specified Pane
+	/**
+	 * Add the <code>children</code> array to the specified Pane 
+	 * @param root
+	 * @param children
+	 */
 	private void appendItemsTo(Pane root, ArrayList<Item> children)
 	{
 		for (Item item : children) 
