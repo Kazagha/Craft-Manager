@@ -21,6 +21,7 @@ public class ViewItemFX extends StackPane
 		this.setAlignment(Pos.CENTER);
 		name = new Label();
 		progress = new ProgressBar();
+		progress.setPrefWidth(400);
 		Rectangle icon = new Rectangle(40, 40);
 		icon.setStyle("-fx-fill: GREY");
 		
