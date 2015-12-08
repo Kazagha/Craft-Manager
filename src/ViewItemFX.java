@@ -23,7 +23,6 @@ public class ViewItemFX extends StackPane
 		progress = new ProgressBar();
 		progress.setPrefWidth(400);
 		Rectangle icon = new Rectangle(40, 40);
-		icon.setStyle("-fx-fill: GREY");
 		
 		HBox h = new HBox();
 		VBox v = new VBox();
