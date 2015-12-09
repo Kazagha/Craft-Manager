@@ -24,7 +24,7 @@ class SwitchPane extends StackPane
 			super();
 			init();			
 			panes.addAll(nodes);
-			this.setSelected(nodes.length - 1);
+			this.switchTo(nodes.length - 1);
 		}		
 		
 		private void init() 
@@ -36,7 +36,7 @@ class SwitchPane extends StackPane
 			super.getChildren().add(root);
 		}
 		
-		public void setSelected(int i) 
+		public void switchTo(int i) 
 		{
 			if (i >= panes.size())
 				return;
