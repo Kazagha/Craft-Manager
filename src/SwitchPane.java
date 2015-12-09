@@ -38,7 +38,7 @@ class SwitchPane extends StackPane
 		
 		public void switchTo(int i) 
 		{
-			if (i >= panes.size())
+			if (i >= panes.size() || i < 0)
 				return;
 			
 			//this.getChildren().removeAll(panes);
