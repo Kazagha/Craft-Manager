@@ -69,8 +69,8 @@ public class ViewFX implements Observer {
 		Button queueButton = new Button("Queue");
 		Button historyButton = new Button("History");
 		
-		queueButton.setOnAction(event -> switchPane.switchTo(0));
-		historyButton.setOnAction(event -> switchPane.switchTo(1));
+		queueButton.setOnAction(event -> switchPane.switchTo(queuePane));
+		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));
 		
 		// Set the top pane
 		top.getChildren().addAll(

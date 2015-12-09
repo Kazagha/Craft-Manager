@@ -46,6 +46,18 @@ class SwitchPane extends StackPane
 			root.setContent(panes.get(i));
 		}
 		
+		public void switchTo(Node node)
+		{
+			for (Node pane : panes)
+			{
+				if (pane.equals(node))
+				{
+					root.setContent(pane);
+					return;
+				}
+			}
+		}
+		
 		@Deprecated
 		public ObservableList<Node> getChildren()
 		{
