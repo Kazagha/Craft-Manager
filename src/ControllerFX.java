@@ -33,14 +33,14 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ControllerFX {
+public class ControllerFX implements ControllerInterface {
 	private Model model;
 	private ViewFX view;
 	
 	private FileChooser fc;
 	private JAXBController jaxb;
 	
-	public static ControllerFX controller;
+	public static ControllerInterface controller;
 	public static String key = new String("key");
 	public static String keyItem = new String("keyItem");
 	public static String keyEffect = new String("keyEffect");
@@ -136,15 +136,15 @@ public class ControllerFX {
 		//v.setActionListener(new MyActionListener());		
 	}
 	
-	public static ControllerFX getInstance()
+	public static ControllerInterface getInstance()
 	{
 		return controller;
 	}
 	
-	/**
-	 * Save the specified object <code>obj</code> to XML
-	 * @param obj
+	/* (non-Javadoc)
+	 * @see ControllerInterface#save()
 	 */
+	@Override
 	public void save() 
 	{
 		if (jaxb.getFile() != null)
@@ -155,6 +155,7 @@ public class ControllerFX {
 		}
 	}
 	
+	@Override
 	public void saveAs()
 	{
 		File file = fc.showOpenDialog(view.getScene().getWindow());
@@ -169,11 +170,8 @@ public class ControllerFX {
 			jaxb.save(model);
 		}
 	}
-		
-	/**
-	 * Load the specified XML File into the model
-	 * @param file
-	 */
+
+	@Override
 	public void load()
 	{
 		File file = fc.showOpenDialog(view.getScene().getWindow());		
@@ -389,18 +387,30 @@ public class ControllerFX {
 	}
 	*/
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#newItemMagic()
+	 */
+	@Override
 	public void newItemMagic()
 	{
 		ItemMagicBasic newItem = ItemMagicBasic.create();
 		model.appendQueue(newItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#newItemMundane()
+	 */
+	@Override
 	public void newItemMundane()
 	{
 		Item newItem = ItemMundane.create();
 		model.appendQueue(newItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#newEffect(ItemMagic, Effect)
+	 */
+	@Override
 	public void newEffect(ItemMagic item, Effect effect)
 	{					
 		// Create the new effect on the specified item
@@ -426,6 +436,10 @@ public class ControllerFX {
 		item.notifyObservers();
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#createItemMenu(int)
+	 */
+	@Override
 	public JPopupMenu createItemMenu(int index)
 	{
 		// TODO: Replace the action listener
@@ -447,7 +461,7 @@ public class ControllerFX {
 		
 		jmi = new JMenuItem("Item");
 		//jmi.addActionListener(listener);
-		jmi.setActionCommand(ControllerFX.Action.EDIT.toString());	
+		jmi.setActionCommand(Controller.Action.EDIT.toString());	
 		jmi.putClientProperty(key, item);
 		subMenu.add(jmi);		
 		
@@ -461,7 +475,7 @@ public class ControllerFX {
 			{				
 				jmi = new JMenuItem(effect.toString());
 				//jmi.addActionListener(listener);
-				jmi.setActionCommand(ControllerFX.Action.EDIT.toString());		
+				jmi.setActionCommand(Controller.Action.EDIT.toString());		
 				jmi.putClientProperty(key, effect);
 				jmi.putClientProperty(keyItem, item);
 				subMenu.add(jmi);
@@ -476,7 +490,7 @@ public class ControllerFX {
 			{
 				jmi = new JMenuItem(effect.classToString());
 				//jmi.addActionListener(listener);
-				jmi.setActionCommand(ControllerFX.Action.NEWEFFECT.toString());
+				jmi.setActionCommand(Controller.Action.NEWEFFECT.toString());
 				jmi.putClientProperty(key, item);
 				jmi.putClientProperty(keyEffect, effect);
 				subMenu.add(jmi);
@@ -487,6 +501,10 @@ public class ControllerFX {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#craftMundane()
+	 */
+	@Override
 	public void craftMundane()
 	{
 		int check = this.check("Roll Craft Check:");
@@ -542,6 +560,10 @@ public class ControllerFX {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#craftMagic()
+	 */
+	@Override
 	public void craftMagic()
 	{
 		int progress = 2000;		
@@ -578,6 +600,10 @@ public class ControllerFX {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#addGold()
+	 */
+	@Override
 	public int addGold()
 	{		
 		JTextField gold = new JTextField();
@@ -600,6 +626,10 @@ public class ControllerFX {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#addXP()
+	 */
+	@Override
 	public int addXP()
 	{
 		JTextField xp = new JTextField();
@@ -639,6 +669,10 @@ public class ControllerFX {
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see ControllerInterface#clearComplete()
+	 */
+	@Override
 	public void clearComplete()
 	{		
 		// Collect completed items in the 'remove' array
