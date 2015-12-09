@@ -8,18 +8,18 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-class StackSelect extends StackPane
+class SwitchPane extends StackPane
 	{
 		private ObservableList<Node> panes;
 		private ScrollPane root;
 		
-		public StackSelect()
+		public SwitchPane()
 		{
 			super();
 			init();
 		}
 		
-		public StackSelect(Node...nodes)
+		public SwitchPane(Node...nodes)
 		{
 			super();
 			init();			

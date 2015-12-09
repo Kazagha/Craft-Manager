@@ -95,7 +95,7 @@ public class ViewFX implements Observer {
 		historyPane.getChildren().add(new Text("This is a test"));
 		
 		// Set the switch pane (queue/history)
-		StackSelect switchPane = new StackSelect();
+		SwitchPane switchPane = new SwitchPane();
 		switchPane.getSwapChildren().addAll(historyPane, queuePane);
 		switchPane.setSelected(1);
 		center.getChildren().add(switchPane);
