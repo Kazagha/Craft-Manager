@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -69,8 +70,9 @@ public class ViewFX implements Observer {
 		Button queueButton = new Button("Queue");
 		Button historyButton = new Button("History");
 		
+		newButton.setOnAction(event -> Locator.getController().newItemMundane());
 		queueButton.setOnAction(event -> switchPane.switchTo(queuePane));
-		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));
+		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));		
 		
 		// Set the top pane
 		top.getChildren().addAll(
@@ -106,6 +108,7 @@ public class ViewFX implements Observer {
 		switchPane.getSwapChildren().addAll(historyPane, queuePane);
 		switchPane.switchTo(queuePane);
 		switchPane.setPrefHeight(Integer.MAX_VALUE);
+		switchPane.addEventHandler(MouseEvent.ANY, new ItemHandler(switchPane));
 		center.getChildren().add(switchPane);
 			
 		// Set the Center Menu
