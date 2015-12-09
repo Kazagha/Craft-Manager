@@ -1,11 +1,23 @@
 
-public class ServiceLocator {
+public class Locator {
 	
-	private ControllerInterface controller;	
+	private static ControllerInterface controller;	
 	private boolean debug;
 	
-	public ServiceLocator()
+	public Locator(){}
+	
+	static ControllerInterface getController()
 	{
-		
+		return controller;
+	}
+	
+	static void provideController(ControllerInterface service) 
+	{
+		if (service == null) 
+		{
+			
+		} else {
+			controller = service;
+		}
 	}
 }
