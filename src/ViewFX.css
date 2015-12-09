@@ -3,7 +3,7 @@
 }
  
 HBox {
-	-fx-spacing: 20;
+	-fx-spacing: 10;
 	-fx-alignment: center;
 	-fx-padding: 5;
 	-fx-border-color: lightgray;
@@ -12,6 +12,7 @@ HBox {
 VBox {
 	-fx-spacing: 5;
 	-fx-padding: 5;
+	-fx-fill-width: TRUE;
 }
 
 StackPane {
@@ -30,8 +31,8 @@ ScrollPane {
 }
 
 Rectangle {
-	-fx-fill: rgba(100,100,100,1);
-	-fx-stroke: rgba(100,100,100,1.0);
+	-fx-fill: rgba(100,0,50,.75);
+	-fx-stroke: rgba(100,100,100,1);
 	-fx-stroke-width: 2;
 }
 
