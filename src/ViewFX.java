@@ -147,9 +147,10 @@ public class ViewFX implements Observer {
 		for (Item item : children) 
 		{		
 			ViewItemFX pane = new ViewItemFX();
-			pane.setName(item.getName());
-			pane.setProgressBar(item.getProgress(), item.getPrice());
 			root.getChildren().add(pane);
+			
+			item.addObserver(pane);
+			item.notifyObservers();
 		}
 	}
 	
