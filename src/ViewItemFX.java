@@ -44,6 +44,6 @@ public class ViewItemFX extends StackPane
 			return;
 		}
 		
-		progress.setProgress(value/total);
+		progress.setProgress((double)value/total);
 	}
 }
