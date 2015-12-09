@@ -37,6 +37,7 @@ public class ViewFX implements Observer {
 	final int SCENE_WIDTH = 450;
 	final int SCENE_HEIGHT = 700;
 	
+	private SwitchPane switchPane;
 	private VBox queuePane;
 	private VBox historyPane;
 	
@@ -64,11 +65,18 @@ public class ViewFX implements Observer {
 		HBox bottom = new HBox();
 		root.setBottom(bottom);
 		
+		Button newButton = new Button("New Item");
+		Button queueButton = new Button("Queue");
+		Button historyButton = new Button("History");
+		
+		queueButton.setOnAction(event -> switchPane.switchTo(0));
+		historyButton.setOnAction(event -> switchPane.switchTo(1));
+		
 		// Set the top pane
 		top.getChildren().addAll(
-				new Button("New Item"),
-				new Button("Queue"),
-				new Button("Complete")
+					newButton,
+					queueButton,
+					historyButton
 				);
 		
 		// Set the bottom pane
@@ -95,9 +103,9 @@ public class ViewFX implements Observer {
 		historyPane.getChildren().add(new Text("This is a test"));
 		
 		// Set the switch pane (queue/history)
-		SwitchPane switchPane = new SwitchPane();
+		switchPane = new SwitchPane();
 		switchPane.getSwapChildren().addAll(historyPane, queuePane);
-		switchPane.setSelected(1);
+		switchPane.switchTo(0);
 		center.getChildren().add(switchPane);
 			
 		// Set the Center Menu
@@ -127,7 +135,7 @@ public class ViewFX implements Observer {
 	public Scene getScene()
 	{
 		return scene;
-	}	
+	}
 	
 	/**
 	 * Add the <code>children</code> array to the specified Pane 
