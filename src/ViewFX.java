@@ -99,13 +99,13 @@ public class ViewFX implements Observer {
 		// Set the History Pane
 		historyPane = new VBox();
 		historyPane.setAlignment(Pos.TOP_CENTER);
-		historyPane.setId("CenterVBox");		
-		historyPane.getChildren().add(new Text("This is a test"));
+		historyPane.setId("CenterVBox");
 		
 		// Set the switch pane (queue/history)
 		switchPane = new SwitchPane();
 		switchPane.getSwapChildren().addAll(historyPane, queuePane);
-		switchPane.switchTo(0);
+		switchPane.switchTo(queuePane);
+		switchPane.setPrefHeight(Integer.MAX_VALUE);
 		center.getChildren().add(switchPane);
 			
 		// Set the Center Menu
