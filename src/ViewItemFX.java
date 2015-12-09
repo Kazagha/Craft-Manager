@@ -1,3 +1,6 @@
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -6,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
-public class ViewItemFX extends StackPane
+public class ViewItemFX extends StackPane implements Observer
 {	
 	private Label name;
 	private ProgressBar progress;
@@ -14,8 +17,8 @@ public class ViewItemFX extends StackPane
 	public ViewItemFX()
 	{
 		init();
-	}
-		
+	}	
+			
 	private void init()
 	{
 		this.setAlignment(Pos.CENTER);
@@ -30,7 +33,7 @@ public class ViewItemFX extends StackPane
 		this.getChildren().add(h);
 		h.getChildren().addAll(icon, v);
 		v.getChildren().addAll(name, progress);
-	}
+	}	
 	
 	public void setName(String str)
 	{
@@ -45,5 +48,17 @@ public class ViewItemFX extends StackPane
 		}
 		
 		progress.setProgress((double)value/total);
+	}
+	
+	public void updateItem(Item item)
+	{
+		this.setName(item.getName());
+		this.setProgressBar(item.getProgress(), item.getPrice());
+	}
+	
+	@Override
+	public void update(Observable item, Object arg1) 
+	{
+		this.updateItem((Item) item);
 	}
 }
