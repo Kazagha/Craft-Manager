@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Random;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -107,11 +108,24 @@ public class ControllerFX {
 		this.model = m;
 		this.view = v;
 		
+		Random r = new Random();
+		
 		for (int i = 0; i < 50; i++)
 		{
 			ItemMundane item = new ItemMundane();
 			item.setName("Test Item: " + i);
+			item.setPrice(1000);
+			item.setProgress(r.nextInt(1000));
 			model.getQueue().add(item);
+		}
+		
+		for (int i = 0; i < 3; i++) 
+		{
+			ItemMundane item = new ItemMundane();
+			item.setName("Finished Item: " + i);
+			item.setPrice(1000);
+			item.setProgress(1000);
+			model.getComplete().add(item);
 		}
 		
 		// Setup the observer pattern, wire the actions into ViewFX
@@ -196,7 +210,6 @@ public class ControllerFX {
 		result = Integer.valueOf(((JTextField) menu.get(1)).getText());
 		
 		return result;
-
 	}
 	
 	/**
