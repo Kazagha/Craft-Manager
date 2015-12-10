@@ -47,9 +47,13 @@ class SwitchPane extends StackPane
 			root.setContent(panes.get(i));
 		}
 		
-		public void switchTo(Node node)
+		/**
+		 * Return the currently selected Pane
+		 * @param node
+		 */
+		public void switchTo(Pane node)
 		{
-			for (Node pane : panes)
+			for (Pane pane : panes)
 			{
 				if (pane.equals(node))
 				{
@@ -63,7 +67,7 @@ class SwitchPane extends StackPane
 		{
 			for (Pane p : panes) 
 			{
-				if (this.getChildren().get(0).equals(p))
+				if (root.getContent().equals(p))
 					return p;
 			}
 			
