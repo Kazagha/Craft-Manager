@@ -5,12 +5,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 class SwitchPane extends StackPane
 	{
-		private ObservableList<Node> panes;
+		private ObservableList<Pane> panes;
 		private ScrollPane root;
 		
 		public SwitchPane()
@@ -19,7 +20,7 @@ class SwitchPane extends StackPane
 			init();
 		}
 		
-		public SwitchPane(Node...nodes)
+		public SwitchPane(Pane...nodes)
 		{
 			super();
 			init();			
@@ -58,13 +59,24 @@ class SwitchPane extends StackPane
 			}
 		}
 		
+		public Pane getSelected()
+		{
+			for (Pane p : panes) 
+			{
+				if (this.getChildren().get(0).equals(p))
+					return p;
+			}
+			
+			return null;
+		}
+		
 		@Deprecated
 		public ObservableList<Node> getChildren()
 		{
 			return super.getChildren();
 		}
 		
-		public ObservableList<Node> getSwapChildren()
+		public ObservableList<Pane> getSwapChildren()
 		{
 			return panes;
 		}
