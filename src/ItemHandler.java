@@ -6,13 +6,15 @@ import javafx.scene.layout.Pane;
 
 public class ItemHandler implements EventHandler<MouseEvent> {
 
-	Pane queuePane;
-	Pane historyPane;
+	private SwitchPane switchPane;
+	private Pane history;
+	private Pane queue;
 	
-	public ItemHandler(Pane switchPane)
+	public ItemHandler(SwitchPane switchPane)
 	{
-		this.queuePane = queuePane;
-		this.historyPane = historyPane;				
+		this.switchPane = switchPane;
+		history = switchPane.getSwapChildren().get(0);
+		queue = switchPane.getSwapChildren().get(1);
 	}
 	
 	@Override
@@ -27,7 +29,17 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	
 	private void rightClick(MouseEvent event)
 	{
-		Object source = event.getSource();
+		Object source = event.getSource();		
 		
+		if (source instanceof SwitchPane)
+		{	
+			SwitchPane sourceSP = (SwitchPane) source;
+			if (sourceSP.getSelected().equals(history))
+			{
+				System.out.format("History Event%n");
+			} else if (switchPane.getSelected().equals(queue)) {
+				System.out.format("Queue Event%n");
+			}				
+		}
 	}
 }
