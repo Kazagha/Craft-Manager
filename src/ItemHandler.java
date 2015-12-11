@@ -30,7 +30,7 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	private void rightClick(MouseEvent event)
 	{
 		Object source = event.getSource();		
-		
+		System.out.format("Scene Y: %s%n", event.getSceneY());
 		if (source instanceof SwitchPane)
 		{	
 			SwitchPane sourceSP = (SwitchPane) source;
