@@ -37,6 +37,10 @@ class SwitchPane extends StackPane
 			super.getChildren().add(root);
 		}
 		
+		/**
+		 * Switch to the Pane at the specified index 
+		 * @param i 
+		 */
 		public void switchTo(int i) 
 		{
 			if (i >= panes.size() || i < 0)
@@ -48,7 +52,9 @@ class SwitchPane extends StackPane
 		}
 		
 		/**
-		 * Return the currently selected Pane
+		 * Switch to the specified Pane <br>
+		 * The pane must already be a child of the <code>SwitchPane</code>
+		 *  
 		 * @param node
 		 */
 		public void switchTo(Pane node)
@@ -63,6 +69,10 @@ class SwitchPane extends StackPane
 			}
 		}
 		
+		/**
+		 * Return the currently displayed pane
+		 * @return
+		 */
 		public Pane getSelected()
 		{
 			for (Pane p : panes) 
