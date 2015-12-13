@@ -42,6 +42,9 @@ public class ViewFX implements Observer {
 	private VBox queuePane;
 	private VBox historyPane;
 	
+	private Text gpText;
+	private Text xpText;
+	
 	public ViewFX()
 	{
 		init();			
@@ -87,11 +90,16 @@ public class ViewFX implements Observer {
 		bottomL.setId("ResourceHBox");
 		HBox bottomR = new HBox();
 		bottomR.setPrefSize((root.getWidth() / 2) - 10, 25);
-		bottomR.setId("ResourceHBox");		
-		bottomL.getChildren().add(new Text("Gold: 10000"));
-		bottomR.getChildren().add(new Text("XP: 1500"));
+		bottomR.setId("ResourceHBox");	
+		bottom.getChildren().addAll(bottomL, bottomR);	
 		
-		bottom.getChildren().addAll(bottomL, bottomR);		
+		// Set resource values
+		gpText = new Text();
+		this.setGP(0);
+		xpText = new Text();
+		this.setXP(0);
+		bottomL.getChildren().add(gpText);
+		bottomR.getChildren().add(xpText);
 				
 		// Set the Queue Pane
 		queuePane = new VBox();
@@ -157,6 +165,16 @@ public class ViewFX implements Observer {
 		}
 	}
 	
+	public void setXP(int i) 
+	{
+		xpText.setText(String.format("%d XP", i));
+	}
+	
+	public void setGP(int i)
+	{
+		gpText.setText(String.format("%d gp", i));
+	}
+	
 	public void hookUpEvents(EventHandler<Event> handler) {}
 
 	@Override
@@ -167,6 +185,8 @@ public class ViewFX implements Observer {
 		
 		Model m = (Model) obs;
 		this.appendItemsTo(queuePane, m.getQueue());
-		this.appendItemsTo(historyPane, m.getComplete());
+		this.appendItemsTo(historyPane, m.getComplete());		
+		this.setGP(m.getGold());
+		this.setXP(m.getXP());
 	}	
 }
