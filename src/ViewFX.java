@@ -31,7 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class ViewFX implements Observer {
+public class ViewFX implements Observer, ViewInterface {
 
 	private Scene scene;
 	
@@ -118,8 +118,12 @@ public class ViewFX implements Observer {
 		switchPane.setPrefHeight(Integer.MAX_VALUE);
 		switchPane.addEventHandler(MouseEvent.ANY, new ItemHandler(switchPane));
 		center.getChildren().add(switchPane);
+		
+		ViewMenuFX itemMenu = new ViewMenuFX();
+		center.getChildren().add(itemMenu);
 			
 		// Set the Center Menu
+		/*
 		VBox centerMenuPane = new VBox();
 		centerMenuPane.setStyle("-fx-background-color: LIGHTBLUE");
 		centerMenuPane.setAlignment(Pos.TOP_CENTER);
@@ -127,8 +131,10 @@ public class ViewFX implements Observer {
 				new Text("Item Name"),
 				new HBox(new Text("150"), new Text("100")),
 				new Button("Craft")
-				);
+				);				
 		center.getChildren().add(centerMenuPane);
+		*/
+		
 	}
 	
 	/**
@@ -140,9 +146,10 @@ public class ViewFX implements Observer {
 		historyPane.getChildren().removeAll(historyPane.getChildren());
 	}
 	
-	/**
-	 * Return the <code>Scene</code> which is the root node of the view
-	 **/
+	/* (non-Javadoc)
+	 * @see ViewInterface#getScene()
+	 */
+	@Override
 	public Scene getScene()
 	{
 		return scene;
@@ -165,17 +172,26 @@ public class ViewFX implements Observer {
 		}
 	}
 	
-	public void setXP(int i) 
+	/* (non-Javadoc)
+	 * @see ViewInterface#setXP(int)
+	 */
+	@Override
+	public void setXP(int xp) 
 	{
-		xpText.setText(String.format("%d XP", i));
+		xpText.setText(String.format("%d XP", xp));
 	}
 	
-	public void setGP(int i)
+	/* (non-Javadoc)
+	 * @see ViewInterface#setGP(int)
+	 */
+	@Override
+	public void setGP(int gp)
 	{
-		gpText.setText(String.format("%d gp", i));
+		gpText.setText(String.format("%d gp", gp));
 	}
 	
 	public void hookUpEvents(EventHandler<Event> handler) {}
+
 
 	@Override
 	public void update(Observable obs, Object obj) 
