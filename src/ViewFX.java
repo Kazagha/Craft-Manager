@@ -41,6 +41,7 @@ public class ViewFX implements Observer, ViewInterface {
 	private SwitchPane switchPane;
 	private VBox queuePane;
 	private VBox historyPane;
+	private ViewMenuFX itemMenu;
 	
 	private Text gpText;
 	private Text xpText;
@@ -119,7 +120,7 @@ public class ViewFX implements Observer, ViewInterface {
 		switchPane.addEventHandler(MouseEvent.ANY, new ItemHandler(switchPane));
 		center.getChildren().add(switchPane);
 		
-		ViewMenuFX itemMenu = new ViewMenuFX();
+		itemMenu = new ViewMenuFX();
 		center.getChildren().add(itemMenu);
 			
 		// Set the Center Menu
@@ -188,6 +189,12 @@ public class ViewFX implements Observer, ViewInterface {
 	public void setGP(int gp)
 	{
 		gpText.setText(String.format("%d gp", gp));
+	}
+	
+	@Override
+	public Pane getMenu()
+	{
+		return itemMenu;
 	}
 	
 	public void hookUpEvents(EventHandler<Event> handler) {}
