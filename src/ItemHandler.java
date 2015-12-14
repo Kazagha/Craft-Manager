@@ -21,30 +21,36 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent event)
 	{
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED &&
-				event.getButton() == MouseButton.SECONDARY)
+				event.getButton() == MouseButton.PRIMARY)
 		{
-			rightClick(event);
+			leftClick(event);
 		}
 	}
 	
-	private void rightClick(MouseEvent event)
+	private void leftClick(MouseEvent event)
 	{
 		Pane source = (Pane) event.getSource();
-		Pane target = (Pane) event.getTarget();
+		Pane target = (Pane) ((Pane) event.getTarget()).getParent();
+		ViewMenuFX menu = (ViewMenuFX) Locator.getView().getMenu();
+		ModelInterface model = Locator.getModel();
 				
 		if (source instanceof SwitchPane)
 		{	
-			SwitchPane sourceSP = (SwitchPane) source;
+			SwitchPane sourceSP = (SwitchPane) source;			
+			int idx = sourceSP.getSelected().getChildren().indexOf(target);
 			
-			int idx = sourceSP.getSelected().getChildren().indexOf(target.getParent());
+			if (idx < 0) 
+				return;
 			
 			if (sourceSP.getSelected().equals(history))
 			{
 				// Event on the History screen
-				System.out.format("History Event%n");
+				System.out.format("History Event%n");				
+				menu.setItem(model.getComplete().get(idx));
 			} else if (switchPane.getSelected().equals(queue)) {
 				// Event on the Queue screen
 				System.out.format("Queue Event%n");
+				menu.setItem(model.getQueue().get(idx));
 			}				
 		}
 	}
