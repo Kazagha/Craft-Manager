@@ -31,11 +31,14 @@ public class ViewMenuFX extends VBox {
 				nameText,
 				new HBox(gpText, xpText),
 				craftButton
-				);
+				);		
 	}
 	
 	public void setItem(Item item)
 	{
+		if (item == null)
+			return;			
+	
 		nameText.setText(item.getName());
 		gpText.setText(String.format("%d gp",item.getCraftPrice()));
 		
@@ -44,6 +47,6 @@ public class ViewMenuFX extends VBox {
 			xpText.setText(String.format("%d XP", itemM.getXP()));
 		} else {
 			xpText.setText(String.format("0 XP"));
-		}			
+		}		
 	}
 }
