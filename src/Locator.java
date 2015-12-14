@@ -3,6 +3,7 @@ public class Locator {
 	
 	private static ControllerInterface controller;	
 	private static ViewInterface view;
+	private static ModelInterface model;
 	
 	public Locator(){}
 	
@@ -14,6 +15,11 @@ public class Locator {
 	static ViewInterface getView()
 	{
 		return view;
+	}
+	
+	static ModelInterface getModel()
+	{
+		return model;
 	}
 	
 	static void provideController(ControllerInterface service) 
@@ -32,6 +38,16 @@ public class Locator {
 			
 		} else {
 			view = service;
+		}
+	}
+	
+	static void provideModel(ModelInterface service)
+	{
+		if (service == null)			
+		{
+			
+		} else {
+			model = service;
 		}
 	}
 }
