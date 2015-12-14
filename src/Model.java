@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder={ "gold", "XP", "queue", "complete" })
-public class Model extends Observable {
+public class Model extends Observable implements ModelInterface {
 	
 	private int gold;
 	private int XP;
@@ -24,6 +24,7 @@ public class Model extends Observable {
 	 * Set player gold to the specified <code>num</code> of gold pieces
 	 * @param num
 	 */
+	@Override
 	public void setGold(int num)
 	{
 		this.gold = num;
@@ -34,6 +35,7 @@ public class Model extends Observable {
 	 * Return the number of gold pieces the player owns 
 	 * @return
 	 */
+	@Override
 	public int getGold()
 	{
 		return this.gold;
@@ -43,6 +45,7 @@ public class Model extends Observable {
 	 * Set the amount of XP the player has
 	 * @param num
 	 */
+	@Override
 	public void setXP(int num)
 	{
 		this.XP = num;
@@ -53,11 +56,13 @@ public class Model extends Observable {
 	 * Return the amount of XP the player has
 	 * @return
 	 */
+	@Override
 	public int getXP()
 	{
 		return this.XP;
 	}
 
+	@Override
 	@XmlElementRef(name="Queue")
 	public ArrayList<Item> getQueue() 
 	{
@@ -68,6 +73,7 @@ public class Model extends Observable {
 	 * Return an array of <code>Item</code>'s in the queue (to be crafted)
 	 * @param array
 	 */
+	@Override
 	public void setQueue(ArrayList<Item> array) 
 	{
 		this.queue = array;
@@ -78,18 +84,21 @@ public class Model extends Observable {
 	 * Return an array of <code>Item</code>'- that have been completed
 	 * @return
 	 */
+	@Override
 	@XmlElementRef(name="Complete")
 	public ArrayList<Item> getComplete() 
 	{
 		return this.complete;
 	}
 	
+	@Override
 	public void setComplete(ArrayList<Item> array) 
 	{
 		this.complete = array;
 		setChanged();
 	}
 	
+	@Override
 	public void appendQueue(Item item) 
 	{
 		if(item == null) { return; }
@@ -98,12 +107,14 @@ public class Model extends Observable {
 		setChanged();
 	}
 	
+	@Override
 	public void removeQueue(Item item)
 	{
 		this.queue.remove(item);
 		setChanged();
 	}
 	
+	@Override
 	public void appendComplete(Item item)
 	{
 		if(item == null) { return; }
@@ -112,6 +123,7 @@ public class Model extends Observable {
 		setChanged();		
 	}
 	
+	@Override
 	public void removeComplete(Item item)
 	{
 		this.complete.remove(item);
