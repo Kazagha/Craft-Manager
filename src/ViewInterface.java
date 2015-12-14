@@ -1,6 +1,7 @@
 import java.util.Observable;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 public interface ViewInterface {
 
@@ -20,6 +21,8 @@ public interface ViewInterface {
 	 * @param gp
 	 */
 	void setGP(int gp);
+	
+	Pane getMenu();
 
 	void update(Observable obs, Object obj);
 
