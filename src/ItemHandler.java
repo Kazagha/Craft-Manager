@@ -29,15 +29,21 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	
 	private void rightClick(MouseEvent event)
 	{
-		Object source = event.getSource();		
-		System.out.format("Scene Y: %s%n", event.getSceneY());
+		Pane source = (Pane) event.getSource();
+		Pane target = (Pane) event.getTarget();
+				
 		if (source instanceof SwitchPane)
 		{	
 			SwitchPane sourceSP = (SwitchPane) source;
+			
+			int idx = sourceSP.getSelected().getChildren().indexOf(target.getParent());
+			
 			if (sourceSP.getSelected().equals(history))
 			{
+				// Event on the History screen
 				System.out.format("History Event%n");
 			} else if (switchPane.getSelected().equals(queue)) {
+				// Event on the Queue screen
 				System.out.format("Queue Event%n");
 			}				
 		}
