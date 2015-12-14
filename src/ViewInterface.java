@@ -9,9 +9,17 @@ public interface ViewInterface {
 	 **/
 	Scene getScene();
 
-	void setXP(int i);
+	/**
+	 * Update the view to show the specified amount of XP
+	 * @param xp
+	 */
+	void setXP(int xp);
 
-	void setGP(int i);
+	/**
+	 * Update the view to show specified amount of gold
+	 * @param gp
+	 */
+	void setGP(int gp);
 
 	void update(Observable obs, Object obj);
 
