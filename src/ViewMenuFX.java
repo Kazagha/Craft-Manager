@@ -1,5 +1,7 @@
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -32,6 +34,11 @@ public class ViewMenuFX extends VBox {
 				new HBox(gpText, xpText),
 				craftButton
 				);		
+	}
+	
+	public void setEventHandler(EventHandler handler)
+	{
+		craftButton.addEventHandler(MouseEvent.ANY, handler);
 	}
 	
 	public void setItem(Item item)
