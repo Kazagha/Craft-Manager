@@ -30,7 +30,7 @@ public class ViewItemFX extends StackPane implements Observer
 		HBox h = new HBox();
 		VBox v = new VBox();
 		
-		this.getChildren().add(h);
+		this.getChildren().addAll(h, new StackPane());
 		h.getChildren().addAll(icon, v);
 		v.getChildren().addAll(name, progress);
 	}	
