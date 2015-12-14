@@ -197,7 +197,7 @@ public class View extends JPanel implements Observer {
 	{
 		this.removeAllPanels();
 	
-		Model m = (Model) arg0;
+		ModelInterface m = (ModelInterface) arg0;
 		Controller.getInstance().appendItemPanels(m.getQueue(), itemQueuePanel);
 		Controller.getInstance().appendItemPanels(m.getComplete(), itemCompletePanel);
 		System.out.format("View has been updated %n");

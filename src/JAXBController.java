@@ -73,7 +73,7 @@ public class JAXBController {
 		return this.file;
 	}
 	
-	public void save(Model model) {
+	public void save(ModelInterface model) {
 		checkfile(file);
 		
 		try {

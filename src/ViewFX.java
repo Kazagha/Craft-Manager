@@ -206,7 +206,7 @@ public class ViewFX implements Observer, ViewInterface {
 		if (! (obs instanceof Model))
 			return;
 		
-		Model m = (Model) obs;
+		ModelInterface m = (ModelInterface) obs;
 		this.appendItemsTo(queuePane, m.getQueue());
 		this.appendItemsTo(historyPane, m.getComplete());		
 		this.setGP(m.getGold());
