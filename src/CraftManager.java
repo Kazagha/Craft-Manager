@@ -20,6 +20,7 @@ public class CraftManager extends Application {
 		
 		ControllerFX controller = new ControllerFX(m, v);	
 		Locator.provideController(controller);
+		Locator.provideView(v);
 		
 		launch();
 	}
