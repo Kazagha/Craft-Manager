@@ -3,24 +3,25 @@ import javafx.stage.Stage;
 
 public class CraftManager extends Application {
 
-	private static ViewFX v;
+	private static ViewFX view;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{
 		primaryStage.setTitle("Craft Manager");
-		primaryStage.setScene(v.getScene());
+		primaryStage.setScene(view.getScene());
 		primaryStage.show();
 	}
 	
 	public static void main (String[] args)
 	{
-		Model m = new Model();
-		v = new ViewFX();
+		Model model = new Model();
+		view = new ViewFX();
 		
-		ControllerFX controller = new ControllerFX(m, v);	
+		ControllerFX controller = new ControllerFX(model, view);	
 		Locator.provideController(controller);
-		Locator.provideView(v);
+		Locator.provideView(view);
+		Locator.provideModel(model);
 		
 		launch();
 	}
