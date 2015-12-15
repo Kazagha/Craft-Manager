@@ -1,5 +1,6 @@
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -9,6 +10,7 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	private SwitchPane switchPane;
 	private Pane history;
 	private Pane queue;
+	private int idx = -1;
 	
 	public ItemHandler(SwitchPane switchPane)
 	{
@@ -23,11 +25,25 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED &&
 				event.getButton() == MouseButton.PRIMARY)
 		{
-			leftClick(event);
+			if (event.getSource() instanceof Button)
+			{
+				buttonSelected(event);
+			} else {
+				leftClickItem(event);
+			}
 		}
 	}
 	
-	private void leftClick(MouseEvent event)
+	private void buttonSelected(MouseEvent event) 
+	{
+		// Craft Item at the selected index
+		if (idx < 0) 
+			return; 
+		
+		System.out.format("Craft at Index: %d%n", idx);
+	}
+	
+	private void leftClickItem(MouseEvent event)
 	{
 		Pane source = (Pane) event.getSource();
 		Pane target = (Pane) ((Pane) event.getTarget()).getParent();
@@ -37,7 +53,7 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 		if (source instanceof SwitchPane)
 		{	
 			SwitchPane sourceSP = (SwitchPane) source;			
-			int idx = sourceSP.getSelected().getChildren().indexOf(target);
+			idx = sourceSP.getSelected().getChildren().indexOf(target);
 			
 			if (idx < 0) 
 				return;
@@ -45,13 +61,13 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 			if (sourceSP.getSelected().equals(history))
 			{
 				// Event on the History screen
-				System.out.format("History Event%n");				
+				System.out.format("History Event%n");		
 				menu.setItem(model.getComplete().get(idx));
 			} else if (switchPane.getSelected().equals(queue)) {
 				// Event on the Queue screen
 				System.out.format("Queue Event%n");
 				menu.setItem(model.getQueue().get(idx));
-			}				
+			}					
 		}
 	}
 }
