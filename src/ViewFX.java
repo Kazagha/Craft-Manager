@@ -42,6 +42,7 @@ public class ViewFX implements Observer, ViewInterface {
 	private VBox queuePane;
 	private VBox historyPane;
 	private ViewMenuFX itemMenu;
+	private ItemHandler handler;
 	
 	private Text gpText;
 	private Text xpText;
@@ -75,7 +76,11 @@ public class ViewFX implements Observer, ViewInterface {
 		Button historyButton = new Button("History");
 		
 		newButton.setOnAction(event -> Locator.getController().newItemMundane());
-		queueButton.setOnAction(event -> switchPane.switchTo(queuePane));
+		queueButton.setOnAction(event -> {
+			switchPane.switchTo(queuePane);
+			itemMenu.setItem(Locator.getModel().getQueue().get(0));
+			// TODO: Change this to 'select' the item in the item handler
+		});
 		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));		
 		
 		// Set the top pane
@@ -117,12 +122,15 @@ public class ViewFX implements Observer, ViewInterface {
 		switchPane.getSwapChildren().addAll(historyPane, queuePane);
 		switchPane.switchTo(queuePane);
 		switchPane.setPrefHeight(Integer.MAX_VALUE);
-		switchPane.addEventHandler(MouseEvent.ANY, new ItemHandler(switchPane));
 		center.getChildren().add(switchPane);
 		
 		itemMenu = new ViewMenuFX();
 		center.getChildren().add(itemMenu);
-			
+
+		handler = new ItemHandler(switchPane);		
+		switchPane.addEventHandler(MouseEvent.ANY, handler);
+		itemMenu.setEventHandler(handler);
+		
 		// Set the Center Menu
 		/*
 		VBox centerMenuPane = new VBox();
