@@ -22,15 +22,18 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	@Override
 	public void handle(MouseEvent event)
 	{
-		if (event.getEventType() == MouseEvent.MOUSE_RELEASED &&
-				event.getButton() == MouseButton.PRIMARY)
+		if (event.getEventType() == MouseEvent.MOUSE_RELEASED)
 		{
-			if (event.getSource() instanceof Button)
-			{
-				buttonSelected(event);
-			} else {
-				leftClickItem(event);
-			}
+			if (event.getButton() == MouseButton.PRIMARY) {
+				if (event.getSource() instanceof Button)
+				{
+					buttonSelected(event);
+				} else {
+					leftClickItem(event);
+				}
+			} else if (event.getButton() == MouseButton.SECONDARY) {
+				
+			}			
 		}
 	}
 	
