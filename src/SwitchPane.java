@@ -1,10 +1,13 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -64,6 +67,7 @@ class SwitchPane extends StackPane
 				if (pane.equals(node))
 				{
 					root.setContent(pane);
+					InputEvent.fireEvent(pane, new InputEvent(InputEvent.ANY));
 					return;
 				}
 			}
