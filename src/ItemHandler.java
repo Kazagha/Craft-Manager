@@ -1,11 +1,12 @@
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class ItemHandler implements EventHandler<MouseEvent> {
+public class ItemHandler implements EventHandler<InputEvent> {
 
 	private SwitchPane switchPane;
 	private Pane history;
@@ -20,21 +21,28 @@ public class ItemHandler implements EventHandler<MouseEvent> {
 	}
 	
 	@Override
-	public void handle(MouseEvent event)
+	public void handle(InputEvent event)
 	{
-		if (event.getEventType() == MouseEvent.MOUSE_RELEASED)
+		if (event instanceof MouseEvent)
 		{
-			if (event.getButton() == MouseButton.PRIMARY) {
-				if (event.getSource() instanceof Button)
-				{
-					buttonSelected(event);
-				} else {
-					leftClickItem(event);
-				}
-			} else if (event.getButton() == MouseButton.SECONDARY) {
-				
-			}			
-		}
+			MouseEvent mouseEvent = (MouseEvent) event; 
+			if (event.getEventType() == MouseEvent.MOUSE_RELEASED)
+			{
+				if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+					if (mouseEvent.getSource() instanceof Button)
+					{
+						buttonSelected(mouseEvent);
+					} else {
+						leftClickItem(mouseEvent);
+					}
+				} else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+					
+				}			
+			}
+		} else {
+			// Generic Input Event
+			System.out.format("Generic Input%n");
+		}		
 	}
 	
 	private void buttonSelected(MouseEvent event) 
