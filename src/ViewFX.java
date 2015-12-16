@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -128,7 +129,7 @@ public class ViewFX implements Observer, ViewInterface {
 		center.getChildren().add(itemMenu);
 
 		handler = new ItemHandler(switchPane);		
-		switchPane.addEventHandler(MouseEvent.ANY, handler);
+		switchPane.addEventHandler(InputEvent.ANY, handler);
 		itemMenu.setEventHandler(handler);
 		
 		// Set the Center Menu
