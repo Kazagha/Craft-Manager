@@ -43,9 +43,14 @@ public class ViewMenuFX extends VBox {
 	
 	public void setItem(Item item)
 	{
-		if (item == null)
-			return;			
-	
+		if (item == null) 
+		{
+			nameText.setText("");
+			gpText.setText("");
+			xpText.setText("");
+			return;
+		}
+			
 		nameText.setText(item.getName());
 		gpText.setText(String.format("%d gp",item.getCraftPrice()));
 		
