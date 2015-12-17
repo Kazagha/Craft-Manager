@@ -36,10 +36,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						leftClickItem(mouseEvent);
 					}
 				} else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-					
+					rightClickEvent(mouseEvent);
 				}			
 			}
-		} else {
+		} else if (event.getEventType() == InputEvent.ANY){
 			// Generic Input Event
 			System.out.format("Generic Input%n");
 		}		
@@ -52,6 +52,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			return; 
 		
 		System.out.format("Craft at Index: %d%n", idx);
+	}
+	
+	public void rightClickEvent(MouseEvent event)
+	{
+		System.out.format("Right Click Event%n");
 	}
 	
 	private void leftClickItem(MouseEvent event)
