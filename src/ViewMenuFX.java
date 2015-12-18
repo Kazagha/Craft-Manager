@@ -41,6 +41,21 @@ public class ViewMenuFX extends VBox {
 		craftButton.addEventHandler(MouseEvent.ANY, handler);
 	}
 	
+	public void setMode(boolean history)
+	{
+		if (history) 
+		{
+			this.getChildren().remove(craftButton);
+		} else if (this.getChildren().indexOf(craftButton) < 0) {
+			this.getChildren().add(craftButton);
+		}
+	}
+	
+	public Button getCraftButton() 
+	{
+		return craftButton;
+	}
+	
 	public void setItem(Item item)
 	{
 		if (item == null) 
