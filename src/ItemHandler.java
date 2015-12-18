@@ -11,6 +11,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private SwitchPane switchPane;
 	private Pane history;
 	private Pane queue;
+	private ViewMenuFX menu;
 	private int idx = -1;
 	
 	public ItemHandler(SwitchPane switchPane)
@@ -18,6 +19,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		this.switchPane = switchPane;
 		history = switchPane.getSwapChildren().get(0);
 		queue = switchPane.getSwapChildren().get(1);
+		
+		menu = (ViewMenuFX) Locator.getView().getMenu();
 	}
 	
 	@Override
@@ -41,7 +44,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			}
 		} else if (event.getEventType() == InputEvent.ANY){
 			// Generic Input Event
-			System.out.format("Generic Input%n");
+			System.out.format("Generic Input%n");			
 		}		
 	}
 	
@@ -62,8 +65,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private void leftClickItem(MouseEvent event)
 	{
 		Pane source = (Pane) event.getSource();
-		Pane target = (Pane) ((Pane) event.getTarget()).getParent();
-		ViewMenuFX menu = (ViewMenuFX) Locator.getView().getMenu();
+		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
 		ModelInterface model = Locator.getModel();
 				
 		if (source instanceof SwitchPane)
