@@ -206,6 +206,16 @@ public class ViewFX implements Observer, ViewInterface {
 		return itemMenu;
 	}
 	
+	public Pane getHistoryPane()
+	{
+		return historyPane;
+	}
+	
+	public Pane getQueuePane()
+	{
+		return queuePane;
+	}
+	
 	public void hookUpEvents(EventHandler<Event> handler) {}
 
 
