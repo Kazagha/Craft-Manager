@@ -19,13 +19,13 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		this.switchPane = switchPane;
 		history = switchPane.getSwapChildren().get(0);
 		queue = switchPane.getSwapChildren().get(1);
-		
-		menu = (ViewMenuFX) Locator.getView().getMenu();
 	}
 	
 	@Override
 	public void handle(InputEvent event)
 	{
+		menu = (ViewMenuFX) Locator.getView().getMenu();
+		
 		if (event instanceof MouseEvent)
 		{
 			MouseEvent mouseEvent = (MouseEvent) event; 
@@ -44,7 +44,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			}
 		} else if (event.getEventType() == InputEvent.ANY){
 			// Generic Input Event
-			System.out.format("Generic Input%n");			
+			System.out.format("Generic Input%n");	
+			
+			if (switchPane.getSelected().equals(history))
+			{
+				menu.setMode(true);
+			} else if (switchPane.getSelected().equals(queue)) {
+				menu.setMode(false);
+			}
 		}		
 	}
 	
@@ -54,7 +61,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		if (idx < 0) 
 			return; 
 		
-		System.out.format("Craft at Index: %d%n", idx);
+		if (menu.getCraftButton().equals(event.getSource())) 
+		{
+			// 	The 'Craft' button is removed when the StackPane isn't showing the queue
+			System.out.format("Craft at Index: %d%n", idx);
+		}
 	}
 	
 	public void rightClickEvent(MouseEvent event)
