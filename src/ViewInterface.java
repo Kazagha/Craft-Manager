@@ -1,5 +1,6 @@
 import java.util.Observable;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
@@ -22,8 +23,17 @@ public interface ViewInterface {
 	 */
 	void setGP(int gp);
 	
-	Pane getMenu();
-
 	void update(Observable obs, Object obj);
+	
+	public Pane getSwitchPane();
 
+	public Pane getHistoryPane();
+	
+	public Pane getQueuePane();
+	
+	public Pane getNewPane();
+	
+	public Pane getMenu();
+	
+	public void hookUpEventHandler(EventHandler handler);
 }
