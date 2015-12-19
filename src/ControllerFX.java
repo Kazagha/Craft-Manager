@@ -137,7 +137,8 @@ public class ControllerFX implements ControllerInterface {
 		// Send through initial updated model
 		model.notifyObservers();
 		// Setup the action listener
-		//v.setActionListener(new MyActionListener());		
+		//v.setActionListener(new MyActionListener());
+		Locator.getView().hookUpEventHandler(new ItemHandler());
 	}
 	
 	public static ControllerInterface getInstance()
