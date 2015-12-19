@@ -42,6 +42,7 @@ public class ViewFX implements Observer, ViewInterface {
 	private SwitchPane switchPane;
 	private VBox queuePane;
 	private VBox historyPane;
+	private VBox newPane;
 	private ViewMenuFX itemMenu;
 	private ItemHandler handler;
 	
@@ -118,9 +119,14 @@ public class ViewFX implements Observer, ViewInterface {
 		historyPane.setAlignment(Pos.TOP_CENTER);
 		historyPane.setId("CenterVBox");
 		
+		// Set the New Item Pane
+		newPane = new VBox();
+		historyButton.setAlignment(Pos.TOP_CENTER);
+		newPane.setId("CenterVBox");
+		
 		// Set the switch pane (queue/history)
 		switchPane = new SwitchPane();
-		switchPane.getSwapChildren().addAll(historyPane, queuePane);
+		switchPane.getSwapChildren().addAll(newPane, historyPane, queuePane);
 		switchPane.switchTo(queuePane);
 		switchPane.setPrefHeight(Integer.MAX_VALUE);
 		center.getChildren().add(switchPane);
@@ -128,9 +134,11 @@ public class ViewFX implements Observer, ViewInterface {
 		itemMenu = new ViewMenuFX();
 		center.getChildren().add(itemMenu);
 
+		/*
 		handler = new ItemHandler(switchPane);		
 		switchPane.addEventHandler(InputEvent.ANY, handler);
 		itemMenu.setEventHandler(handler);
+		*/
 		
 		// Set the Center Menu
 		/*
@@ -145,6 +153,12 @@ public class ViewFX implements Observer, ViewInterface {
 		center.getChildren().add(centerMenuPane);
 		*/
 		
+	}
+	
+	public void hookUpEventHandler(EventHandler handler) 
+	{		
+		switchPane.addEventHandler(InputEvent.ANY, handler);
+		itemMenu.hookUpEventHandler(handler);
 	}
 	
 	/**
@@ -216,8 +230,15 @@ public class ViewFX implements Observer, ViewInterface {
 		return queuePane;
 	}
 	
-	public void hookUpEvents(EventHandler<Event> handler) {}
-
+	public Pane getNewPane()
+	{
+		return newPane;
+	}
+	
+	public SwitchPane getSwitchPane()
+	{
+		return switchPane;
+	}	
 
 	@Override
 	public void update(Observable obs, Object obj) 
