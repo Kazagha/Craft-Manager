@@ -36,7 +36,7 @@ public class ViewMenuFX extends VBox {
 				);		
 	}
 	
-	public void setEventHandler(EventHandler handler)
+	public void hookUpEventHandler(EventHandler handler)
 	{
 		craftButton.addEventHandler(MouseEvent.ANY, handler);
 	}
