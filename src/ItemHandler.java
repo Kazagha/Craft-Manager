@@ -11,14 +11,16 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private SwitchPane switchPane;
 	private Pane history;
 	private Pane queue;
+	private Pane newPane;
 	private ViewMenuFX menu;
 	private int idx = -1;
 	
-	public ItemHandler(SwitchPane switchPane)
+	public ItemHandler()
 	{
-		this.switchPane = switchPane;
-		history = switchPane.getSwapChildren().get(0);
-		queue = switchPane.getSwapChildren().get(1);
+		switchPane = (SwitchPane) Locator.getView().getSwitchPane();
+		history = Locator.getView().getHistoryPane();
+		queue = Locator.getView().getQueuePane();
+		newPane = Locator.getView().getNewPane();
 	}
 	
 	@Override
