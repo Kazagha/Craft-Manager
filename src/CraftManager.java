@@ -16,12 +16,11 @@ public class CraftManager extends Application {
 	public static void main (String[] args)
 	{
 		Model model = new Model();
+		Locator.provideModel(model);
 		view = new ViewFX();
-		
+		Locator.provideView(view);		
 		ControllerFX controller = new ControllerFX(model, view);	
 		Locator.provideController(controller);
-		Locator.provideView(view);
-		Locator.provideModel(model);
 		
 		launch();
 	}
