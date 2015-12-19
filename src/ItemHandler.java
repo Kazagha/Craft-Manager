@@ -64,7 +64,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		if (menu.getCraftButton().equals(event.getSource())) 
 		{
 			// 	The 'Craft' button is removed when the StackPane isn't showing the queue
-			System.out.format("Craft at Index: %d%n", idx);
+			Locator.getController().craftItemAt(idx);
 		}
 	}
 	
