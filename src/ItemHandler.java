@@ -46,13 +46,15 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			}
 		} else if (event.getEventType() == InputEvent.ANY){
 			// Generic Input Event
-			System.out.format("Generic Input%n");	
 			
+			// Change the 'menu' depending on the selected pane
 			if (switchPane.getSelected().equals(history))
 			{
 				menu.setMode(true);
 			} else if (switchPane.getSelected().equals(queue)) {
 				menu.setMode(false);
+			} else if (switchPane.getSelected().equals(newPane)) {
+				// Set the menu to match the 'new item' pane
 			}
 		}		
 	}
