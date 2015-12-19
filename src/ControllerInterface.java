@@ -24,9 +24,9 @@ public interface ControllerInterface {
 
 	JPopupMenu createItemMenu(int index);
 
-	void craftMundane();
+	void craftMundane(ItemMundane item);
 
-	void craftMagic();
+	void craftMagic(ItemMagic item);
 
 	int addGold();
 
