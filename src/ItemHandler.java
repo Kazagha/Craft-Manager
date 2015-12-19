@@ -21,13 +21,12 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		history = Locator.getView().getHistoryPane();
 		queue = Locator.getView().getQueuePane();
 		newPane = Locator.getView().getNewPane();
+		menu = (ViewMenuFX) Locator.getView().getMenu();
 	}
 	
 	@Override
 	public void handle(InputEvent event)
-	{
-		menu = (ViewMenuFX) Locator.getView().getMenu();
-		
+	{	
 		// Determine the type of event
 		if (event instanceof MouseEvent)
 		{
