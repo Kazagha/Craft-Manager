@@ -28,19 +28,24 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	{
 		menu = (ViewMenuFX) Locator.getView().getMenu();
 		
+		// Determine the type of event
 		if (event instanceof MouseEvent)
 		{
+			// Mouse click event
 			MouseEvent mouseEvent = (MouseEvent) event; 
 			if (event.getEventType() == MouseEvent.MOUSE_RELEASED)
 			{
-				if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+				// Left Click Event
+				if (mouseEvent.getButton() == MouseButton.PRIMARY) {					
+					// Check if a button was selected
 					if (mouseEvent.getSource() instanceof Button)
 					{
 						buttonSelected(mouseEvent);
 					} else {
 						leftClickItem(mouseEvent);
 					}
-				} else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+				// Right Click Event
+				} else if (mouseEvent.getButton() == MouseButton.SECONDARY) {					
 					rightClickEvent(mouseEvent);
 				}			
 			}
@@ -85,12 +90,15 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				
 		if (source instanceof SwitchPane)
 		{	
+			// Find the index of the selected Item
 			SwitchPane sourceSP = (SwitchPane) source;			
 			idx = sourceSP.getSelected().getChildren().indexOf(target);
 			
+			// Return if no valid item has been selected
 			if (idx < 0) 
 				return;
 			
+			// Determine which pane is currently selected
 			if (sourceSP.getSelected().equals(history))
 			{
 				// Event on the History screen
