@@ -116,6 +116,7 @@ public class ControllerFX implements ControllerInterface {
 			item.setName("Test Item: " + i);
 			item.setPrice(1000);
 			item.setProgress(r.nextInt(1000));
+			item.setDC(10);
 			model.getQueue().add(item);
 		}
 		
@@ -508,13 +509,12 @@ public class ControllerFX implements ControllerInterface {
 	{
 		Item item = Locator.getModel().getQueue().get(index);
 		
-		// Determine if the item is crafted with the 'craft skill' for mundane
-		//  items or using an item creation feat
+		// Determine if the item is crafted using magic or mundane means;
 		if (item instanceof ItemMundane) 
 		{
-			
+			craftMundane((ItemMundane) item); 
 		} else if (item instanceof ItemMagic) {
-			
+			craftMagic((ItemMagic) item);
 		}
 	}
 	
@@ -522,99 +522,90 @@ public class ControllerFX implements ControllerInterface {
 	 * @see ControllerInterface#craftMundane()
 	 */
 	@Override
-	public void craftMundane()
+	public void craftMundane(ItemMundane item)
 	{
 		int check = this.check("Roll Craft Check:");
-		int checkPart = check;
+		int checkPart = check;		
 		
+		//ItemMundane item = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
+		int progress = item.getDC() * checkPart;
 		
-		while(checkPart > 0 && getNextItem(Item.TYPE.MUNDANE) != null)
+		// Subtract gold and XP when beginning a new item
+		if(item.getProgress() == 0)
 		{
-			ItemMundane item = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
-			int progress = item.getDC() * checkPart;
+			// Start crafting the item, even if the initial check failed
+			item.setProgress(1);
 			
-			// Subtract gold and XP when beginning a new item
-			if(item.getProgress() == 0)
-			{
-				// Start crafting the item, even if the initial check failed
-				item.setProgress(1);
-				
-				model.setGold(model.getGold() - item.getCraftPrice());
-				model.notifyObservers();
-			}
+			model.setGold(model.getGold() - item.getCraftPrice());
+			model.notifyObservers();
+		}
+		
+		if(check >= item.getDC()) 
+		{
+			// Successful check	
+			int diff = item.getPrice() - item.getProgress();
 			
-			if(check >= item.getDC()) 
+			// Check if the item will be finished on this craft check
+			if(diff >= progress) 
 			{
-				// Successful check	
-				int diff = item.getPrice() - item.getProgress();
-				
-				// Check if the item will be finished on this craft check
-				if(diff >= progress) 
-				{
-					// Add entire check to the item 
-					item.setProgress(item.getProgress() + progress);
-					checkPart = 0;
-				} else {
-					// Add the difference required to complete the item
-					item.setProgress(item.getProgress() + diff);
-					// Calculate the remaining craft check
-					progress -= diff;					
-					checkPart = (progress / item.getDC());
-				}
-				
-				// Notify the Observers that this item has been updated
-				item.notifyObservers();
-			} else if (check < item.getDC() - 4) {						
-				// Check Failed by 5 or more: Half raw materials have been destroyed				
-				int halfMatCost = item.getCraftPrice() / 2;
-				model.setGold(model.getGold() - halfMatCost);
-				// All progress is lost
+				// Add entire check to the item 
+				item.setProgress(item.getProgress() + progress);
 				checkPart = 0;
 			} else {
-				// The check failed but no materials have been destroyed				
-				checkPart = 0;
+				// Add the difference required to complete the item
+				item.setProgress(item.getProgress() + diff);
+				// Calculate the remaining craft check
+				progress -= diff;					
+				checkPart = (progress / item.getDC());
 			}
-		}
+			
+			// Notify the Observers that this item has been updated
+			item.notifyObservers();
+		} else if (check < item.getDC() - 4) {						
+			// Check Failed by 5 or more: Half raw materials have been destroyed				
+			int halfMatCost = item.getCraftPrice() / 2;
+			model.setGold(model.getGold() - halfMatCost);
+			// All progress is lost
+			checkPart = 0;
+		} else {
+			// The check failed but no materials have been destroyed				
+			checkPart = 0;
+		}	
 	}
 	
 	/* (non-Javadoc)
 	 * @see ControllerInterface#craftMagic()
 	 */
 	@Override
-	public void craftMagic()
+	public void craftMagic(ItemMagic item)
 	{
-		int progress = 2000;		
-		while(progress > 0 && getNextItem(Item.TYPE.MAGIC) != null)
+		int progress = 2000;	
+		
+		// Find the remaining work to complete the item
+		int diff = item.getPrice() - item.getProgress();
+					
+		// Subtract gold and XP when beginning a new item
+		if(item.getProgress() == 0)
 		{
-			// Fetch the next Magic Item
-			ItemMagic item = (ItemMagic) getNextItem(Item.TYPE.MAGIC);
-			
-			// Find the remaining work to complete the item
-			int diff = item.getPrice() - item.getProgress();
-						
-			// Subtract gold and XP when beginning a new item
-			if(item.getProgress() == 0)
-			{
-				model.setGold(model.getGold() - item.getCraftPrice());
-				model.setXP(model.getXP() - item.getXP());
-				model.notifyObservers();
-			}			
-						
-			// Check if the item can be completed with this craft check
-			if(diff >= progress)
-			{
-				// Item won't be completed; add the entire check
-				item.setProgress(item.getProgress() + progress);
-				progress = 0;
-			} else {
-				// Item will be completed; add part if the check required to complete the item
-				item.setProgress(item.getProgress() + diff);
-				progress -= diff;
-			}			
-			
-			// Notify the Observers  that the item has changed
-			item.notifyObservers();
-		}
+			model.setGold(model.getGold() - item.getCraftPrice());
+			model.setXP(model.getXP() - item.getXP());
+			model.notifyObservers();
+		}			
+					
+		// Check if the item can be completed with this craft check
+		if(diff >= progress)
+		{
+			// Item won't be completed; add the entire check
+			item.setProgress(item.getProgress() + progress);
+			progress = 0;
+		} else {
+			// Item will be completed; add part if the check required to complete the item
+			item.setProgress(item.getProgress() + diff);
+			progress -= diff;
+		}			
+		
+		// Notify the Observers  that the item has changed
+		item.notifyObservers();
 	}
 	
 	/* (non-Javadoc)
