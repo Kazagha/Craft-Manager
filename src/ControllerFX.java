@@ -128,6 +128,9 @@ public class ControllerFX implements ControllerInterface {
 			model.getComplete().add(item);
 		}
 		
+		model.setXP(1000);
+		model.setGold(50000);
+		
 		// Setup the observer pattern, wire the actions into ViewFX
 		model.addObserver(view);
 		// Send through initial updated model
@@ -500,6 +503,20 @@ public class ControllerFX implements ControllerInterface {
 		return menu;
 	}
 	
+	@Override
+	public void craftItemAt(int index)
+	{
+		Item item = Locator.getModel().getQueue().get(index);
+		
+		// Determine if the item is crafted with the 'craft skill' for mundane
+		//  items or using an item creation feat
+		if (item instanceof ItemMundane) 
+		{
+			
+		} else if (item instanceof ItemMagic) {
+			
+		}
+	}
 	
 	/* (non-Javadoc)
 	 * @see ControllerInterface#craftMundane()

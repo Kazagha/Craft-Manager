@@ -33,5 +33,7 @@ public interface ControllerInterface {
 	int addXP();
 
 	void clearComplete();
+	
+	void craftItemAt(int index);
 
 }
