@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,7 +15,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private Pane queue;
 	private Pane newPane;
 	private ViewMenuFX menu;
-	private int idx = -1;
+	private int idx = -1;	
 	
 	public ItemHandler()
 	{
@@ -73,6 +75,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		{
 			// 	The 'Craft' button is removed when the StackPane isn't showing the queue
 			Locator.getController().craftItemAt(idx);
+		} else if (event.getSource().equals(newPane)) {
+			System.out.format("New Pane%n");
 		}
 	}
 	
@@ -107,7 +111,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				// Event on the Queue screen
 				System.out.format("Queue Event%n");
 				menu.setItem(model.getQueue().get(idx));
-			}					
+			} else if (switchPane.getSelected().equals(newPane)) {
+				System.out.format("New Pane Event%n");
+				menu.setItem(Locator.getController().getItemList().get(idx));
+			}
 		}
 	}
 }
