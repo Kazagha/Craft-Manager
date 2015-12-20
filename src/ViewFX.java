@@ -77,7 +77,7 @@ public class ViewFX implements Observer, ViewInterface {
 		Button queueButton = new Button("Queue");
 		Button historyButton = new Button("History");
 		
-		newButton.setOnAction(event -> Locator.getController().newItemMundane());
+		newButton.setOnAction(event -> switchPane.switchTo(newPane));
 		queueButton.setOnAction(event -> {
 			switchPane.switchTo(queuePane);
 			itemMenu.setItem(Locator.getModel().getQueue().get(0));
@@ -179,6 +179,11 @@ public class ViewFX implements Observer, ViewInterface {
 		return scene;
 	}
 	
+	public void setNewItems(ArrayList<Item> array) 
+	{
+		appendItemsTo(newPane, array);
+	}
+	
 	/**
 	 * Add the <code>children</code> array to the specified Pane 
 	 * @param root
@@ -248,7 +253,7 @@ public class ViewFX implements Observer, ViewInterface {
 		
 		ModelInterface m = (ModelInterface) obs;
 		this.appendItemsTo(queuePane, m.getQueue());
-		this.appendItemsTo(historyPane, m.getComplete());		
+		this.appendItemsTo(historyPane, m.getComplete());
 		this.setGP(m.getGold());
 		this.setXP(m.getXP());
 	}	
