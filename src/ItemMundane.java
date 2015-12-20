@@ -20,7 +20,8 @@ public class ItemMundane extends Item {
 		super(name);		
 		super.setItemType(Item.TYPE.MUNDANE);
 		this.price = price;
-		this.DC = DC;		
+		this.DC = DC;
+		setChanged();
 	}
 	
 	public ItemMundane() {}
