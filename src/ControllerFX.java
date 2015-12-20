@@ -127,7 +127,9 @@ public class ControllerFX implements ControllerInterface {
 			item.setPrice(1000);
 			item.setProgress(1000);
 			model.getComplete().add(item);
-		}
+		}		
+
+		view.setNewItems(this.getItemList());
 		
 		model.setXP(1000);
 		model.setGold(50000);
@@ -703,5 +705,15 @@ public class ControllerFX implements ControllerInterface {
 		
 		// Notify Observers (GUI) of changes
 		model.notifyObservers();
+	}
+	
+	@Override
+	public  ArrayList<Item> getItemList()
+	{
+		ArrayList<Item> newItems = new ArrayList<Item>();
+		newItems.add(new ItemMundane("Axe", 120, 10));
+		newItems.add(new ItemMundane("Bow", 750, 13));
+		
+		return newItems;
 	}
 }
