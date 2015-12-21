@@ -29,6 +29,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	@Override
 	public void handle(InputEvent event)
 	{	
+		if (switchPane.getSelected().equals(newPane)) {
+			newPaneEvent(event);
+		} else if (switchPane.getSelected().equals(queue)) {
+			queuePaneEvent(event);
+		} else if (switchPane.getSelected().equals(history)) {
+			historyPaneEvent(event);
+		}
+		/*
 		// Determine the type of event
 		if (event instanceof MouseEvent)
 		{
@@ -63,6 +71,22 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				// Set the menu to match the 'new item' pane
 			}
 		}		
+		*/
+	}
+	
+	public void historyPaneEvent(InputEvent event)
+	{
+		
+	}
+	
+	public void queuePaneEvent(InputEvent event)
+	{
+		
+	}
+	
+	public void newPaneEvent(InputEvent event)
+	{
+		
 	}
 	
 	private void buttonSelected(MouseEvent event) 
@@ -86,6 +110,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	public void rightClickEvent(MouseEvent event)
 	{
 		System.out.format("Right Click Event%n");
+		
 	}
 	
 	private void leftClickItem(MouseEvent event)
