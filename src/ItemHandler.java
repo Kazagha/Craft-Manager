@@ -71,12 +71,15 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		if (idx < 0) 
 			return; 
 		
-		if (menu.getCraftButton().equals(event.getSource())) 
-		{
+		if (switchPane.getSelected().equals(newPane)) {
+			System.out.format("New Pane%n");
+			Item item = Locator.getController().getItemList().get(idx);
+			Model m = (Model) Locator.getModel();
+			m.appendQueue(item);			
+			m.notifyObservers();
+		} else if (menu.getCraftButton().equals(event.getSource())) {
 			// 	The 'Craft' button is removed when the StackPane isn't showing the queue
 			Locator.getController().craftItemAt(idx);
-		} else if (event.getSource().equals(newPane)) {
-			System.out.format("New Pane%n");
 		}
 	}
 	
