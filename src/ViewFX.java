@@ -191,12 +191,15 @@ public class ViewFX implements Observer, ViewInterface {
 	 */
 	private void appendItemsTo(Pane root, ArrayList<Item> children)
 	{
+		root.getChildren().removeAll(root.getChildren());
+		
 		for (Item item : children) 
 		{		
 			ViewItemFX pane = new ViewItemFX();
 			root.getChildren().add(pane);
 			
 			item.addObserver(pane);
+			item.setChanged();
 			item.notifyObservers();
 		}
 	}
@@ -250,11 +253,11 @@ public class ViewFX implements Observer, ViewInterface {
 	{
 		if (! (obs instanceof Model))
 			return;
-		
+					
 		ModelInterface m = (ModelInterface) obs;
 		this.appendItemsTo(queuePane, m.getQueue());
 		this.appendItemsTo(historyPane, m.getComplete());
 		this.setGP(m.getGold());
-		this.setXP(m.getXP());
+		this.setXP(m.getXP());		
 	}	
 }
