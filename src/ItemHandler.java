@@ -29,13 +29,20 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	@Override
 	public void handle(InputEvent event)
 	{	
-		if (switchPane.getSelected().equals(newPane)) {
-			newPaneEvent(event);
-		} else if (switchPane.getSelected().equals(queue)) {
-			queuePaneEvent(event);
-		} else if (switchPane.getSelected().equals(history)) {
-			historyPaneEvent(event);
+		if (event.getEventType() == MouseEvent.MOUSE_RELEASED) 
+		{
+			if (switchPane.getSelected().equals(newPane)) {
+				newPaneEvent(event);
+			} else if (switchPane.getSelected().equals(queue)) {
+				queuePaneEvent(event);
+			} else if (switchPane.getSelected().equals(history)) {
+				historyPaneEvent(event);
+			}
+		} else if (event.getEventType() == InputEvent.ANY) {
+			// The 'pane change' event has occurred 
+			// TODO: Change the menu depending on the currently selected pane
 		}
+			
 		/*
 		// Determine the type of event
 		if (event instanceof MouseEvent)
@@ -76,17 +83,85 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	
 	public void historyPaneEvent(InputEvent event)
 	{
+		Object source = event.getSource();
+		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
+		ModelInterface model = Locator.getModel();
 		
+		if (source instanceof SwitchPane)
+		{	
+			// Find the index of the selected Item
+			SwitchPane sourceSP = (SwitchPane) source;			
+			idx = sourceSP.getSelected().getChildren().indexOf(target);
+			
+			System.out.format("Index %d%n", idx);
+			
+			// Return if no valid item has been selected
+			if (idx < 0) 
+				return;
+			
+			// Select the item, show details on the menu
+			setSelection(model.getComplete().get(idx));
+			
+		} else if (source instanceof Button) {
+			
+		}
 	}
 	
 	public void queuePaneEvent(InputEvent event)
 	{
+		Object source = event.getSource();
+		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
+		ModelInterface model = Locator.getModel();
 		
+		if (source instanceof SwitchPane)
+		{	
+			// Find the index of the selected Item
+			SwitchPane sourceSP = (SwitchPane) source;			
+			idx = sourceSP.getSelected().getChildren().indexOf(target);
+			
+			System.out.format("Index %d%n", idx);
+			
+			// Return if no valid item has been selected
+			if (idx < 0) 
+				return;
+			
+			// Select the item, show details on the menu
+			setSelection(model.getQueue().get(idx));
+			
+		} else if (source instanceof Button) {
+			
+		}
 	}
-	
+		
 	public void newPaneEvent(InputEvent event)
 	{
+		Object source = event.getSource();
+		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
+		ModelInterface model = Locator.getModel();
 		
+		if (source instanceof SwitchPane)
+		{	
+			// Find the index of the selected Item
+			SwitchPane sourceSP = (SwitchPane) source;			
+			idx = sourceSP.getSelected().getChildren().indexOf(target);
+			
+			System.out.format("Index %d%n", idx);
+			
+			// Return if no valid item has been selected
+			if (idx < 0) 
+				return;
+			
+			// Select the item, show details on the menu
+			setSelection(Locator.getController().getItemList().get(idx));
+			
+		} else if (source instanceof Button) {
+			
+		}
+	}
+	
+	public void setSelection(Item item)
+	{
+		menu.setItem(item);
 	}
 	
 	private void buttonSelected(MouseEvent event) 
