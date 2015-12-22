@@ -83,14 +83,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	
 	public void historyPaneEvent(InputEvent event)
 	{
-		Object source = event.getSource();
-		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
+		Object source = event.getSource();		
 		ModelInterface model = Locator.getModel();
 		
 		if (source instanceof SwitchPane)
 		{	
 			// Find the index of the selected Item
-			SwitchPane sourceSP = (SwitchPane) source;			
+			SwitchPane sourceSP = (SwitchPane) source;
+			Pane target = (Pane) ((Pane) event.getTarget()).getParent();			
 			idx = sourceSP.getSelected().getChildren().indexOf(target);
 			
 			System.out.format("Index %d%n", idx);
@@ -109,14 +109,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	
 	public void queuePaneEvent(InputEvent event)
 	{
-		Object source = event.getSource();
-		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
+		Object source = event.getSource();				
 		ModelInterface model = Locator.getModel();
 		
 		if (source instanceof SwitchPane)
 		{	
 			// Find the index of the selected Item
-			SwitchPane sourceSP = (SwitchPane) source;			
+			SwitchPane sourceSP = (SwitchPane) source;
+			Pane target = (Pane) ((Pane) event.getTarget()).getParent();
 			idx = sourceSP.getSelected().getChildren().indexOf(target);
 			
 			System.out.format("Index %d%n", idx);
