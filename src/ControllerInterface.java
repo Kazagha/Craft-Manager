@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.JPopupMenu;
 
 public interface ControllerInterface {
@@ -35,5 +37,7 @@ public interface ControllerInterface {
 	void clearComplete();
 	
 	void craftItemAt(int index);
+	
+	public ArrayList<Item> getItemList();
 
 }
