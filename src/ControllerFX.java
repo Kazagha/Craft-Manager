@@ -104,36 +104,12 @@ public class ControllerFX implements ControllerInterface {
 	}
 	
 	private void setUp(Model m, ViewFX v)
-	{
+	{		
 		this.model = m;
 		this.view = v;
 		
-		Random r = new Random();
-		
-		for (int i = 0; i < 50; i++)
-		{
-			ItemMundane item = new ItemMundane();
-			item.setName("Test Item: " + i);
-			item.setPrice(1000);
-			item.setProgress(r.nextInt(1000));
-			item.setDC(10);
-			model.getQueue().add(item);
-		}
-		
-		for (int i = 0; i < 3; i++) 
-		{
-			ItemMundane item = new ItemMundane();
-			item.setName("Finished Item: " + i);
-			item.setPrice(1000);
-			item.setProgress(1000);
-			model.getComplete().add(item);
-		}		
-
 		view.setNewItems(this.getItemList());
-		
-		model.setXP(1000);
-		model.setGold(50000);
-		
+				
 		// Setup the observer pattern, wire the actions into ViewFX
 		model.addObserver(view);
 		// Send through initial updated model
@@ -141,6 +117,14 @@ public class ControllerFX implements ControllerInterface {
 		// Setup the action listener
 		//v.setActionListener(new MyActionListener());
 		Locator.getView().hookUpEventHandler(new ItemHandler());
+	}
+	
+	private void setupModel() 
+	{
+		Locator.provideModel(model);
+		
+		model.addObserver(view);
+		model.notifyObservers();
 	}
 	
 	public static ControllerInterface getInstance()
@@ -193,7 +177,7 @@ public class ControllerFX implements ControllerInterface {
 			model = jaxb.load();
 			
 			// Setup the new model/ViewFX observers 
-			setUp(model, view);
+			setupModel();
 		}
 	}
 		
