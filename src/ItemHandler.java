@@ -156,7 +156,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			
 		} else if (source instanceof Button) {
 			model.appendQueue(Locator.getController().getItemList().get(idx));
-			((Model) model).notifyObservers();
+			model.notifyObservers();
 		}
 	}
 	
