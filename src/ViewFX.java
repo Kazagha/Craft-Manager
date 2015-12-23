@@ -18,6 +18,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
@@ -61,11 +64,10 @@ public class ViewFX implements Observer, ViewInterface {
 		scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 		scene.getStylesheets().add(
 				ViewFX.class.getResource("ViewFX.css").toExternalForm());
-		
+						
 		// Set the Top/Center/Bottom panes
-		HBox top = new HBox();
-		root.setTop(top);
-		
+		root.setTop(initMenu());
+				
 		VBox center = new VBox();
 		center.setPadding(new Insets(0, 10, 0, 10));
 		root.setCenter(center);
@@ -86,11 +88,13 @@ public class ViewFX implements Observer, ViewInterface {
 		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));		
 		
 		// Set the top pane
-		top.getChildren().addAll(
+		HBox buttonPane = new HBox();
+		buttonPane.getChildren().addAll(
 					newButton,
 					queueButton,
 					historyButton
 				);
+		center.getChildren().add(buttonPane);
 		
 		// Set the bottom pane
 		HBox bottomL = new HBox();
@@ -151,8 +155,34 @@ public class ViewFX implements Observer, ViewInterface {
 				new Button("Craft")
 				);				
 		center.getChildren().add(centerMenuPane);
-		*/
+		*/		
+	}
+	
+	public Pane initMenu() 
+	{
+		Pane root = new Pane();		
+		MenuBar menuBar = new MenuBar();
+		root.getChildren().add(menuBar);
 		
+		MenuItem menu;
+		
+		Menu fileMenu = new Menu("File");		
+		
+		menu = new MenuItem("Open");
+		fileMenu.getItems().add(menu);
+		
+		menu = new MenuItem("Save");
+		fileMenu.getItems().add(menu);
+		
+		menu = new MenuItem("Save As...");
+		fileMenu.getItems().add(menu);
+		
+		menu = new MenuItem("Exit");
+		fileMenu.getItems().add(menu);				
+		
+		menuBar.getMenus().addAll(fileMenu, new Menu("Edit"), new Menu("About"));		
+				
+		return root;
 	}
 	
 	public void hookUpEventHandler(EventHandler handler) 
