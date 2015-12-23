@@ -51,5 +51,7 @@ public interface ModelInterface {
 	void appendComplete(Item item);
 
 	void removeComplete(Item item);
+	
+	void notifyObservers();
 
 }
