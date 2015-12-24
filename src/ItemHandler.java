@@ -32,9 +32,25 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	{	
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED) 
 		{
-			if (event.getTarget() instanceof Button) 
+			if (event.getSource() instanceof Button) 
 			{
-				String id = (((Control) event.getTarget()).getId());				
+				String id = (((Control) event.getSource()).getId());
+				
+				try {
+					switch (id) 
+					{
+					case "SwitchToNew":
+						switchPane.switchTo(newPane);
+						break;
+					case "SwitchToQueue":
+						switchPane.switchTo(queue);
+						break;
+					case "SwitchToHistory":
+						break;					
+					}
+				} catch (NullPointerException e) {
+					
+				}
 			}
 			
 			if (switchPane.getSelected().equals(newPane)) {
