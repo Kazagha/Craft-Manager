@@ -167,25 +167,39 @@ public class ViewFX implements Observer, ViewInterface {
 		
 		MenuItem menu;
 		
-		Menu fileMenu = new Menu("File");		
+		Menu subMenu = new Menu("File");
+		menuBar.getMenus().add(subMenu);
 		
 		menu = new MenuItem("Open");
 		menu.setOnAction(ActionEvent -> Locator.getController().load());
-		fileMenu.getItems().add(menu);
+		subMenu.getItems().add(menu);
 		
 		menu = new MenuItem("Save");
 		menu.setOnAction(ActionEvent -> Locator.getController().save());
-		fileMenu.getItems().add(menu);
+		subMenu.getItems().add(menu);
 		
 		menu = new MenuItem("Save As...");
 		menu.setOnAction(ActionEvent -> Locator.getController().saveAs());
-		fileMenu.getItems().add(menu);
+		subMenu.getItems().add(menu);
 		
 		menu = new MenuItem("Exit");
 		menu.setOnAction(ActionEvent -> Platform.exit());
-		fileMenu.getItems().add(menu);				
+		subMenu.getItems().add(menu);
 		
-		menuBar.getMenus().addAll(fileMenu, new Menu("Edit"), new Menu("About"));		
+		subMenu = new Menu("Edit");
+		menuBar.getMenus().add(subMenu);
+		
+		subMenu = new Menu("Help");
+		menuBar.getMenus().add(subMenu);
+		
+		menu = new MenuItem("Welcome");
+		subMenu.getItems().add(menu);
+		
+		menu = new MenuItem("Updates");
+		subMenu.getItems().add(menu);
+		
+		menu = new MenuItem("About");
+		subMenu.getItems().add(menu);
 				
 		return root;
 	}
