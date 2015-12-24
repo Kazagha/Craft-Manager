@@ -50,6 +50,10 @@ public class ViewFX implements Observer, ViewInterface {
 	private ViewMenuFX itemMenu;
 	private ItemHandler handler;
 	
+	private Button newButton;
+	private Button queueButton;
+	Button historyButton;
+	
 	private Text gpText;
 	private Text xpText;
 	
@@ -76,14 +80,16 @@ public class ViewFX implements Observer, ViewInterface {
 		HBox bottom = new HBox();
 		root.setBottom(bottom);
 		
-		Button newButton = new Button("New Item");
-		Button queueButton = new Button("Queue");
-		Button historyButton = new Button("History");
+		newButton = new Button("New Item");
+		newButton.setId("SwitchToNew");		
+		queueButton = new Button("Queue");
+		queueButton.setId("SwitchToQueue");
+		historyButton = new Button("History");
+		historyButton.setId("SwitchToHistory");
 		
-		newButton.setOnAction(event -> switchPane.switchTo(newPane));
-		queueButton.setOnAction(event -> {
-			switchPane.switchTo(queuePane);
-			itemMenu.setItem(Locator.getModel().getQueue().get(0));
+		//newButton.setOnAction(event -> switchPane.switchTo(newPane));		
+		queueButton.setOnAction(event -> { 
+		switchPane.switchTo(queuePane);
 			// TODO: Change this to 'select' the item in the item handler
 		});
 		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));		
@@ -206,6 +212,10 @@ public class ViewFX implements Observer, ViewInterface {
 	
 	public void hookUpEventHandler(EventHandler handler) 
 	{		
+		newButton.addEventHandler(MouseEvent.ANY, handler);
+		queueButton.addEventFilter(MouseEvent.ANY, handler);
+		historyButton.addEventFilter(MouseEvent.ANY, handler);
+		
 		switchPane.addEventHandler(InputEvent.ANY, handler);
 		itemMenu.hookUpEventHandler(handler);
 	}
