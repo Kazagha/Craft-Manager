@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +32,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	{	
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED) 
 		{
+			if (event.getTarget() instanceof Button) 
+			{
+				String id = (((Control) event.getTarget()).getId());				
+			}
+			
 			if (switchPane.getSelected().equals(newPane)) {
 				newPaneEvent(event);
 			} else if (switchPane.getSelected().equals(queue)) {
