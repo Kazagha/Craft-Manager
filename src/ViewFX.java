@@ -4,6 +4,7 @@ import java.util.Observer;
 
 import com.sun.xml.internal.ws.encoding.soap.SerializerConstants;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -169,15 +170,19 @@ public class ViewFX implements Observer, ViewInterface {
 		Menu fileMenu = new Menu("File");		
 		
 		menu = new MenuItem("Open");
+		menu.setOnAction(ActionEvent -> Locator.getController().load());
 		fileMenu.getItems().add(menu);
 		
 		menu = new MenuItem("Save");
+		menu.setOnAction(ActionEvent -> Locator.getController().save());
 		fileMenu.getItems().add(menu);
 		
 		menu = new MenuItem("Save As...");
+		menu.setOnAction(ActionEvent -> Locator.getController().saveAs());
 		fileMenu.getItems().add(menu);
 		
 		menu = new MenuItem("Exit");
+		menu.setOnAction(ActionEvent -> Platform.exit());
 		fileMenu.getItems().add(menu);				
 		
 		menuBar.getMenus().addAll(fileMenu, new Menu("Edit"), new Menu("About"));		
