@@ -66,7 +66,7 @@ public class ViewMenuFX extends VBox {
 			return;
 		}
 			
-		nameText.setText(item.getName());
+		nameText.setText(String.format("%s (%d gp)", item.getName(), item.getPrice()));
 		gpText.setText(String.format("%d gp",item.getCraftPrice()));
 		
 		if (item instanceof ItemMagic) {
