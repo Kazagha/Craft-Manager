@@ -32,27 +32,38 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	{	
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED) 
 		{
+			// Handle 'switch pane' events first  
 			if (event.getSource() instanceof Button) 
 			{
 				String id = (((Control) event.getSource()).getId());
 				
 				try {
+					// Select the new pane
+					//  Clear the menu and reset the index
 					switch (id) 
 					{
 					case "SwitchToNew":
 						switchPane.switchTo(newPane);
+						menu.setItem(null);
+						idx = -1;
 						break;
 					case "SwitchToQueue":
 						switchPane.switchTo(queue);
+						menu.setItem(null);
+						idx = -1;
 						break;
 					case "SwitchToHistory":
+						switchPane.switchTo(history);
+						menu.setItem(null);
+						idx = -1;
 						break;					
 					}
 				} catch (NullPointerException e) {
-					
+					// The Button has no 'id'
 				}
 			}
 			
+			// Handle all other events depending on the currently selected pane
 			if (switchPane.getSelected().equals(newPane)) {
 				newPaneEvent(event);
 			} else if (switchPane.getSelected().equals(queue)) {
@@ -152,11 +163,16 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		}
 	}
 	
+	/**
+	 * Populate the menu with the specified item
+	 * @param item
+	 */
 	public void setSelection(Item item)
 	{
 		menu.setItem(item);
 	}
 	
+	@Deprecated
 	private void buttonSelected(MouseEvent event) 
 	{
 		// Craft Item at the selected index
@@ -175,6 +191,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		}
 	}
 	
+	@Deprecated
 	public void rightClickEvent(MouseEvent event)
 	{
 		System.out.format("Right Click Event%n");
