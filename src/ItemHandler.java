@@ -64,43 +64,6 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			// The 'pane change' event has occurred 
 			// TODO: Change the menu depending on the currently selected pane
 		}
-			
-		/*
-		// Determine the type of event
-		if (event instanceof MouseEvent)
-		{
-			// Mouse click event
-			MouseEvent mouseEvent = (MouseEvent) event; 
-			if (event.getEventType() == MouseEvent.MOUSE_RELEASED)
-			{
-				// Left Click Event
-				if (mouseEvent.getButton() == MouseButton.PRIMARY) {					
-					// Check if a button was selected
-					if (mouseEvent.getSource() instanceof Button)
-					{
-						buttonSelected(mouseEvent);
-					} else {
-						leftClickItem(mouseEvent);
-					}
-				// Right Click Event
-				} else if (mouseEvent.getButton() == MouseButton.SECONDARY) {					
-					rightClickEvent(mouseEvent);
-				}			
-			}
-		} else if (event.getEventType() == InputEvent.ANY){
-			// Generic Input Event
-			
-			// Change the 'menu' depending on the selected pane
-			if (switchPane.getSelected().equals(history))
-			{
-				menu.setMode(true);
-			} else if (switchPane.getSelected().equals(queue)) {
-				menu.setMode(false);
-			} else if (switchPane.getSelected().equals(newPane)) {
-				// Set the menu to match the 'new item' pane
-			}
-		}		
-		*/
 	}
 	
 	public void historyPaneEvent(InputEvent event)
