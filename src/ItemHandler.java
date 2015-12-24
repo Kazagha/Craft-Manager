@@ -109,7 +109,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			setSelection(model.getComplete().get(idx));
 			
 		} else if (source instanceof Button) {
-			
+			if (idx < 0 || idx > Locator.getModel().getComplete().size() - 1)
+				return;
 		}
 	}
 	
@@ -135,6 +136,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			setSelection(model.getQueue().get(idx));
 			
 		} else if (source instanceof Button) {
+			if (idx < 0 || idx > Locator.getModel().getQueue().size() - 1)
+				return;
+			
 			Locator.getController().craftItemAt(idx);
 		}
 	}
@@ -161,6 +165,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			setSelection(Locator.getController().getItemList().get(idx));
 			
 		} else if (source instanceof Button) {
+			if (idx < 0 || idx > Locator.getController().getItemList().size() - 1)
+				return;
+			
 			model.appendQueue(Locator.getController().getItemList().get(idx));
 			model.notifyObservers();
 		}
