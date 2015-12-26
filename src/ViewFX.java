@@ -176,6 +176,10 @@ public class ViewFX implements Observer, ViewInterface {
 		subMenu = new Menu("Edit");
 		menuBar.getMenus().add(subMenu);
 		
+		menu = new MenuItem("Clear Completed");
+		menu.setOnAction(ActionEvent -> Locator.getController().clearComplete());
+		subMenu.getItems().add(menu);
+		
 		subMenu = new Menu("Help");
 		menuBar.getMenus().add(subMenu);
 		
