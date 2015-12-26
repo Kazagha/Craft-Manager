@@ -143,26 +143,7 @@ public class ViewFX implements Observer, ViewInterface {
 		center.getChildren().add(switchPane);
 		
 		itemMenu = new ViewMenuFX();
-		center.getChildren().add(itemMenu);
-
-		/*
-		handler = new ItemHandler(switchPane);		
-		switchPane.addEventHandler(InputEvent.ANY, handler);
-		itemMenu.setEventHandler(handler);
-		*/
-		
-		// Set the Center Menu
-		/*
-		VBox centerMenuPane = new VBox();
-		centerMenuPane.setStyle("-fx-background-color: LIGHTBLUE");
-		centerMenuPane.setAlignment(Pos.TOP_CENTER);
-		centerMenuPane.getChildren().addAll(
-				new Text("Item Name"),
-				new HBox(new Text("150"), new Text("100")),
-				new Button("Craft")
-				);				
-		center.getChildren().add(centerMenuPane);
-		*/		
+		center.getChildren().add(itemMenu);		
 	}
 	
 	public Pane initMenu() 
