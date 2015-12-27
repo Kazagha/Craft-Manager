@@ -80,11 +80,11 @@ public class ViewFX implements Observer, ViewInterface {
 		HBox bottom = new HBox();
 		root.setBottom(bottom);
 		
-		newButton = new Button("New Item");
+		newButton = new Button();
 		newButton.setId("SwitchToNew");		
-		queueButton = new Button("Queue");
+		queueButton = new Button();
 		queueButton.setId("SwitchToQueue");
-		historyButton = new Button("History");
+		historyButton = new Button();		
 		historyButton.setId("SwitchToHistory");
 		
 		//newButton.setOnAction(event -> switchPane.switchTo(newPane));		
@@ -175,6 +175,17 @@ public class ViewFX implements Observer, ViewInterface {
 		
 		subMenu = new Menu("Edit");
 		menuBar.getMenus().add(subMenu);
+		
+		Menu craftReserve = new Menu("Craft Reserve");
+		subMenu.getItems().add(craftReserve);
+		
+		menu = new MenuItem("Add Gold");
+		menu.setOnAction(ActionEvent -> Locator.getController().addGold());
+		craftReserve.getItems().add(menu);
+		
+		menu = new MenuItem("Add XP");
+		menu.setOnAction(ActionEvent -> Locator.getController().addXP());
+		craftReserve.getItems().add(menu);
 		
 		menu = new MenuItem("Clear Completed");
 		menu.setOnAction(ActionEvent -> Locator.getController().clearComplete());
