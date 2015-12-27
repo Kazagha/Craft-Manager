@@ -58,6 +58,35 @@ Rectangle {
 	-fx-padding: 10;
 }
 
+#FileMenu {
+	
+}
+
 #ResourceText {
 	-fx-fill: WHITE
 }
+
+#SwitchToHistory {
+	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Document-icon.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-min-width: 48;
+	-fx-min-height: 48;
+}
+
+#SwitchToNew {
+	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/ele-Forest-icon.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-min-width: 48;
+	-fx-min-height: 48;	
+}
+
+#SwitchToQueue {
+	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/sword-icon.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-min-width: 48;
+	-fx-min-height: 48;	
+}
+
