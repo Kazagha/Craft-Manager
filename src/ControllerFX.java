@@ -612,6 +612,7 @@ public class ControllerFX implements ControllerInterface {
 				result = this.editArray(array);
 				
 				model.setGold(model.getGold() + Integer.valueOf(gold.getText()));
+				model.notifyObservers();
 				return result;
 			} catch (Exception e) {
 				
@@ -638,6 +639,7 @@ public class ControllerFX implements ControllerInterface {
 				result = this.editArray(array);
 				
 				model.setXP(model.getXP() + Integer.valueOf(xp.getText()));
+				model.notifyObservers();
 				return result;
 			} catch (Exception e) {
 				
