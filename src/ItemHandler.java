@@ -2,8 +2,11 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -125,6 +128,19 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			// Select the item, show details on the menu
 			setSelection(model.getQueue().get(idx));
 			
+			if (event instanceof MouseEvent) {
+				MouseEvent mouseEvent = (MouseEvent) event;
+				if (mouseEvent.getButton() == MouseButton.SECONDARY) 
+				{
+					ContextMenu cm = new ContextMenu();
+					cm.setAutoHide(true);
+					MenuItem menu = new MenuItem("Edit");
+					cm.getItems().add(menu);
+					
+					cm.show((Node) event.getSource(), mouseEvent.getScreenX(), mouseEvent.getScreenY());					
+				}
+			}
+						
 		} else if (source instanceof Button) {
 			if (idx < 0 || idx > Locator.getModel().getQueue().size() - 1)
 				return;
