@@ -11,6 +11,7 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Window;
 
 public class ItemHandler implements EventHandler<InputEvent> {
 
@@ -77,7 +78,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		} else if (event.getEventType() == InputEvent.ANY) {
 			// The 'pane change' event has occurred 
 			// TODO: Change the menu depending on the currently selected pane
-		}
+		}		
 	}
 	
 	public void historyPaneEvent(InputEvent event)
@@ -133,11 +134,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				if (mouseEvent.getButton() == MouseButton.SECONDARY) 
 				{
 					ContextMenu cm = new ContextMenu();
-					cm.setAutoHide(true);
 					MenuItem menu = new MenuItem("Edit");
 					cm.getItems().add(menu);
 					
-					cm.show((Node) event.getSource(), mouseEvent.getScreenX(), mouseEvent.getScreenY());					
+					cm.show(Locator.getView().getScene().getWindow(), mouseEvent.getScreenX(), mouseEvent.getScreenY());					
 				}
 			}
 						
