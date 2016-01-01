@@ -75,10 +75,13 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			} else if (switchPane.getSelected().equals(history)) {
 				historyPaneEvent(event);
 			}
-		} else if (event.getEventType() == InputEvent.ANY) {
+		} 
+		/*		
+		else if (event.getEventType() == InputEvent.ANY) {
 			// The 'pane change' event has occurred 
 			// TODO: Change the menu depending on the currently selected pane
-		}		
+		}
+		*/		
 	}
 	
 	public void historyPaneEvent(InputEvent event)
