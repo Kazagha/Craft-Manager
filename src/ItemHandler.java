@@ -148,8 +148,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			if (idx < 0 || idx > Locator.getModel().getQueue().size() - 1)
 				return;
 			
-			// Craft the selected item
-			Locator.getController().craftItemAt(idx);
+			//if (((Button) source).getId().equals("Craft")) {
+			if (((Button) source).getText().equals("Craft")) {
+				// Craft the selected item
+				Locator.getController().craftItemAt(idx);
+			}
 		}
 	}
 		
