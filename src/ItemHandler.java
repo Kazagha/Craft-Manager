@@ -145,6 +145,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			if (idx < 0 || idx > Locator.getModel().getQueue().size() - 1)
 				return;
 			
+			// Craft the selected item
 			Locator.getController().craftItemAt(idx);
 		}
 	}
@@ -174,6 +175,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			if (idx < 0 || idx > Locator.getController().getItemList().size() - 1)
 				return;
 			
+			// Add the selected item to the queue
 			model.appendQueue(Locator.getController().getItemList().get(idx));
 			model.notifyObservers();
 		}
@@ -214,6 +216,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		
 	}
 	
+	@Deprecated
 	private void leftClickItem(MouseEvent event)
 	{
 		Pane source = (Pane) event.getSource();
