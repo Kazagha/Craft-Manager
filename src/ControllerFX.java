@@ -552,6 +552,7 @@ public class ControllerFX implements ControllerInterface {
 			// Check Failed by 5 or more: Half raw materials have been destroyed				
 			int halfMatCost = item.getCraftPrice() / 2;
 			model.setGold(model.getGold() - halfMatCost);
+			model.notifyObservers();
 			// All progress is lost
 			checkPart = 0;
 		} else {
