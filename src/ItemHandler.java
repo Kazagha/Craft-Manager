@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -136,9 +138,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				MouseEvent mouseEvent = (MouseEvent) event;
 				if (mouseEvent.getButton() == MouseButton.SECONDARY) 
 				{
+					Item item = Locator.getModel().getQueue().get(idx);
 					ContextMenu cm = new ContextMenu();
-					MenuItem menu = new MenuItem("Edit");
-					cm.getItems().add(menu);
+					MenuItem menu = new MenuItem(item.getName());
+					cm.getItems().addAll(menu, new SeparatorMenuItem());
+					
+					menu = new MenuItem("Edit");
+					menu.setOnAction(ActionEvent -> item.edit());
+					cm.getItems().addAll(menu);					
 					
 					cm.show(Locator.getView().getScene().getWindow(), mouseEvent.getScreenX(), mouseEvent.getScreenY());					
 				}
