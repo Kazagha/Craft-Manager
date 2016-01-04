@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SeparatorMenuItem;
@@ -145,7 +146,30 @@ public class ItemHandler implements EventHandler<InputEvent> {
 					
 					menu = new MenuItem("Edit");
 					menu.setOnAction(ActionEvent -> item.edit());
-					cm.getItems().addAll(menu);					
+					cm.getItems().addAll(menu);	
+					
+					if (item instanceof ItemMagic) 
+					{						
+						ItemMagic itemM = (ItemMagic) item;
+						
+						// Create menu to add new enchantments
+						Menu subMenu = new Menu("Add Enchantment");
+						cm.getItems().add(subMenu);
+						for (EffectBonus.Type type : EffectBonus.Type.values())
+						{
+							menu = new MenuItem(type.getDesc());
+							menu.setOnAction(ActionEvent -> {
+								Locator.getController().newEffect(itemM, new EffectBonus().create());
+							});	
+							subMenu.getItems().add(menu);
+						}						
+						
+						// Create menu to edit existing enchantments
+						for (Effect e : itemM.getEffect())
+						{
+							
+						}
+					}
 					
 					cm.show(Locator.getView().getScene().getWindow(), mouseEvent.getScreenX(), mouseEvent.getScreenY());					
 				}
