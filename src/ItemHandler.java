@@ -155,6 +155,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						// Create menu to add new enchantments
 						Menu subMenu = new Menu("Add Enchantment");
 						cm.getItems().add(subMenu);
+
+						menu = new MenuItem("Spell Effect");
+						menu.setOnAction(ActionEvent -> Locator.getController().newEffect(itemM, new EffectSpell().create()));
+						subMenu.getItems().add(menu);
+						
 						for (EffectBonus.Type type : EffectBonus.Type.values())
 						{
 							menu = new MenuItem(type.getDesc());
@@ -164,7 +169,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 							subMenu.getItems().add(menu);
 						}						
 						
-						// Create menu to edit existing enchantments
+						// Create menu for editing existing enchantments
 						for (Effect e : itemM.getEffect())
 						{
 							
