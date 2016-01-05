@@ -170,9 +170,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						}						
 						
 						// Create menu for editing existing enchantments
+						subMenu = new Menu("Edit Enchantment");
+						cm.getItems().add(subMenu);
+						
 						for (Effect e : itemM.getEffect())
 						{
-							
+							menu = new MenuItem(e.getName());
+							menu.setOnAction(ActionEvent -> e.edit());
+							subMenu.getItems().add(menu);
 						}
 					}
 					
