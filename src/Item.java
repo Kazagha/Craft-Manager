@@ -3,6 +3,10 @@ import java.util.Observable;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
 @XmlRootElement
 public abstract class Item  extends Observable {
 	private String name;
@@ -61,10 +65,13 @@ public abstract class Item  extends Observable {
 	{
 		super.setChanged();
 	}
-	
-	public abstract int edit();
+			
+	public abstract Pane toEditPane();
 	
 	public abstract int getPrice();
 	
 	public abstract int getCraftPrice();
+
+	public abstract boolean validateAndStore(); 
+	
 }
