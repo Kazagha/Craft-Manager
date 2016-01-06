@@ -56,7 +56,7 @@ public class ItemMundane extends Item {
 		priceField.setText(String.valueOf(this.getPrice()));
 		DCField.setText(String.valueOf(this.getDC()));
 		
-		return this.toDialog(
+		return Locator.getView().toDialog(
 				new Label("Name"), nameField,
 				new Label("Price"),	priceField,
 				new Label("DC"), DCField				
