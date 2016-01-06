@@ -1,7 +1,9 @@
 import java.util.Observable;
 
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 public interface ViewInterface {
@@ -35,5 +37,7 @@ public interface ViewInterface {
 	
 	public Pane getMenu();
 	
+	public GridPane toDialog(Node... nodes);
+		
 	public void hookUpEventHandler(EventHandler handler);
 }

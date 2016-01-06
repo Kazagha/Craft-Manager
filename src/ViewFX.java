@@ -301,7 +301,29 @@ public class ViewFX implements Observer, ViewInterface {
 	public SwitchPane getSwitchPane()
 	{
 		return switchPane;
-	}	
+	}
+	
+	public GridPane toDialog(Node... nodes)
+	{
+		GridPane gp = new GridPane();
+		gp.setVgap(10);
+		gp.setHgap(10);
+		int x = 0;
+		int y = 0;
+		
+		for (Node n : nodes)
+		{
+			gp.add(n, x, y);
+						
+			if (++x == 2)
+			{
+				x = 0;
+				y++;
+			}			
+		}
+		
+		return gp;
+	}
 
 	@Override
 	public void update(Observable obs, Object obj) 
@@ -314,5 +336,5 @@ public class ViewFX implements Observer, ViewInterface {
 		this.appendItemsTo(historyPane, m.getComplete());
 		this.setGP(m.getGold());
 		this.setXP(m.getXP());		
-	}	
+	}
 }
