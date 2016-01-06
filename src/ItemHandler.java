@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
@@ -148,7 +150,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 					cm.getItems().addAll(menu, new SeparatorMenuItem());
 					
 					menu = new MenuItem("Edit");
-					menu.setOnAction(ActionEvent -> item.edit());
+					
+					menu.setOnAction(ActionEvent -> {
+							this.edit(item);
+						});
+					
 					cm.getItems().addAll(menu);	
 					
 					if (item instanceof ItemMagic) 
@@ -176,10 +182,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						subMenu = new Menu("Edit Enchantment");
 						cm.getItems().add(subMenu);
 						
-						for (Effect e : itemM.getEffect())
+						for (Effect effect : itemM.getEffect())
 						{
-							menu = new MenuItem(e.getName());
-							menu.setOnAction(ActionEvent -> e.edit());
+							menu = new MenuItem(effect.getName());
+							menu.setOnAction(ActionEvent -> this.edit(effect));
 							subMenu.getItems().add(menu);
 						}
 					}
@@ -238,6 +244,46 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	public void setSelection(Item item)
 	{
 		menu.setItem(item);
+	}
+	
+	private void edit(Item item)
+	{		
+		Dialog d = new Dialog();
+		d.setTitle("Edit Item");
+		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
+		d.getDialogPane().setContent(item.toEditPane());
+		
+		// Add event filter for valid inputs
+		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
+		ok.addEventFilter(ActionEvent.ACTION, event -> {
+			if (! item.validateAndStore())	// Check if the input is valid and save it
+				event.consume();
+			}
+		);
+		
+		d.showAndWait()
+			.filter(response -> response == ButtonType.OK)
+			.ifPresent(response -> item.notifyObservers());
+	}
+	
+	private void edit(Effect effect)
+	{
+		Dialog d = new Dialog();
+		d.setTitle("Edit Item");
+		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
+		d.getDialogPane().setContent(effect.toEditPane());
+		
+		// Add event filter for valid inputs
+		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
+		ok.addEventFilter(ActionEvent.ACTION, event -> {
+			if (! effect.validateAndStore())	// Check if the input is valid and save it
+				event.consume();
+			}
+		);
+		
+		d.showAndWait()
+			.filter(response -> response == ButtonType.OK)
+			.ifPresent(response -> System.out.format("Effect: %s%n", effect.getName()));
 	}
 	
 	@Deprecated
