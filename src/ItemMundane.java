@@ -65,7 +65,7 @@ public class ItemMundane extends Item {
 	
 	public boolean validateAndStore()
 	{
-		if (! nameField.getText().equals("")) 
+		if (nameField.getText().equals("")) 
 		{
 			return false;
 		}
