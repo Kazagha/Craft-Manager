@@ -51,18 +51,15 @@ public class ItemHandler implements EventHandler<InputEvent> {
 					{
 					case "SwitchToNew":
 						switchPane.switchTo(newPane);
-						menu.setItem(null);
-						idx = -1;
+						reset();
 						break;
 					case "SwitchToQueue":
 						switchPane.switchTo(queue);
-						menu.setItem(null);
-						idx = -1;
+						reset();
 						break;
 					case "SwitchToHistory":
 						switchPane.switchTo(history);
-						menu.setItem(null);
-						idx = -1;
+						reset();
 						break;					
 					}
 				} catch (NullPointerException e) {
@@ -85,6 +82,12 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			// TODO: Change the menu depending on the currently selected pane
 		}
 		*/		
+	}
+	
+	private void reset()
+	{
+		menu.setItem(null);
+		idx = -1;
 	}
 	
 	public void historyPaneEvent(InputEvent event)
