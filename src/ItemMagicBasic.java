@@ -4,8 +4,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+
 @XmlRootElement(name = "MagicItem")
 public class ItemMagicBasic extends ItemMagic {
+	
+	private static TextField nameField = new TextField();
 	
 	public ItemMagicBasic() {}
 	
@@ -18,36 +25,33 @@ public class ItemMagicBasic extends ItemMagic {
 	public static ItemMagicBasic create()
 	{
 		ItemMagicBasic newItem = new ItemMagicBasic("");
-		if(newItem.edit() == JOptionPane.OK_OPTION)
-			return newItem;	
+		//if(newItem.edit() == JOptionPane.OK_OPTION)
+		//	return newItem;	
 		
 		return null;
 	}
 	
 	@Override
-	public int edit() 
+	public Pane toEditPane()
 	{
-		Object[] array;
+		Platform.runLater(() -> nameField.requestFocus());
 		
-		JTextField name = new JTextField(this.getName());
+		nameField.setText(this.getName());
 		
-		array = new Object[] { "Name", name };
-		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION)
+		return Locator.getView().toDialog(new Label("Name"), nameField);
+	}
+	
+	@Override 
+	public boolean validateAndStore()
+	{
+		if (nameField.getText().equals("")) 
 		{
-			try {
-				result = Controller.getInstance().editArray(array);
-				
-				// Set changes
-				this.setName(name.getText());
-				return result;
-			} catch (Exception e) {
-				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
-			}
+			return false;
 		}
 		
-		return result;
+		this.setName(nameField.getText());
+		
+		return true;
 	}
 
 	@Override
