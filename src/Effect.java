@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 
 public abstract class Effect {
 
@@ -14,4 +15,8 @@ public abstract class Effect {
 	public abstract Effect create();
 	
 	public abstract String classToString();
+
+	public abstract Node toEditPane(); 
+
+	public abstract boolean validateAndStore();
 }
