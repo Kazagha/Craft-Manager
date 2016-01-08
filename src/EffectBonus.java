@@ -5,6 +5,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import javafx.application.Platform;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+
 @XmlRootElement(name = "Bonus")
 public class EffectBonus extends Effect {
 
@@ -47,6 +53,9 @@ public class EffectBonus extends Effect {
 	
 	int bonus;
 	Type type;
+	
+	private static TextField bonusField = new TextField();
+	private static ChoiceBox typeChoiceBox = new ChoiceBox();
 	
 	public EffectBonus() {}
 	
@@ -109,41 +118,46 @@ public class EffectBonus extends Effect {
 	{
 		EffectBonus newEffect = new EffectBonus(1, EffectBonus.Type.ABILITY_BONUS);
 		
-		if(newEffect.edit() == JOptionPane.OK_OPTION)
-			return newEffect;
+		//if(newEffect.edit() == JOptionPane.OK_OPTION)
+		//	return newEffect;
 		
 		return null;
 	}
-
+	
 	@Override
-	public int edit() 
+	public Pane toEditPane()
 	{
-		Object[] array;
-		
-		JComboBox<EffectBonus.Type> bonusType =
-				new JComboBox<EffectBonus.Type>(EffectBonus.Type.values());
-		bonusType.setSelectedItem(this.getType());
-		JTextField bonus = new JTextField(String.valueOf(this.getBonus()));
-		
-		array = new Object[] { "Bonus Type", bonusType, "Bonus", bonus };
-		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION)
-		{
-			try
-			{
-				result = Controller.getInstance().editArray(array);
+		Platform.runLater(() -> bonusField.requestFocus());
 				
-				// Set changes 
-				this.setType((EffectBonus.Type) bonusType.getSelectedItem());
-				this.setBonus(Integer.valueOf(bonus.getText()));				
-				return result;
-			} catch (Exception e) {
-				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
-			}			
+		if (typeChoiceBox.getItems().size() <= 0)
+			typeChoiceBox.getItems().addAll(this.type.values());
+		
+		bonusField.setText(String.valueOf(this.getBonus()));		
+		typeChoiceBox.setValue(this.getType());
+		
+		return Locator.getView().toDialog(
+				new Label("Bonus"), bonusField,
+				new Label("Type"), typeChoiceBox
+				);
+	}
+	
+	@Override
+	public boolean validateAndStore()
+	{
+		if (bonusField.getText().contains("[A-Za-Z]"))
+		{
+			return false;
 		}
 		
-		return result;
+		if (Integer.valueOf(bonusField.getText()) <= 0)
+		{
+			return false;
+		}
+		
+		this.setBonus(Integer.valueOf(bonusField.getText()));
+		this.setType((Type) typeChoiceBox.getValue());
+		
+		return true;
 	}
 	
 	public String toString()
