@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -35,10 +36,21 @@ public class ItemMagicBasic extends ItemMagic {
 	public Pane toEditPane()
 	{
 		Platform.runLater(() -> nameField.requestFocus());
-		
 		nameField.setText(this.getName());
 		
-		return Locator.getView().toDialog(new Label("Name"), nameField);
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		nodes.add(new Label("Name"));
+		nodes.add(nameField);				
+		
+		for (Effect effect : this.getEffect())
+		{
+			nodes.add(new Label(effect.classToString()));
+			nodes.add(effect.toEditPane());
+		}
+		
+		return Locator.getView().toDialog(
+				nodes.toArray((Node[]) new Node[nodes.size()])
+				);
 	}
 	
 	@Override 
@@ -47,6 +59,14 @@ public class ItemMagicBasic extends ItemMagic {
 		if (nameField.getText().equals("")) 
 		{
 			return false;
+		}
+		
+		for (Effect effect : this.getEffect())
+		{
+			if (! effect.validateAndStore()) 
+			{
+				return false;
+			}
 		}
 		
 		this.setName(nameField.getText());
