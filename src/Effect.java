@@ -10,8 +10,6 @@ public abstract class Effect {
 	
 	public abstract int getXpCost();	
 	
-	public abstract int edit();
-	
 	public abstract Effect create();
 	
 	public abstract String classToString();
