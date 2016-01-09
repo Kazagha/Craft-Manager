@@ -412,21 +412,6 @@ public class ControllerFX implements ControllerInterface {
 		item.notifyObservers();
 	}
 	
-	public void edit(Item item)
-	{
-		item.edit();
-		item.notifyObservers();
-	}
-	
-	public void edit(Item item, Effect effect)
-	{
-		effect.edit();
-		
-		//TODO: Hack to update the item when the price changes
-		item.setName(item.getName());
-		item.notifyObservers();
-	}
-	
 	/* (non-Javadoc)
 	 * @see ControllerInterface#createItemMenu(int)
 	 */
@@ -649,13 +634,7 @@ public class ControllerFX implements ControllerInterface {
 		
 		return result;
 	}
-	
-	public void edit(int index)
-	{
-		model.getQueue().get(index).edit();
-		model.getQueue().get(index).notifyObservers();
-	}
-	
+		
 	public Item getNextItem(Item.TYPE type) 
 	{
 		for(Item item : model.getQueue())
@@ -700,6 +679,10 @@ public class ControllerFX implements ControllerInterface {
 		ArrayList<Item> newItems = new ArrayList<Item>();
 		newItems.add(new ItemMundane("Axe", 120, 10));
 		newItems.add(new ItemMundane("Bow", 750, 13));
+		
+		ItemMagic item = new ItemMagicBasic("Magic Weapon");
+		item.addEffect(new EffectBonus(1, EffectBonus.Type.WEAPON_BONUS));
+		newItems.add(item);
 		
 		return newItems;
 	}
