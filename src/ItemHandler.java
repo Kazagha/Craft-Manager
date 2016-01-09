@@ -166,28 +166,21 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						cm.getItems().add(subMenu);
 
 						menu = new MenuItem("Spell Effect");
-						menu.setOnAction(ActionEvent -> Locator.getController().newEffect(itemM, new EffectSpell().create()));
+						menu.setOnAction(ActionEvent -> {
+							// TODO: Create new Spell Effect
+						});
 						subMenu.getItems().add(menu);
 						
 						for (EffectBonus.Type type : EffectBonus.Type.values())
 						{
 							menu = new MenuItem(type.getDesc());
 							menu.setOnAction(ActionEvent -> {
-								Locator.getController().newEffect(itemM, new EffectBonus().create());
+								EffectBonus bonus = new EffectBonus(1, type);
+								this.edit(bonus);
+								Locator.getController().newEffect(itemM, bonus);
 							});	
 							subMenu.getItems().add(menu);
-						}						
-						
-						// Create menu for editing existing enchantments
-						subMenu = new Menu("Edit Enchantment");
-						cm.getItems().add(subMenu);
-						
-						for (Effect effect : itemM.getEffect())
-						{
-							menu = new MenuItem(effect.getName());
-							menu.setOnAction(ActionEvent -> this.edit(effect));
-							subMenu.getItems().add(menu);
-						}
+						}	
 					}
 					
 					cm.show(Locator.getView().getScene().getWindow(), mouseEvent.getScreenX(), mouseEvent.getScreenY());					
