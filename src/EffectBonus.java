@@ -54,8 +54,8 @@ public class EffectBonus extends Effect {
 	int bonus;
 	Type type;
 	
-	private static TextField bonusField = new TextField();
-	private static ChoiceBox typeChoiceBox = new ChoiceBox();
+	private TextField bonusField = new TextField();
+	private ChoiceBox typeChoiceBox = new ChoiceBox();
 	
 	public EffectBonus() {}
 	
