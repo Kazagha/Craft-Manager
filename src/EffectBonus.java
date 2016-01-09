@@ -65,7 +65,7 @@ public class EffectBonus extends Effect {
 		this.type = type;
 	}
 	
-	public int squared(int bonus)
+	private int squared(int bonus)
 	{
 		return (int) Math.pow(bonus, 2);
 	}
@@ -144,7 +144,7 @@ public class EffectBonus extends Effect {
 	@Override
 	public boolean validateAndStore()
 	{
-		if (bonusField.getText().contains("[A-Za-Z]"))
+		if (bonusField.getText().matches("[A-Za-z]*"))
 		{
 			return false;
 		}
