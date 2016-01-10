@@ -12,6 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+
 @XmlRootElement(name = "Spell")
 @XmlType(propOrder={ "name", "casterLevel", "spellLevel", "xpCost", "trigger", "dailyUses", "duration" })
 public class EffectSpell extends Effect {
@@ -114,8 +121,17 @@ public class EffectSpell extends Effect {
 	
 	private DailyUses dailyUses;
 	private SpellDuration duration;
-	
+		
 	public EffectSpell() {}
+	
+	private TextField nameField = new TextField();
+	private ChoiceBox triggerChoice = new ChoiceBox();
+	private ChoiceBox usesChoice = new ChoiceBox();
+	private ChoiceBox durationChoice = new ChoiceBox();
+	private TextField casterField = new TextField();
+	private TextField spellField = new TextField();
+	private TextField craftField = new TextField();
+	private TextField xpField = new TextField();
 	
 	public EffectSpell(String name, Trigger type, DailyUses dailyUses, SpellDuration duration, int casterLevel, int spellLevel, int craftPrice, int xpCost)
 	{
@@ -138,72 +154,35 @@ public class EffectSpell extends Effect {
 				EffectSpell.SpellDuration.ROUNDS, 
 				0, 0, 0, 0);
 		
-		if(newEffect.edit() == JOptionPane.OK_OPTION)
-			return newEffect;
+		//if(newEffect.edit() == JOptionPane.OK_OPTION)
+		//	return newEffect;
 		
 		return null;
 	}
 	
-	public int edit()
+	@Override
+	public Pane toEditPane()
+	{		
+		Platform.runLater(() -> nameField.requestFocus());
+		
+		nameField.setText(this.getName());
+		casterField.setText(String.valueOf(casterLevel));
+		spellField.setText(String.valueOf(spellLevel));
+		
+		return Locator.getView().toDialog(
+				new Label("Name"), nameField,
+				new Label("Caster Level"), casterField,
+				new Label("Spell Level"), spellField,
+				new Label("Trigger"), triggerChoice,
+				new Label("Daily Uses"), usesChoice,
+				new Label("Duration"), durationChoice
+				);
+	}
+	
+	@Override
+	public boolean validateAndStore()
 	{
-		ArrayList<Object> array = new ArrayList<Object>();
-		
-		JTextField name = new JTextField(getName());
-		JTextField casterLevel = new JTextField(String.valueOf(getCasterLevel()));
-		JTextField spellLevel = new JTextField(String.valueOf(getSpellLevel()));
-		JTextField craftCost = new JTextField(String.valueOf(getCraftPrice()));
-		JTextField xpCost = new JTextField(String.valueOf(getXpCost()));
-		
-		JComboBox<EffectSpell.Trigger> spellType = new JComboBox<EffectSpell.Trigger>(EffectSpell.Trigger.values());
-		spellType.setSelectedItem(this.trigger);
-		
-		JComboBox<EffectSpell.DailyUses> dailyUses = new JComboBox<EffectSpell.DailyUses>(EffectSpell.DailyUses.values());
-		dailyUses.setSelectedItem(this.dailyUses);
-		
-		JComboBox<EffectSpell.SpellDuration> duration = new JComboBox<EffectSpell.SpellDuration>(EffectSpell.SpellDuration.values());
-		duration.setSelectedItem(this.duration);
-		
-		array.addAll(Arrays.asList(new Object[] { 
-				"Name", name,						
-				"Caster Level", casterLevel, 
-				"Spell Level", spellLevel, 
-				"Material Cost", craftCost, 
-				"XP Cost", xpCost,
-				"Type", spellType,	
-				"Daily Uses", dailyUses,
-				"Duration", duration
-				}));
-		
-		FocusSelectAll focus = new FocusSelectAll();
-		for(Object object : array)
-		{
-			if(object instanceof JTextField)
-				((JTextField) object).addFocusListener(focus);
-		}
-		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION)
-		{
-			try
-			{
-				result = Controller.getInstance().editArray(array);
-				
-				this.setName(name.getText());				
-				this.setCasterLevel(Integer.valueOf(casterLevel.getText()));
-				this.setSpellLevel(Integer.valueOf(spellLevel.getText()));
-				this.setCraftPrice(Integer.valueOf(craftCost.getText()));
-				this.setXpCost(Integer.valueOf(xpCost.getText()));
-				
-				this.setTrigger((EffectSpell.Trigger) spellType.getSelectedItem());
-				this.setDailyUses((EffectSpell.DailyUses) dailyUses.getSelectedItem());
-				this.setDuration((EffectSpell.SpellDuration) duration.getSelectedItem());
-				return result;
-			} catch (Exception e) {
-				Controller.getInstance().showMessage("Input Error: " + e.getMessage());
-			}
-		}
-		
-		return result;
+		return true;
 	}
 	
 	public Trigger getTrigger() {
