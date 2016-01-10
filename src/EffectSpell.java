@@ -168,7 +168,7 @@ public class EffectSpell extends Effect {
 		if (triggerChoice.getItems().size() <= 0 )
 		{
 			triggerChoice.getItems().addAll((EffectSpell.Trigger.values()));
-			usesChoice.getItems().addAll(EffectSpell.Trigger.values());
+			usesChoice.getItems().addAll(EffectSpell.DailyUses.values());
 			durationChoice.getItems().addAll(EffectSpell.SpellDuration.values());
 		}
 		
@@ -192,6 +192,31 @@ public class EffectSpell extends Effect {
 	@Override
 	public boolean validateAndStore()
 	{
+		if (nameField.getText().equals(""))
+		{
+			return false;
+		}
+		
+		if (casterField.getText().matches("[A-Za-z]*")
+				|| spellField.getText().matches("[A-Za-z]*"))
+		{
+			return false;
+		}
+		
+		if (triggerChoice.getValue() == null ||
+				usesChoice.getValue() == null ||
+				durationChoice.getValue() == null) 
+		{
+			return false;
+		}
+		
+		this.setName(nameField.getText());
+		this.setCasterLevel(Integer.valueOf(casterField.getText()));
+		this.setSpellLevel(Integer.valueOf(spellField.getText()));
+		this.setTrigger((Trigger) triggerChoice.getValue());
+		this.setDailyUses((DailyUses) usesChoice.getValue());
+		this.setDuration((SpellDuration) durationChoice.getValue());
+		
 		return true;
 	}
 	
@@ -305,11 +330,8 @@ public class EffectSpell extends Effect {
 		return casterLevel;
 	}
 
-	public void setCasterLevel(int casterLevel) throws ValidationException 
+	public void setCasterLevel(int casterLevel)  
 	{
-		if(casterLevel <= 0)
-			throw new ValidationException("Caster level must be greater than zero");
-		
 		this.casterLevel = casterLevel;
 	}
 
