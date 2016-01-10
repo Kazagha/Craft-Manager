@@ -165,9 +165,19 @@ public class EffectSpell extends Effect {
 	{		
 		Platform.runLater(() -> nameField.requestFocus());
 		
+		if (triggerChoice.getItems().size() <= 0 )
+		{
+			triggerChoice.getItems().addAll((EffectSpell.Trigger.values()));
+			usesChoice.getItems().addAll(EffectSpell.Trigger.values());
+			durationChoice.getItems().addAll(EffectSpell.SpellDuration.values());
+		}
+		
 		nameField.setText(this.getName());
 		casterField.setText(String.valueOf(casterLevel));
 		spellField.setText(String.valueOf(spellLevel));
+		triggerChoice.setValue(this.getTrigger());
+		usesChoice.setValue(this.getDailyUses());
+		durationChoice.setValue(this.getDuration());
 		
 		return Locator.getView().toDialog(
 				new Label("Name"), nameField,
