@@ -251,6 +251,7 @@ public class ViewFX implements Observer, ViewInterface {
 		for (Item item : children) 
 		{		
 			ViewItemFX pane = new ViewItemFX();
+			pane.setId("ItemPane");
 			root.getChildren().add(pane);
 			
 			item.addObserver(pane);
