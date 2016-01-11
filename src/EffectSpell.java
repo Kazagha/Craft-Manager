@@ -181,8 +181,8 @@ public class EffectSpell extends Effect {
 		
 		return Locator.getView().toDialog(
 				new Label("Name"), nameField,
-				new Label("Caster Level"), casterField,
 				new Label("Spell Level"), spellField,
+				new Label("Caster Level"), casterField,				
 				new Label("Trigger"), triggerChoice,
 				new Label("Daily Uses"), usesChoice,
 				new Label("Duration"), durationChoice
@@ -199,6 +199,18 @@ public class EffectSpell extends Effect {
 		
 		if (casterField.getText().matches("[A-Za-z]*")
 				|| spellField.getText().matches("[A-Za-z]*"))
+		{
+			return false;
+		}
+		
+		if (Integer.valueOf(casterField.getText()) <= 0)
+		{
+			return false;
+		}
+		
+		// Check the Caster level is twice the Spell level
+		if (Integer.valueOf(casterField.getText()) < 
+				(Integer.valueOf(spellField.getText()) * 2))
 		{
 			return false;
 		}
