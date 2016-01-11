@@ -305,9 +305,11 @@ public class ViewFX implements Observer, ViewInterface {
 	
 	public GridPane toDialog(Node... nodes)
 	{
-		GridPane gp = new GridPane();
+		GridPane gp = new GridPane();		
 		gp.setVgap(10);
 		gp.setHgap(10);
+		gp.getStylesheets().addAll(scene.getStylesheets());		
+		
 		int x = 0;
 		int y = 0;
 		
