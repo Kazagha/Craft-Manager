@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -178,6 +179,14 @@ public class EffectSpell extends Effect {
 		triggerChoice.setValue(this.getTrigger());
 		usesChoice.setValue(this.getDailyUses());
 		durationChoice.setValue(this.getDuration());
+
+		/*
+		 * Events to disable sections when not in use
+		triggerChoice.setOnAction(ActionEvent -> {
+			if (triggerChoice.getValue() != EffectSpell.Trigger.CONTINUOUS)
+				durationChoice.setDisable(true);
+		});
+		*/		
 		
 		return Locator.getView().toDialog(
 				new Label("Name"), nameField,
@@ -273,52 +282,7 @@ public class EffectSpell extends Effect {
 			price *= this.getDuration().getMultiplier();
 		}
 		
-		/*
-		// Is the Spell Effect single use
-		switch(this.getType())
-		{
-		case SINGLE_USE_SPELL_COMPLETION:		
-			// Spell Cost
-			price += 25 * this.getCasterLevel() * this.getSpellLevel();
-			// Costly material Components
-			price += this.craftCost;
-			break;
-		case SINGLE_USE_USE_ACTIVATED:
-			// Spell Cost
-			price += 50 * this.getCasterLevel() * this.getSpellLevel();
-			// Costly material components
-			break;
-		case CHARGES_SPELL_TRIGGER:
-			// Spell Cost
-			price += 750 * this.getCasterLevel() * this.getSpellLevel();
-			// Material Cost
-			price += 50 * this.getCraftPrice();
-			// XP Cost
-			price += 50 * 5 * this.getXPCost();
-			break;
-		case COMMAND_WORD:	
-			// Spell Cost
-			price += 1800 * this.getCasterLevel() * this.getSpellLevel();
-			// Number of charges required
-			int charges = 50;
-			if(this.dailyUses == EffectSpell.Daily_Uses.UNLIMITED)
-				charges = 100;
-			// Material Cost			
-			price += charges * this.getCraftPrice();
-			// XP Cost
-			price += charges * 5 * this.getXPCost();			
-			// Discount for uses per day
-			price *= this.getDailyUses().getMultiplier();
-			break;		
-		case USE_ACTIVATED:
-		case CONTINOUS:
-			// Spell Cost
-			price += 2000 * this.getCasterLevel() * this.getSpellLevel();
-			break;		
-		}
-		
-		*/
-		 return (int) price;
+		return (int) price;
 	}
 	
 	private int addChargeCost(int charges)
