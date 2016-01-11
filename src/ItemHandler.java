@@ -167,7 +167,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 
 						menu = new MenuItem("Spell Effect");
 						menu.setOnAction(ActionEvent -> {
-							// TODO: Create new Spell Effect
+							EffectSpell effect = new EffectSpell();
+							this.edit(effect);
+							Locator.getController().newEffect(itemM, effect);
 						});
 						subMenu.getItems().add(menu);
 						
