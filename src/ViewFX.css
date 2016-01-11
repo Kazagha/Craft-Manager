@@ -36,6 +36,12 @@ Rectangle {
 	-fx-stroke-width: 2;
 }
 
+.label {
+	-fx-font-size: 12px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #333333;
+}
+
 #ResourceHBox {
 	-fx-spacing: 20;
 	-fx-alignment: center;
@@ -64,6 +70,15 @@ Rectangle {
 
 #ResourceText {
 	-fx-fill: WHITE
+}
+
+
+#Spell {
+	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Ebook-icon.png');	
+}
+
+#EnhancementBonus {
+	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/ele-ice-icon.png');
 }
 
 #SwitchToHistory {
