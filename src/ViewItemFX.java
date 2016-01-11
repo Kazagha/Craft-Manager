@@ -4,6 +4,8 @@ import java.util.Observer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +15,7 @@ public class ViewItemFX extends StackPane implements Observer
 {	
 	private Label name;
 	private ProgressBar progress;
+	private ImageView icon;
 	
 	public ViewItemFX()
 	{
@@ -25,8 +28,8 @@ public class ViewItemFX extends StackPane implements Observer
 		name = new Label();
 		progress = new ProgressBar();
 		progress.setPrefWidth(400);
-		Rectangle icon = new Rectangle(40, 40);
-		
+		icon = new ImageView();
+			
 		HBox h = new HBox();
 		VBox v = new VBox();
 		
@@ -38,6 +41,11 @@ public class ViewItemFX extends StackPane implements Observer
 	public void setName(String str)
 	{
 		this.name.setText(str);
+	}
+	
+	public void setImage(Image image)
+	{
+		icon.setImage(image);
 	}
 	
 	public void setProgressBar(int value, int total)
@@ -54,6 +62,13 @@ public class ViewItemFX extends StackPane implements Observer
 	{
 		this.setName(item.getName());
 		this.setProgressBar(item.getProgress(), item.getPrice());
+		
+		if (item.getImageURL() != null) 
+		{
+			this.setImage(new Image(item.getImageURL()));
+		} else {
+			icon.setId("DefaultImage");
+		}		
 	}
 	
 	@Override
