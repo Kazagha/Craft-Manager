@@ -6,9 +6,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 @XmlRootElement(name = "MagicItem")
 public class ItemMagicBasic extends ItemMagic {
@@ -44,10 +48,13 @@ public class ItemMagicBasic extends ItemMagic {
 		
 		for (Effect effect : this.getEffect())
 		{
-			nodes.add(new Label(effect.classToString()));
+			ImageView view = new ImageView();
+			view.setId(effect.classToString().replace(" ", ""));
+			
+			nodes.add(view);
 			nodes.add(effect.toEditPane());
 		}
-		
+				
 		return Locator.getView().toDialog(
 				nodes.toArray((Node[]) new Node[nodes.size()])
 				);
