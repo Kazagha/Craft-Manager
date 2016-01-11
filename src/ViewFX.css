@@ -72,7 +72,7 @@ Rectangle {
 	-fx-fill: WHITE
 }
 
-#DialogBorder {
+#DialogGroup {
 	-fx-background-color: rgba(100,100,100,0.05);
 	-fx-padding: 4;
 	-fx-border-color: rgba(100,100,100,0.25);	
