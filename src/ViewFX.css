@@ -72,6 +72,12 @@ Rectangle {
 	-fx-fill: WHITE
 }
 
+#DialogBorder {
+	-fx-background-color: rgba(100,100,100,0.05);
+	-fx-padding: 4;
+	-fx-border-color: rgba(100,100,100,0.25);	
+	-fx-border-radius: 2;
+}
 
 #Spell {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Ebook-icon.png');	
