@@ -6,7 +6,6 @@ HBox {
 	-fx-spacing: 10;
 	-fx-alignment: center;
 	-fx-padding: 5;
-	-fx-border-color: lightgray;
 }
 
 VBox {
@@ -16,7 +15,7 @@ VBox {
 }
 
 StackPane {
-	-fx-border-color: lightgray;
+	/*-fx-border-color: lightgray;*/
 }
 
 GridPane {
@@ -54,12 +53,6 @@ Rectangle {
 	-fx-font-weight: BOLD;
 }
 
-#CenterVBox {
-	-fx-spacing: 5;
-	-fx-padding: 5;
-	-fx-background-color: rgba(50,100,0,1);
-}
-
 #MenuPane {
 	-fx-padding: 10;
 }
@@ -73,10 +66,27 @@ Rectangle {
 }
 
 #DialogGroup {
-	-fx-background-color: rgba(100,100,100,0.05);
+	-fx-background-color: linear-gradient(rgba(100,0,0,0.08), rgba(150,0,0,0.08));
 	-fx-padding: 4;
+	-fx-background-radius: 4;
 	-fx-border-color: rgba(100,100,100,0.25);	
 	-fx-border-radius: 4;
+}
+
+#ItemPane {
+	-fx-padding: 5;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	
+	/*-fx-background-color: linear-gradient(#61a2b1, #2A5058);*/
+	-fx-background-color: linear-gradient(rgba(140, 140, 140, 0.3), rgba(80, 80, 80, 0.3));  
+	-fx-background-radius: 4;	
+	-fx-border-color: rgba(100, 100, 100, 0.5);	
+	-fx-border-radius: 4;
+}
+
+#DefaultImage {
+	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Recycle-Crystal-Empty-icon.png');
 }
 
 #Spell {
@@ -86,6 +96,20 @@ Rectangle {
 #EnhancementBonus {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/ele-ice-icon.png');
 }
+
+#Axe {
+	-fx-image: url(http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Axe-icon.png);
+}
+
+#Potion {
+	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Potion-2-icon.png');
+}
+
+#Shield {
+	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Shield-Security-icon.png');
+}
+
+
 
 #SwitchToHistory {
 	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Document-icon.png');
@@ -104,10 +128,11 @@ Rectangle {
 }
 
 #SwitchToQueue {
-	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/sword-icon.png');
+	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Home-icon.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
 	-fx-min-width: 48;
 	-fx-min-height: 48;	
 }
+
 

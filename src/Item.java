@@ -11,7 +11,8 @@ import javafx.scene.layout.Pane;
 public abstract class Item  extends Observable {
 	private String name;
 	private int progress;
-	private TYPE itemType;
+	private TYPE itemType;	
+	private String imageID;
 	
 	@XmlType(name = "ItemType")
 	public static enum TYPE {MUNDANE, MAGIC};
@@ -33,6 +34,11 @@ public abstract class Item  extends Observable {
 		return this.progress; 
 	}	
 	
+	public String getImageID()
+	{
+		return imageID;
+	}
+	
 	public TYPE getItemType()
 	{
 		return itemType;
@@ -47,6 +53,12 @@ public abstract class Item  extends Observable {
 	public void setProgress(int i)
 	{
 		this.progress = i;
+		setChanged();
+	}
+	
+	public void setImageID(String id)
+	{
+		this.imageID = id;
 		setChanged();
 	}
 			

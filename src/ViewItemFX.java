@@ -63,10 +63,10 @@ public class ViewItemFX extends StackPane implements Observer
 		this.setName(item.getName());
 		this.setProgressBar(item.getProgress(), item.getPrice());
 		
-		if (item.getImageURL() != null) 
+		if (item.getImageID() != null && !item.getImageID().equals(icon.getId())) 
 		{
-			this.setImage(new Image(item.getImageURL()));
-		} else {
+			icon.setId(item.getImageID());
+		} else if (item.getImageID() == null) {
 			icon.setId("DefaultImage");
 		}		
 	}
