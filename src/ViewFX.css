@@ -29,12 +29,6 @@ ScrollPane {
 	-fx-vbar-policy: NEVER;	
 }
 
-Rectangle {
-	-fx-fill: rgba(100,0,50,.75);
-	-fx-stroke: rgba(100,100,100,1);
-	-fx-stroke-width: 2;
-}
-
 .label {
 	-fx-font-size: 12px;
 	-fx-font-weight: bold;
@@ -44,12 +38,11 @@ Rectangle {
 #ResourceHBox {
 	-fx-spacing: 20;
 	-fx-alignment: center;
-	-fx-font-weight: BOLD;
+	-fx-font-weight: BOLD;	
 	
-	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.5), rgba(200, 200, 200, 0.5));
-	-fx-padding: 4;
-	-fx-background-radius: 4;
-	-fx-border-color: rgba(200, 200, 200, .5);	
+	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.3), rgba(200, 200, 200, 0.3));  
+	-fx-background-radius: 4;	
+	-fx-border-color: rgba(100, 100, 100, 0.25);	
 	-fx-border-radius: 4;	
 	/*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/	
 	
@@ -83,7 +76,7 @@ Rectangle {
 	/*-fx-background-color: linear-gradient(#61a2b1, #2A5058);*/
 	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.3), rgba(200, 200, 200, 0.3));  
 	-fx-background-radius: 4;	
-	-fx-border-color: rgba(100, 100, 100, 0.5);	
+	-fx-border-color: rgba(100, 100, 100, 0.25);	
 	-fx-border-radius: 4;	
 }
 
@@ -94,8 +87,8 @@ Rectangle {
 	
 	-fx-background-color: linear-gradient(rgba(0, 250, 0, 0.3), rgba(0, 150, 0, 0.3));  
 	-fx-background-radius: 4;	
-	-fx-border-color: rgba(0, 25, 0, 0.5);	
-	-fx-border-radius: 4;		
+	-fx-border-color: rgb(0, 25, 0, 0.25);	
+	-fx-border-radius: 4; 
 }
 
 #DefaultImage {
