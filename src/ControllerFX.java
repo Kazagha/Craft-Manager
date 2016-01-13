@@ -404,8 +404,8 @@ public class ControllerFX implements ControllerInterface {
 	@Override
 	public void newEffect(ItemMagic item, Effect effect)
 	{					
-		// Create the new effect on the specified item
-		item.addEffect(effect.create());
+		// Create the new effect on the specified item		
+		item.addEffect(effect);
 		
 		// Let the item know something has changed
 		item.setChanged();
@@ -552,7 +552,7 @@ public class ControllerFX implements ControllerInterface {
 	@Override
 	public void craftMagic(ItemMagic item)
 	{
-		int progress = 2000;	
+		int progress = 1000;	
 		
 		// Find the remaining work to complete the item
 		int diff = item.getPrice() - item.getProgress();
@@ -677,11 +677,21 @@ public class ControllerFX implements ControllerInterface {
 	public  ArrayList<Item> getItemList()
 	{
 		ArrayList<Item> newItems = new ArrayList<Item>();
-		newItems.add(new ItemMundane("Axe", 120, 10));
-		newItems.add(new ItemMundane("Bow", 750, 13));
 		
-		ItemMagic item = new ItemMagicBasic("Magic Weapon");
-		item.addEffect(new EffectBonus(1, EffectBonus.Type.WEAPON_BONUS));
+		Item item = new ItemMundane("Axe", 120, 10);
+		item.setImageID("Axe");
+		newItems.add(item);
+		
+		item = new ItemMundane("Potion", 330, 15);
+		item.setImageID("Potion");
+		newItems.add(item);
+		
+		item = new ItemMundane("Shield", 550, 16);
+		item.setImageID("Shield");
+		newItems.add(item);
+				
+		item = new ItemMagicBasic("Magic Weapon");
+		((ItemMagic) item).addEffect(new EffectBonus(1, EffectBonus.Type.WEAPON_BONUS));
 		newItems.add(item);
 		
 		return newItems;
