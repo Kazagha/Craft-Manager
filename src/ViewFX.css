@@ -44,13 +44,15 @@ Rectangle {
 #ResourceHBox {
 	-fx-spacing: 20;
 	-fx-alignment: center;
-	-fx-padding: 0;	
-	-fx-background-color: rgba(100,100,100,0.5);
-	-fx-border-color: rgba(100,100,100,1);
-	-fx-border-radius: 2;
-	-fx-border-width: 2;	
-	/*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/	
 	-fx-font-weight: BOLD;
+	
+	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.5), rgba(200, 200, 200, 0.5));
+	-fx-padding: 4;
+	-fx-background-radius: 4;
+	-fx-border-color: rgba(200, 200, 200, .5);	
+	-fx-border-radius: 4;	
+	/*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/	
+	
 }
 
 #MenuPane {
@@ -79,10 +81,21 @@ Rectangle {
 	-fx-alignment: center;
 	
 	/*-fx-background-color: linear-gradient(#61a2b1, #2A5058);*/
-	-fx-background-color: linear-gradient(rgba(140, 140, 140, 0.3), rgba(80, 80, 80, 0.3));  
+	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.3), rgba(200, 200, 200, 0.3));  
 	-fx-background-radius: 4;	
 	-fx-border-color: rgba(100, 100, 100, 0.5);	
-	-fx-border-radius: 4;
+	-fx-border-radius: 4;	
+}
+
+#ItemMenu {
+	-fx-padding: 5;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	
+	-fx-background-color: linear-gradient(rgba(0, 250, 0, 0.3), rgba(0, 150, 0, 0.3));  
+	-fx-background-radius: 4;	
+	-fx-border-color: rgba(0, 25, 0, 0.5);	
+	-fx-border-radius: 4;		
 }
 
 #DefaultImage {
@@ -108,8 +121,6 @@ Rectangle {
 #Shield {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Shield-Security-icon.png');
 }
-
-
 
 #SwitchToHistory {
 	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Document-icon.png');
