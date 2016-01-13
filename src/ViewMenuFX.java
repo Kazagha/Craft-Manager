@@ -27,7 +27,7 @@ public class ViewMenuFX extends VBox {
 		xpText.prefWidth(200);
 		craftButton = new Button("Craft");
 		
-		this.setStyle("-fx-background-color: LIGHTBLUE");
+		this.setId("ItemMenu");
 		this.setAlignment(Pos.TOP_CENTER);		
 		this.getChildren().addAll(
 				nameText,
