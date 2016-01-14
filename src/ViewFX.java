@@ -18,11 +18,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -329,6 +332,34 @@ public class ViewFX implements Observer, ViewInterface {
 		}
 		
 		return gp;
+	}
+	
+	public int checkDialog()
+	{
+		int check = -1;
+		Dialog d = new Dialog();
+		d.setTitle("Craft Check");
+		TextField checkField = new TextField();
+		
+		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		d.getDialogPane().setContent(this.toDialog(new Label("Result"), checkField));
+		
+		// Add event filter for valid inputs
+		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
+		ok.addEventFilter(ActionEvent.ACTION, event -> {
+			// Check the input is valid
+			if (checkField.getText().contains("[A-Za-z]")
+					||Integer.valueOf(checkField.getText()) < 0)
+				event.consume();			
+			}
+		);
+		
+		d.showAndWait()
+			.filter(response -> response == ButtonType.OK);
+		
+		if(d.getResult() == ButtonType.OK)
+			return Integer.valueOf(checkField.getText());
+		else return -1;
 	}
 
 	@Override
