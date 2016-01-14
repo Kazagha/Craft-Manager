@@ -186,8 +186,9 @@ public class ControllerFX implements ControllerInterface {
 	 * @param checkText
 	 * @return
 	 */
+	@Deprecated
 	public static int check(String checkText) 
-	{
+	{		
 		ArrayList<Object> menu = new ArrayList<Object>();
 		menu.add(checkText);
 		menu.add(new JTextField(""));
@@ -496,7 +497,12 @@ public class ControllerFX implements ControllerInterface {
 	@Override
 	public void craftMundane(ItemMundane item)
 	{
-		int check = this.check("Roll Craft Check:");
+		//int check = this.check("Roll Craft Check:");
+		int check = Locator.getView().checkDialog();
+		
+		if(check < 0)
+			return;
+		
 		int checkPart = check;		
 		
 		//ItemMundane item = (ItemMundane) getNextItem(Item.TYPE.MUNDANE);
