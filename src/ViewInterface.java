@@ -38,6 +38,8 @@ public interface ViewInterface {
 	public Pane getMenu();
 	
 	public GridPane toDialog(Node... nodes);
+	
+	public int checkDialog();
 		
 	public void hookUpEventHandler(EventHandler handler);
 }
