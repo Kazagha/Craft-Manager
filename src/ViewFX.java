@@ -89,14 +89,7 @@ public class ViewFX implements Observer, ViewInterface {
 		queueButton.setId("SwitchToQueue");
 		historyButton = new Button();		
 		historyButton.setId("SwitchToHistory");
-		
-		//newButton.setOnAction(event -> switchPane.switchTo(newPane));		
-		queueButton.setOnAction(event -> { 
-		switchPane.switchTo(queuePane);
-			// TODO: Change this to 'select' the item in the item handler
-		});
-		historyButton.setOnAction(event -> switchPane.switchTo(historyPane));		
-		
+				
 		// Set the top pane
 		HBox buttonPane = new HBox();
 		buttonPane.getChildren().addAll(
@@ -359,6 +352,7 @@ public class ViewFX implements Observer, ViewInterface {
 		
 		if(d.getResult() == ButtonType.OK)
 			return Integer.valueOf(checkField.getText());
+		
 		else return -1;
 	}
 
