@@ -168,8 +168,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						menu = new MenuItem("Spell Effect");
 						menu.setOnAction(ActionEvent -> {
 							EffectSpell effect = new EffectSpell();
-							this.edit(effect);
-							Locator.getController().newEffect(itemM, effect);
+							if(this.edit(effect))
+								Locator.getController().newEffect(itemM, effect);
 						});
 						subMenu.getItems().add(menu);
 						
@@ -177,9 +177,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 						{
 							menu = new MenuItem(type.getDesc());
 							menu.setOnAction(ActionEvent -> {
-								EffectBonus bonus = new EffectBonus(1, type);
-								this.edit(bonus);
-								Locator.getController().newEffect(itemM, bonus);
+								Effect bonus = new EffectBonus(1, type);
+								if (this.edit(bonus))
+									Locator.getController().newEffect(itemM, bonus);
 							});	
 							subMenu.getItems().add(menu);
 						}	
@@ -261,7 +261,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			.ifPresent(response -> item.notifyObservers());
 	}
 	
-	private void edit(Effect effect)
+	private boolean edit(Effect effect)
 	{
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
@@ -279,6 +279,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		d.showAndWait()
 			.filter(response -> response == ButtonType.OK)
 			.ifPresent(response -> System.out.format("Effect: %s%n", effect.getName()));
+		
+		return d.getResult() == ButtonType.OK;
 	}
 	
 	@Deprecated
