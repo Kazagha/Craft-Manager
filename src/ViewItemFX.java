@@ -2,11 +2,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -17,11 +19,13 @@ public class ViewItemFX extends StackPane implements Observer
 	private ProgressBar progress;
 	private ImageView icon;
 	
+	private VBox v;
+	
 	public ViewItemFX()
 	{
 		init();
 	}	
-			
+				
 	private void init()
 	{
 		this.setAlignment(Pos.CENTER);
@@ -31,10 +35,11 @@ public class ViewItemFX extends StackPane implements Observer
 		icon = new ImageView();
 			
 		HBox h = new HBox();
-		VBox v = new VBox();
+		v = new VBox();
 		
 		this.getChildren().addAll(h, new StackPane());
 		h.getChildren().addAll(icon, v);
+		v.setPrefWidth(500);
 		v.getChildren().addAll(name, progress);
 	}	
 	
@@ -56,6 +61,15 @@ public class ViewItemFX extends StackPane implements Observer
 		}
 		
 		progress.setProgress((double)value/total);
+	}
+	
+	public void setProgressVisible(boolean isVisible)
+	{
+		if (isVisible) {
+			v.getChildren().add(progress);
+		} else {
+			v.getChildren().remove(progress);
+		}
 	}
 	
 	public void updateItem(Item item)
