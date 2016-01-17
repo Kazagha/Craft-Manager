@@ -77,10 +77,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			// Check if the selection has changed and is valid
 			if (hover != null && select != hover)
 			{
-				select.setId("ItemPane");
+				select.setId("PaneDefault");
 				
 				select = hover;
-				select.setId("ItemPaneSelect");
+				select.setId("PaneSelectHover");
 			}
 			
 			// Handle all other events depending on the currently selected pane
@@ -96,17 +96,27 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			{
 				// Don't 'hover' if the target is selected
 				if (target == select) 
+				{
+					select.setId("PaneSelectHover");
+					hover = (Node) event.getTarget();
 					return;
-			
+				}
+				
 				hover = (Node) event.getTarget();
-				hover.setId("ItemPaneHover");
+				hover.setId("PaneHover");
 			}
 		} else if (event.getEventType() == MouseEvent.MOUSE_EXITED_TARGET) {
 			// Don't remove 'hover' if target is selected 
-			if (hover != null && hover != select) 
+			if (hover != null) 
 			{
-				hover.setId("ItemPane");
-				hover = null;
+				if (hover == select)
+				{
+					select.setId("PaneSelect");
+					hover = null;
+				} else {
+					hover.setId("PaneDefault");
+					hover = null;
+				}
 			}
 		}
 	}
