@@ -27,6 +27,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private ViewMenuFX menu;
 	private int idx = -1;	
 	
+	private Node hover = new ViewItemFX();
+	private Node select = new ViewItemFX();
+	
 	public ItemHandler()
 	{
 		switchPane = (SwitchPane) Locator.getView().getSwitchPane();
@@ -39,6 +42,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	@Override
 	public void handle(InputEvent event)
 	{	
+		Object target = event.getTarget();
+		
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED) 
 		{
 			// Handle 'switch pane' events first  
@@ -69,6 +74,15 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				}
 			}
 			
+			// Check if the selection has changed and is valid
+			if (hover != null && select != hover)
+			{
+				select.setId("ItemPane");
+				
+				select = hover;
+				select.setId("ItemPaneSelect");
+			}
+			
 			// Handle all other events depending on the currently selected pane
 			if (switchPane.getSelected().equals(newPane)) {
 				newPaneEvent(event);
@@ -80,9 +94,19 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		} else if (event.getEventType() == MouseEvent.MOUSE_ENTERED_TARGET) {
 			if (event.getTarget() instanceof ViewItemFX)
 			{
-				int index = ((SwitchPane) event.getSource()).getSelected().getChildren().indexOf(event.getTarget());
-				System.out.format("%s %s @ %s%n", event.getEventType(), event.getTarget(), String.valueOf(index));
-				((ViewItemFX) event.getTarget()).setId("ItemPaneHover");
+				// Don't 'hover' if the target is selected
+				if (target == select) 
+					return;
+			
+				hover = (Node) event.getTarget();
+				hover.setId("ItemPaneHover");
+			}
+		} else if (event.getEventType() == MouseEvent.MOUSE_EXITED_TARGET) {
+			// Don't remove 'hover' if target is selected 
+			if (hover != null && hover != select) 
+			{
+				hover.setId("ItemPane");
+				hover = null;
 			}
 		}
 	}
