@@ -68,7 +68,7 @@ ScrollPane {
 	-fx-border-radius: 4;
 }
 
-#ItemPane {
+#PaneDefault {
 	-fx-padding: 5;
 	-fx-spacing: 10;
 	-fx-alignment: center;
@@ -76,7 +76,46 @@ ScrollPane {
 	/*-fx-background-color: linear-gradient(#61a2b1, #2A5058);*/
 	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.3), rgba(200, 200, 200, 0.3));  
 	-fx-background-radius: 4;	
-	-fx-border-color: rgba(100, 100, 100, 0.25);	
+	-fx-border-color: rgba(100, 100, 100, 0.25);
+	-fx-border-width: 2;	
+	-fx-border-radius: 4;	
+}
+
+#PaneHover {
+	-fx-padding: 5;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	
+	-fx-background-color: linear-gradient(rgba(100, 100, 100, 0.3), rgba(200, 200, 200, 0.3));  
+	-fx-background-radius: 4;	
+	-fx-border-color: rgba(99, 80, 69, 1);
+	-fx-border-width: 2;
+	-fx-border-radius: 4;	
+}
+
+/*-fx-background-color: linear-gradient(rgba(50, 50, 50, 0.5), rgba(100, 100, 100, 0.5)); */
+
+#PaneSelect {
+	-fx-padding: 5;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	
+	-fx-background-color: linear-gradient(rgba(50, 50, 50, 0.5), rgba(100, 100, 100, 0.5));     
+	-fx-background-radius: 4;	
+	-fx-border-color: rgba(100, 100, 100, 0.25);
+	-fx-border-width: 2;	
+	-fx-border-radius: 4;	
+}
+
+#PaneSelectHover {
+	-fx-padding: 5;
+	-fx-spacing: 10;
+	-fx-alignment: center;
+	
+	-fx-background-color: linear-gradient(rgba(50, 50, 50, 0.5), rgba(100, 100, 100, 0.5)); 
+	-fx-background-radius: 4;	
+	-fx-border-color: rgba(99, 80, 69, 1);
+	-fx-border-width: 2;
 	-fx-border-radius: 4;	
 }
 
