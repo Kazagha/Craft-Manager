@@ -74,7 +74,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				}
 			}
 			
-			// Check if the selection has changed and is valid
+			// Check if a new selection has been made; hover not NULL
+			// Check if the selection has changed; hover not selected 
 			if (hover != null && select != hover)
 			{
 				select.setId("PaneDefault");
@@ -125,6 +126,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	{
 		menu.setItem(null);
 		idx = -1;
+		
+		// Clear the selected item
+		select.setId("PaneDefault");
+		select = new ViewItemFX();
 	}
 	
 	
