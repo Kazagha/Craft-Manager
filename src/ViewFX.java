@@ -233,6 +233,11 @@ public class ViewFX implements Observer, ViewInterface {
 	public void setNewItems(ArrayList<Item> array) 
 	{
 		appendItemsTo(newPane, array);
+		
+		for (Node view : newPane.getChildren())
+		{
+			((ViewItemFX) view).setProgressVisible(false);
+		}
 	}
 	
 	/**
@@ -247,7 +252,7 @@ public class ViewFX implements Observer, ViewInterface {
 		for (Item item : children) 
 		{		
 			ViewItemFX pane = new ViewItemFX();
-			pane.setId("ItemPane");
+			pane.setId("PaneDefault");
 			root.getChildren().add(pane);
 			
 			item.addObserver(pane);
