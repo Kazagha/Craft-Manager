@@ -360,6 +360,33 @@ public class ViewFX implements Observer, ViewInterface {
 		
 		else return -1;
 	}
+	
+	public int toDialogReturnInt(String titleText, String promptText)
+	{
+		Dialog d = new Dialog();
+		d.setTitle(titleText);
+		TextField field = new TextField();
+		
+		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		d.getDialogPane().setContent(this.toDialog(new Label(promptText), field));
+		
+		// Add event filter for valid inputs
+		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
+		ok.addEventFilter(ActionEvent.ACTION, event -> {
+			// Check the input is valid
+			if (field.getText().contains("[A-Za-z]")
+					||Integer.valueOf(field.getText()) < 0)
+				event.consume();			
+			}
+		);
+		
+		d.showAndWait()
+			.filter(response -> response == ButtonType.OK);
+		
+		if(d.getResult() == ButtonType.OK)
+			return Integer.valueOf(field.getText());		
+		else return 0;
+	}
 
 	@Override
 	public void update(Observable obs, Object obj) 
