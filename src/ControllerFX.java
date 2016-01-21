@@ -11,6 +11,8 @@ import java.util.Random;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import javax.swing.AbstractAction;
@@ -592,26 +594,14 @@ public class ControllerFX implements ControllerInterface {
 	 */
 	@Override
 	public int addGold()
-	{		
-		JTextField gold = new JTextField();
-		Object[] array = new Object[] { "Add Gold", gold };
+	{			
+		int gp = Locator.getView().toDialogReturnInt("Add Gold", "Enter amount");
 		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION) 
-		{
-			try
-			{
-				result = this.editArray(array);
-				
-				model.setGold(model.getGold() + Integer.valueOf(gold.getText()));
-				model.notifyObservers();
-				return result;
-			} catch (Exception e) {
-				
-			}
-		}
+		ModelInterface model = Locator.getModel();
+		model.setGold(model.getGold() + gp);
+		model.notifyObservers();
 		
-		return result;
+		return gp;
 	}
 	
 	/* (non-Javadoc)
