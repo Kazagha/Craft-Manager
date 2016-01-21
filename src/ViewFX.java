@@ -370,6 +370,8 @@ public class ViewFX implements Observer, ViewInterface {
 		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		d.getDialogPane().setContent(this.toDialog(new Label(promptText), field));
 		
+		Platform.runLater(() -> field.requestFocus());
+		
 		// Add event filter for valid inputs
 		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
 		ok.addEventFilter(ActionEvent.ACTION, event -> {
