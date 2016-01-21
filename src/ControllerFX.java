@@ -610,27 +610,15 @@ public class ControllerFX implements ControllerInterface {
 	@Override
 	public int addXP()
 	{
-		JTextField xp = new JTextField();
-		Object[] array = new Object[] { "Add XP", xp };
+		int xp = Locator.getView().toDialogReturnInt("Add XP", "Enter amount");
 		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION) 
-		{
-			try
-			{
-				result = this.editArray(array);
-				
-				model.setXP(model.getXP() + Integer.valueOf(xp.getText()));
-				model.notifyObservers();
-				return result;
-			} catch (Exception e) {
-				
-			}
-		}
+		ModelInterface model = Locator.getModel();
+		model.setXP(model.getXP() + xp);
+		model.notifyObservers();
 		
-		return result;
+		return xp;
 	}
-		
+	
 	public Item getNextItem(Item.TYPE type) 
 	{
 		for(Item item : model.getQueue())
