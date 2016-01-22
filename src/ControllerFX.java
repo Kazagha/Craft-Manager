@@ -502,7 +502,7 @@ public class ControllerFX implements ControllerInterface {
 	public void craftMundane(ItemMundane item)
 	{
 		//int check = this.check("Roll Craft Check:");
-		int check = Locator.getView().checkDialog();
+		int check = Locator.getView().toDialogReturnInt("Craft Check", "Check result");
 		
 		if(check < 0)
 			return;
