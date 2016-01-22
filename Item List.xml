@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model>
+    <gold>0</gold>
+    <XP>0</XP>
+    <MundaneItem>
+        <imageID>Axe</imageID>
+        <itemType>MUNDANE</itemType>
+        <name>Axe</name>
+        <progress>0</progress>
+        <price>120</price>
+        <DC>10</DC>
+    </MundaneItem>
+    <MundaneItem>
+        <imageID>Potion</imageID>
+        <itemType>MUNDANE</itemType>
+        <name>Potion</name>
+        <progress>0</progress>
+        <price>330</price>
+        <DC>15</DC>
+    </MundaneItem>
+    <MundaneItem>
+        <imageID>Shield</imageID>
+        <itemType>MUNDANE</itemType>
+        <name>Shield</name>
+        <progress>0</progress>
+        <price>550</price>
+        <DC>16</DC>
+    </MundaneItem>
+    <MagicItem>
+        <itemType>MAGIC</itemType>
+        <name>Magic Weapon</name>
+        <progress>0</progress>
+        <Bonus>
+            <bonus>1</bonus>
+            <type>WEAPON_BONUS</type>
+        </Bonus>
+    </MagicItem>
+	    <MagicItem>
+        <itemType>MAGIC</itemType>
+        <name>Magic Armor</name>
+        <progress>0</progress>
+        <Bonus>
+            <bonus>1</bonus>
+            <type>ARMOR_BONUS</type>
+        </Bonus>
+    </MagicItem>
+</model>

@@ -14,6 +14,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import sun.misc.FileURLMapper;
+import sun.net.www.protocol.file.FileURLConnection;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -660,24 +662,7 @@ public class ControllerFX implements ControllerInterface {
 	@Override
 	public  ArrayList<Item> getItemList()
 	{
-		ArrayList<Item> newItems = new ArrayList<Item>();
-		
-		Item item = new ItemMundane("Axe", 120, 10);
-		item.setImageID("Axe");
-		newItems.add(item);
-		
-		item = new ItemMundane("Potion", 330, 15);
-		item.setImageID("Potion");
-		newItems.add(item);
-		
-		item = new ItemMundane("Shield", 550, 16);
-		item.setImageID("Shield");
-		newItems.add(item);
-				
-		item = new ItemMagicBasic("Magic Weapon");
-		((ItemMagic) item).addEffect(new EffectBonus(1, EffectBonus.Type.WEAPON_BONUS));
-		newItems.add(item);
-		
-		return newItems;
+		Model list = new JAXBController(new File("Item List.xml")).load();
+		return list.getQueue();
 	}
 }
