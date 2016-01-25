@@ -15,6 +15,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
 
@@ -130,9 +131,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		// Clear the selected item
 		select.setId("PaneDefault");
 		select = new ViewItemFX();
-	}
-	
-	
+	}	
 	
 	public void historyPaneEvent(InputEvent event)
 	{
@@ -298,6 +297,22 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			}
 		);
 		
+		Button apply = new Button("New");
+		apply.addEventFilter(ActionEvent.ACTION, event -> {
+			//((ItemMagic) item).getEffect().remove(0);
+			((ItemMagic) item).getEffect().add(new EffectBonus());
+			d.getDialogPane().setContent(item.toEditPane());
+			d.setResizable(true);
+			event.consume();
+		});			
+		GridPane grid = ((GridPane) d.getDialogPane().getContent());
+		grid.add(apply, 0, 5);
+		
+		if (item instanceof ItemMagic)
+		{
+			//d.getDialogPane().getButtonTypes().add();
+		}
+		
 		d.showAndWait()
 			.filter(response -> response == ButtonType.OK)
 			.ifPresent(response -> item.notifyObservers());
@@ -307,7 +322,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	{
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
-		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
+		d.getDialogPane().getButtonTypes().addAll(ButtonType.APPLY, ButtonType.OK);		
 		d.getDialogPane().setContent(effect.toEditPane());
 		
 		// Add event filter for valid inputs
