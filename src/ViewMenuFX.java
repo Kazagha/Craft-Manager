@@ -1,5 +1,7 @@
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -11,7 +13,8 @@ public class ViewMenuFX extends VBox {
 	private Text nameText;
 	private Text gpText;
 	private Text xpText;
-	private Button craftButton;
+	
+	private HBox buttonHBox;
 	
 	public ViewMenuFX()
 	{
@@ -25,37 +28,32 @@ public class ViewMenuFX extends VBox {
 		gpText.prefWidth(200);
 		xpText = new Text();
 		xpText.prefWidth(200);
-		craftButton = new Button("Craft");
+		buttonHBox = new HBox();
 		
 		this.setId("ItemMenu");
 		this.setAlignment(Pos.TOP_CENTER);		
 		this.getChildren().addAll(
 				nameText,
 				new HBox(gpText, xpText),
-				craftButton
+				buttonHBox
 				);		
 	}
 	
-	public void hookUpEventHandler(EventHandler handler)
+	public void addButton(Button button)
 	{
-		craftButton.addEventHandler(MouseEvent.ANY, handler);
+		buttonHBox.getChildren().add(button);
 	}
 	
-	public void setMode(boolean history)
+	public void addAllButtons(Button... buttons)
 	{
-		if (history) 
-		{
-			this.getChildren().remove(craftButton);
-		} else if (this.getChildren().indexOf(craftButton) < 0) {
-			this.getChildren().add(craftButton);
-		}
+		buttonHBox.getChildren().addAll(buttons);
 	}
 	
-	public Button getCraftButton() 
+	public ObservableList<Node> getButtons()
 	{
-		return craftButton;
+		return buttonHBox.getChildren();
 	}
-	
+		
 	public void setItem(Item item)
 	{
 		if (item == null) 
