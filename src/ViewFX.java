@@ -50,6 +50,7 @@ public class ViewFX implements Observer, ViewInterface {
 	private VBox queuePane;
 	private VBox historyPane;
 	private VBox newPane;
+	private StackPane menuPane;
 	private ViewMenuFX itemMenu;
 	private ItemHandler handler;
 	
@@ -138,8 +139,8 @@ public class ViewFX implements Observer, ViewInterface {
 		switchPane.setPrefHeight(Integer.MAX_VALUE);
 		center.getChildren().add(switchPane);
 		
-		itemMenu = new ViewMenuFX();
-		center.getChildren().add(itemMenu);		
+		menuPane = new StackPane();
+		center.getChildren().add(menuPane);
 	}
 	
 	public Pane initMenu() 
@@ -209,7 +210,6 @@ public class ViewFX implements Observer, ViewInterface {
 		historyButton.addEventFilter(MouseEvent.ANY, handler);
 		
 		switchPane.addEventHandler(InputEvent.ANY, handler);
-		itemMenu.hookUpEventHandler(handler);
 	}
 	
 	/**
@@ -282,7 +282,16 @@ public class ViewFX implements Observer, ViewInterface {
 	@Override
 	public Pane getMenu()
 	{
-		return itemMenu;
+		if (menuPane.getChildren().size() > 0) 
+			return (Pane) menuPane.getChildren().get(0);
+			
+		return null;
+	}
+	
+	public void setMenu(Pane menu)
+	{
+		menuPane.getChildren().remove(this.getMenu());
+		menuPane.getChildren().add(menu);
 	}
 	
 	public Pane getHistoryPane()
