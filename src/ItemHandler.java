@@ -25,7 +25,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private Pane history;
 	private Pane queue;
 	private Pane newPane;
-	private ViewMenuFX menu;
+	private ViewMenuFX historyMenu;
+	private ViewMenuFX queueMenu;
+	private ViewMenuFX newMenu;
+	private ViewMenuFX switchMenu;
 	private int idx = -1;	
 	
 	private Node hover = new ViewItemFX();
@@ -37,14 +40,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		history = Locator.getView().getHistoryPane();
 		queue = Locator.getView().getQueuePane();
 		newPane = Locator.getView().getNewPane();
-		menu = (ViewMenuFX) Locator.getView().getMenu();
+		
+		setupMenus();
 	}
 	
 	@Override
 	public void handle(InputEvent event)
 	{	
 		Object target = event.getTarget();
-		
 		if (event.getEventType() == MouseEvent.MOUSE_RELEASED) 
 		{
 			// Handle 'switch pane' events first  
@@ -59,14 +62,17 @@ public class ItemHandler implements EventHandler<InputEvent> {
 					{
 					case "SwitchToNew":
 						switchPane.switchTo(newPane);
+						switchToMenu(newMenu);
 						reset();
 						break;
 					case "SwitchToQueue":
 						switchPane.switchTo(queue);
+						switchToMenu(queueMenu);
 						reset();
 						break;
 					case "SwitchToHistory":
 						switchPane.switchTo(history);
+						switchToMenu(historyMenu);
 						reset();
 						break;					
 					}
@@ -125,13 +131,31 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	
 	private void reset()
 	{
-		menu.setItem(null);
+		switchMenu.setItem(null);
 		idx = -1;
 		
 		// Clear the selected item
 		select.setId("PaneDefault");
 		select = new ViewItemFX();
-	}	
+	}
+	
+	private void switchToMenu(ViewMenuFX menu)
+	{
+		switchMenu = menu;
+		((ViewFX)Locator.getView()).setMenu(menu);
+	}
+	
+	private void setupMenus()
+	{
+		historyMenu = new ViewMenuFX();
+		queueMenu = new ViewMenuFX();
+		newMenu = new ViewMenuFX();
+		
+		Button craft = new Button("Craft");
+		craft.addEventHandler(InputEvent.ANY, this);
+		newMenu.addAllButtons(craft);
+		newMenu.addEventHandler(InputEvent.ANY, this);
+	}
 	
 	public void historyPaneEvent(InputEvent event)
 	{
@@ -279,7 +303,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	 */
 	public void setSelection(Item item)
 	{
-		menu.setItem(item);
+		switchMenu.setItem(item);
 	}
 	
 	private void edit(Item item)
@@ -328,7 +352,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		// Add event filter for valid inputs
 		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
 		ok.addEventFilter(ActionEvent.ACTION, event -> {
-			if (! effect.validateAndStore())	// Check if the input is valid and save it
+			// Check if the input is valid and save it
+			if (! effect.validateAndStore())	
 				event.consume();
 			}
 		);
@@ -353,9 +378,12 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			Model m = (Model) Locator.getModel();
 			m.appendQueue(item);			
 			m.notifyObservers();
-		} else if (menu.getCraftButton().equals(event.getSource())) {
+		/*
+		} else if (menu.getCraftButton().equals(event.getSource())) {		
+			// TODO: If required, check that the 'craft' button has been pressed
 			// 	The 'Craft' button is removed when the StackPane isn't showing the queue
 			Locator.getController().craftItemAt(idx);
+		*/
 		}
 	}
 	
@@ -388,14 +416,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			{
 				// Event on the History screen
 				System.out.format("History Event%n");		
-				menu.setItem(model.getComplete().get(idx));
+				switchMenu.setItem(model.getComplete().get(idx));
 			} else if (switchPane.getSelected().equals(queue)) {
 				// Event on the Queue screen
 				System.out.format("Queue Event%n");
-				menu.setItem(model.getQueue().get(idx));
+				switchMenu.setItem(model.getQueue().get(idx));
 			} else if (switchPane.getSelected().equals(newPane)) {
 				System.out.format("New Pane Event%n");
-				menu.setItem(Locator.getController().getItemList().get(idx));
+				switchMenu.setItem(Locator.getController().getItemList().get(idx));
 			}
 		}
 	}
