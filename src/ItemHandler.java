@@ -147,14 +147,20 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	
 	private void setupMenus()
 	{
-		historyMenu = new ViewMenuFX();
-		queueMenu = new ViewMenuFX();
 		newMenu = new ViewMenuFX();
+		Button button = new Button("Add Item");
+		button.addEventHandler(InputEvent.ANY, this);		
+		newMenu.addAllButtons(button);
 		
-		Button craft = new Button("Craft");
-		craft.addEventHandler(InputEvent.ANY, this);
-		newMenu.addAllButtons(craft);
-		newMenu.addEventHandler(InputEvent.ANY, this);
+		queueMenu = new ViewMenuFX();
+		button = new Button("Craft");
+		button.addEventHandler(InputEvent.ANY, this);
+		queueMenu.addAllButtons(button);
+		
+		historyMenu = new ViewMenuFX();
+		button = new Button("Examine");
+		button.addEventHandler(InputEvent.ANY, this);
+		historyMenu.addAllButtons(button);
 	}
 	
 	public void historyPaneEvent(InputEvent event)
