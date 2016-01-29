@@ -3,6 +3,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -10,9 +11,9 @@ import javafx.scene.text.Text;
 
 public class ViewMenuFX extends VBox {
 
-	private Text nameText;
-	private Text gpText;
-	private Text xpText;
+	private Label nameText;
+	private Label gpText;
+	private Label xpText;
 	
 	private HBox buttonHBox;
 	
@@ -22,11 +23,11 @@ public class ViewMenuFX extends VBox {
 	}
 	
 	public void init() 
-	{
-		nameText = new Text();
-		gpText = new Text();
+	{		
+		nameText = new Label();
+		gpText = new Label();
 		gpText.prefWidth(200);
-		xpText = new Text();
+		xpText = new Label();
 		xpText.prefWidth(200);
 		buttonHBox = new HBox();
 		
