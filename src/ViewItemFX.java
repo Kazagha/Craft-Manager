@@ -41,6 +41,8 @@ public class ViewItemFX extends StackPane implements Observer
 		h.getChildren().addAll(icon, v);
 		v.setPrefWidth(500);
 		v.getChildren().addAll(name, progress);
+		
+		this.getStyleClass().add("View-Item-FX");
 	}	
 	
 	public void setName(String str)
