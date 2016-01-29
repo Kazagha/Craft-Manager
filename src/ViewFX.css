@@ -29,16 +29,9 @@ ScrollPane {
 	-fx-vbar-policy: NEVER;	
 }
 
-
 Label {	
 	-fx-font-size: 12px;	
-	-fx-font-weight: bold;
-	/*-fx-text-fill: rgb(255,255,255);*/
-}
-
-
-ViewMenuFX {
-	
+	-fx-font-weight: BOLD;
 }
 
 #ResourceHBox {
@@ -51,7 +44,6 @@ ViewMenuFX {
 	-fx-border-color: rgba(100, 100, 100, 0.25);	
 	-fx-border-radius: 4;	
 	/*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/	
-	
 }
 
 #MenuPane {
@@ -72,6 +64,18 @@ ViewMenuFX {
 	-fx-background-radius: 4;
 	-fx-border-color: rgba(100,100,100,0.25);	
 	-fx-border-radius: 4;
+}
+
+.View-Item-FX .label {
+	-fx-text-fill: rgb(0,0,0);
+}
+
+#PaneSelect .label {
+	-fx-text-fill: WHITE;
+}
+
+#PaneSelectHover .label {
+	-fx-text-fill: WHITE;
 }
 
 #PaneDefault {
