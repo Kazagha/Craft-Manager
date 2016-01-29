@@ -297,9 +297,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			if (idx < 0 || idx > Locator.getController().getItemList().size() - 1)
 				return;
 			
-			// Add the selected item to the queue
-			model.appendQueue(Locator.getController().getItemList().get(idx));
-			model.notifyObservers();
+			if (((Button) source).getText().equals("Add Item")) {
+				// Add the selected item to the queue
+				model.appendQueue(Locator.getController().getItemList().get(idx));
+				model.notifyObservers();
+			}
 		}
 	}
 	
