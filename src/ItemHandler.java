@@ -394,45 +394,4 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		*/
 		}
 	}
-	
-	@Deprecated
-	public void rightClickEvent(MouseEvent event)
-	{
-		System.out.format("Right Click Event%n");
-		
-	}
-	
-	@Deprecated
-	private void leftClickItem(MouseEvent event)
-	{
-		Pane source = (Pane) event.getSource();
-		Pane target = (Pane) ((Pane) event.getTarget()).getParent();		
-		ModelInterface model = Locator.getModel();
-				
-		if (source instanceof SwitchPane)
-		{	
-			// Find the index of the selected Item
-			SwitchPane sourceSP = (SwitchPane) source;			
-			idx = sourceSP.getSelected().getChildren().indexOf(target);
-			
-			// Return if no valid item has been selected
-			if (idx < 0) 
-				return;
-			
-			// Determine which pane is currently selected
-			if (sourceSP.getSelected().equals(history))
-			{
-				// Event on the History screen
-				System.out.format("History Event%n");		
-				switchMenu.setItem(model.getComplete().get(idx));
-			} else if (switchPane.getSelected().equals(queue)) {
-				// Event on the Queue screen
-				System.out.format("Queue Event%n");
-				switchMenu.setItem(model.getQueue().get(idx));
-			} else if (switchPane.getSelected().equals(newPane)) {
-				System.out.format("New Pane Event%n");
-				switchMenu.setItem(Locator.getController().getItemList().get(idx));
-			}
-		}
-	}
 }
