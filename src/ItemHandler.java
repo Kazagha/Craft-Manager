@@ -314,6 +314,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		switchMenu.setItem(item);
 	}
 	
+	/**
+	 * Edit the specified item
+	 * @param item
+	 */
 	private void edit(Item item)
 	{		
 		Dialog d = new Dialog();
@@ -350,6 +354,12 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			.ifPresent(response -> item.notifyObservers());
 	}
 	
+	/**
+	 * Edit the specified effect <br>
+	 * Return <code>true</code> if the edit is successful
+	 * @param effect
+	 * @return boolean
+	 */
 	private boolean edit(Effect effect)
 	{
 		Dialog d = new Dialog();
