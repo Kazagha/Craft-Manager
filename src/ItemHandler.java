@@ -335,10 +335,13 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		
 		Button apply = new Button("New");
 		apply.addEventFilter(ActionEvent.ACTION, event -> {
-			//((ItemMagic) item).getEffect().remove(0);
+			// Add the new Effect to the item
 			((ItemMagic) item).getEffect().add(new EffectBonus());
-			d.getDialogPane().setContent(item.toEditPane());
-			d.setResizable(true);
+			// Close the current dialog
+			d.close();
+			// Open a new Dialog
+			this.edit(item);	
+			// Consume the 'Add Effect' event
 			event.consume();
 		});			
 		GridPane grid = ((GridPane) d.getDialogPane().getContent());
