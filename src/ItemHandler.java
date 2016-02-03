@@ -387,26 +387,4 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		
 		return d.getResult() == ButtonType.OK;
 	}
-	
-	@Deprecated
-	private void buttonSelected(MouseEvent event) 
-	{
-		// Craft Item at the selected index
-		if (idx < 0) 
-			return; 
-		
-		if (switchPane.getSelected().equals(newPane)) {
-			System.out.format("New Pane%n");
-			Item item = Locator.getController().getItemList().get(idx);
-			Model m = (Model) Locator.getModel();
-			m.appendQueue(item);			
-			m.notifyObservers();
-		/*
-		} else if (menu.getCraftButton().equals(event.getSource())) {		
-			// TODO: If required, check that the 'craft' button has been pressed
-			// 	The 'Craft' button is removed when the StackPane isn't showing the queue
-			Locator.getController().craftItemAt(idx);
-		*/
-		}
-	}
 }
