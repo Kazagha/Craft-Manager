@@ -54,7 +54,11 @@ public class ViewMenuFX extends VBox {
 	{
 		return buttonHBox.getChildren();
 	}
-		
+	
+	/**
+	 * Update the menu to show the specified Item
+	 * @param item
+	 */
 	public void setItem(Item item)
 	{
 		if (item == null) 
