@@ -336,6 +336,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		Button apply = new Button("New");
 		apply.addEventFilter(ActionEvent.ACTION, event -> {
 			// Add the new Effect to the item
+			// TODO: Remove the dummy Effect when the user cancels the dialog
 			((ItemMagic) item).getEffect().add(new EffectBonus());
 			// Close the current dialog
 			d.close();
@@ -343,7 +344,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			this.edit(item);	
 			// Consume the 'Add Effect' event
 			event.consume();
-		});			
+		});		
+		
 		GridPane grid = ((GridPane) d.getDialogPane().getContent());
 		grid.add(apply, 0, 5);
 		
@@ -354,7 +356,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		
 		d.showAndWait()
 			.filter(response -> response == ButtonType.OK)
-			.ifPresent(response -> item.notifyObservers());
+			.ifPresent(response -> item.notifyObservers());		
 	}
 	
 	/**
