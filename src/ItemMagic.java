@@ -26,6 +26,11 @@ public abstract class ItemMagic extends Item {
 		this.effect.add(effect);
 	}
 	
+	public void removeEffect(Effect effect)
+	{
+		this.effect.remove(effect);
+	}
+	
 	public int getCraftPrice()
 	{
 		if(getPrice() == 0)
