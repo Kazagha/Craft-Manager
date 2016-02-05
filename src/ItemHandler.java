@@ -359,6 +359,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				
 				Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
 						new Label("New"), apply);
+				
+				// Resize the dialog to fit the newly added components 
+				d.getDialogPane().getScene().getWindow().sizeToScene();
 			});		
 
 		}
