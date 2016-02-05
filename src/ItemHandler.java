@@ -322,6 +322,8 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	 */
 	private void edit(Item item)
 	{		
+		ArrayList<Effect> newEffect = new ArrayList<Effect>();
+		
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
 		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
@@ -340,12 +342,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			Button apply = new Button("New");
 			apply.addEventFilter(ActionEvent.ACTION, event -> {
 				// Add the new Effect to the item
-				// TODO: Remove the dummy Effect when the user cancels the dialog
-				((ItemMagic) item).getEffect().add(new EffectBonus());
-				// Open a new Dialog
-										
-				d.setResizable(true);
-									
+				Effect effect = new EffectBonus();
+				
+				// Add to item and save in array
+				((ItemMagic) item).getEffect().add(newEffect.get(newEffect.size() - 1));
+				newEffect.add(new EffectBonus());
+				
+				// Open a new Dialog										
+				d.setResizable(true);									
 				d.getDialogPane().setContent(item.toEditPane());
 			});		
 			
@@ -357,9 +361,13 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			.filter(response -> response == ButtonType.OK)
 			.ifPresent(response -> item.notifyObservers());	
 		
-		if (d.getResult() == ButtonType.OK) 
+		// The dialog has been cancelled, remove new effects
+		if (d.getResult() != ButtonType.OK) 
 		{
-			
+			for (Effect effect : newEffect)
+			{
+				((ItemMagic) item).removeEffect(effect);
+			}
 		}
 	}
 	
