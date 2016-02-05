@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
@@ -346,15 +347,22 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				
 				// Add to item and save in array
 				((ItemMagic) item).getEffect().add(effect);
-				newEffect.add(new EffectBonus());
+				newEffect.add(effect);
 				
 				// Open a new Dialog										
 				d.setResizable(true);									
 				d.getDialogPane().setContent(item.toEditPane());
+				
+				GridPane grid = ((GridPane) d.getDialogPane().getContent());
+				int row = grid.getChildren().size() / 2;
+				grid.add(new Label("New Effect"), 0, row);
+				grid.add(apply, 1, row);
 			});		
 			
 			GridPane grid = ((GridPane) d.getDialogPane().getContent());
-			grid.add(apply, 0, 5);
+			int row = grid.getChildren().size() / 2;
+			grid.add(new Label("New Effect"), 0, row);
+			grid.add(apply, 1, row);
 		}
 				
 		d.showAndWait()
