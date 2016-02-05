@@ -345,7 +345,7 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				Effect effect = new EffectBonus();
 				
 				// Add to item and save in array
-				((ItemMagic) item).getEffect().add(newEffect.get(newEffect.size() - 1));
+				((ItemMagic) item).getEffect().add(effect);
 				newEffect.add(new EffectBonus());
 				
 				// Open a new Dialog										
