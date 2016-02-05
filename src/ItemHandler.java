@@ -341,6 +341,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		if (item instanceof ItemMagic)
 		{
 			Button apply = new Button("New");
+			
+			Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
+					new Label("New"), apply);
+						
 			apply.addEventFilter(ActionEvent.ACTION, event -> {
 				// Add the new Effect to the item
 				Effect effect = new EffectBonus();
@@ -353,16 +357,10 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				d.setResizable(true);									
 				d.getDialogPane().setContent(item.toEditPane());
 				
-				GridPane grid = ((GridPane) d.getDialogPane().getContent());
-				int row = grid.getChildren().size() / 2;
-				grid.add(new Label("New Effect"), 0, row);
-				grid.add(apply, 1, row);
+				Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
+						new Label("New"), apply);
 			});		
-			
-			GridPane grid = ((GridPane) d.getDialogPane().getContent());
-			int row = grid.getChildren().size() / 2;
-			grid.add(new Label("New Effect"), 0, row);
-			grid.add(apply, 1, row);
+
 		}
 				
 		d.showAndWait()
