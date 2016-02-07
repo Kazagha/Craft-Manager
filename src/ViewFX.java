@@ -341,6 +341,28 @@ public class ViewFX implements Observer, ViewInterface {
 		return gp;
 	}
 	
+	public void addToDialog(GridPane gp, Node...nodes) 
+	{
+		int x = 0;
+		int y = gp.getChildren().size() / 2;
+		
+		for (Node n : nodes)
+		{
+			//if (n instanceof GridPane)
+			//	n.setId("DialogGroup");
+				
+			gp.add(n, x, y);
+						
+			if (++x == 2)
+			{
+				x = 0;
+				y++;
+			}			
+		}
+		
+		//return gp;
+	}
+	
 	public int checkDialog()
 	{
 		int check = -1;

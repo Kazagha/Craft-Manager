@@ -39,6 +39,8 @@ public interface ViewInterface {
 	
 	public GridPane toDialog(Node... nodes);
 	
+	public void addToDialog(GridPane gp, Node...nodes); 
+	
 	public int toDialogReturnInt(String titleText, String promptText);
 	
 	public int checkDialog();
