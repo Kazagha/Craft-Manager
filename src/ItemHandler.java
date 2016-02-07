@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -322,13 +323,13 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	 * @param item
 	 */
 	private void edit(Item item)
-	{		
-		ArrayList<Effect> newEffect = new ArrayList<Effect>();
-		
+	{			
 		Dialog d = new Dialog();
 		d.setTitle("Edit Item");
 		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
 		d.getDialogPane().setContent(item.toEditPane());
+		
+		AddEffectHandler handler = new AddEffectHandler(d, (ItemMagic) item);
 		
 		// Add event filter for valid inputs
 		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
@@ -339,12 +340,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		);
 		
 		if (item instanceof ItemMagic)
-		{
+		{				
 			Button apply = new Button("New");
-			
+			apply.addEventHandler(ActionEvent.ANY, handler);
+						
 			Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
 					new Label("New"), apply);
-						
+			
+			/*
 			apply.addEventFilter(ActionEvent.ACTION, event -> {
 				// Add the new Effect to the item
 				Effect effect = new EffectBonus();
@@ -362,8 +365,9 @@ public class ItemHandler implements EventHandler<InputEvent> {
 				
 				// Resize the dialog to fit the newly added components 
 				d.getDialogPane().getScene().getWindow().sizeToScene();
-			});		
-
+			});
+			
+			*/
 		}
 				
 		d.showAndWait()
@@ -373,12 +377,53 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		// The dialog has been cancelled, remove new effects
 		if (d.getResult() != ButtonType.OK) 
 		{
+			handler.cancel();
+		}
+	}
+	
+	class AddEffectHandler implements EventHandler<ActionEvent>
+	{
+		Dialog d;
+		ItemMagic item;
+		ArrayList<Effect> newEffect; 
+		
+		public AddEffectHandler(Dialog dialog, ItemMagic item)
+		{
+			this.d = dialog;
+			this.item = item;
+			this.newEffect = new ArrayList<Effect>();
+		}
+		
+		@Override
+		public void handle(ActionEvent event) 
+		{				
+			// Add the new Effect to the item
+			Effect effect = new EffectBonus();
+			
+			// Add to item and save in array
+			((ItemMagic) item).getEffect().add(effect);
+			newEffect.add(effect);
+			
+			// Open a new Dialog										
+			d.setResizable(true);									
+			d.getDialogPane().setContent(item.toEditPane());
+			
+			Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
+					new Label("New"), (Node) event.getSource());
+			
+			// Resize the dialog to fit the newly added components 
+			d.getDialogPane().getScene().getWindow().sizeToScene();		
+		}
+		
+		public void cancel()
+		{
 			for (Effect effect : newEffect)
 			{
-				((ItemMagic) item).removeEffect(effect);
+				item.removeEffect(effect);
 			}
 		}
 	}
+	
 	
 	/**
 	 * Edit the specified effect <br>
