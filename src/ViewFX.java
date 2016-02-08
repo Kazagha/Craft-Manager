@@ -348,8 +348,8 @@ public class ViewFX implements Observer, ViewInterface {
 		
 		for (Node n : nodes)
 		{
-			//if (n instanceof GridPane)
-			//	n.setId("DialogGroup");
+			if (n instanceof GridPane)
+				n.setId("DialogGroup");
 				
 			gp.add(n, x, y);
 						
