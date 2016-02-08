@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -19,6 +20,7 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
@@ -325,11 +327,12 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	private void edit(Item item)
 	{			
 		Dialog d = new Dialog();
+		d.getDialogPane().setStyle(Locator.getView().getScene().getStylesheets().toString());
 		d.setTitle("Edit Item");
 		d.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);		
 		d.getDialogPane().setContent(item.toEditPane());
 		
-		AddEffectHandler handler = new AddEffectHandler(d, (ItemMagic) item);
+		AddEffectHandler handler = new AddEffectHandler(d, (GridPane) d.getDialogPane().getContent(), (ItemMagic) item);
 		
 		// Add event filter for valid inputs
 		Button ok = (Button) d.getDialogPane().lookupButton(ButtonType.OK);
@@ -343,9 +346,27 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		{				
 			Button apply = new Button("New");
 			apply.addEventHandler(ActionEvent.ANY, handler);
-						
-			Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
-					new Label("New"), apply);
+			
+			VBox content = new VBox();			
+			content.setStyle(Locator.getView().getScene().getStylesheets().toString());
+			//content.setPadding(new Insets(10));
+			content.getChildren().add(d.getDialogPane().getContent());
+			System.out.format("VBox %s%n", content.getStyle());
+			
+			GridPane menuGrid = new GridPane();
+			//menuGrid.setStyle(Locator.getView().getScene().getStylesheets().toString());
+			
+			ImageView newView = new ImageView();
+			newView.setId("Axe");
+			menuGrid.add(new Label("New Effect"), 0, 0);
+			menuGrid.add(apply, 1, 0);
+			content.getChildren().add(menuGrid);
+			
+			d.getDialogPane().setContent(content);			
+			d.setResizable(true);
+			
+			//Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
+			//		new Label("New"), apply);
 			
 			/*
 			apply.addEventFilter(ActionEvent.ACTION, event -> {
@@ -384,12 +405,14 @@ public class ItemHandler implements EventHandler<InputEvent> {
 	class AddEffectHandler implements EventHandler<ActionEvent>
 	{
 		Dialog d;
+		GridPane grid;
 		ItemMagic item;
 		ArrayList<Effect> newEffect; 
 		
-		public AddEffectHandler(Dialog dialog, ItemMagic item)
+		public AddEffectHandler(Dialog dialog, GridPane grid, ItemMagic item)
 		{
 			this.d = dialog;
+			this.grid = grid;
 			this.item = item;
 			this.newEffect = new ArrayList<Effect>();
 		}
@@ -405,11 +428,16 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			newEffect.add(effect);
 			
 			// Open a new Dialog										
-			d.setResizable(true);									
-			d.getDialogPane().setContent(item.toEditPane());
+			//d.setResizable(true);									
+			//d.getDialogPane().setContent(item.toEditPane());
 			
-			Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
-					new Label("New"), (Node) event.getSource());
+			//Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
+			//		new Label("New"), (Node) event.getSource());
+			
+			ImageView view = new ImageView();
+			view.setId(effect.classToString().replace(" ", ""));
+		
+			Locator.getView().addToDialog(grid, view, effect.toEditPane());
 			
 			// Resize the dialog to fit the newly added components 
 			d.getDialogPane().getScene().getWindow().sizeToScene();		
