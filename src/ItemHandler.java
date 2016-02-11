@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -344,24 +345,20 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		
 		if (item instanceof ItemMagic)
 		{				
-			Button apply = new Button("New");
-			apply.addEventHandler(ActionEvent.ANY, handler);
+			Button button = new Button("New");
+			button.addEventHandler(ActionEvent.ANY, handler);
 			
 			VBox content = new VBox();			
-			content.setStyle(Locator.getView().getScene().getStylesheets().toString());
-			//content.setPadding(new Insets(10));
+			content.getStylesheets().addAll(Locator.getView().getScene().getStylesheets());
 			content.getChildren().add(d.getDialogPane().getContent());
-			System.out.format("VBox %s%n", content.getStyle());
 			
-			GridPane menuGrid = new GridPane();
-			//menuGrid.setStyle(Locator.getView().getScene().getStylesheets().toString());
-			
-			ImageView newView = new ImageView();
-			newView.setId("Axe");
-			menuGrid.add(new Label("New Effect"), 0, 0);
-			menuGrid.add(apply, 1, 0);
+			GridPane menuGrid = new GridPane();			
+			ImageView image = new ImageView();
+			image.setId("Axe");
+			menuGrid.add(image, 0, 0);
+			menuGrid.add(button, 1, 0);
 			content.getChildren().add(menuGrid);
-			
+									
 			d.getDialogPane().setContent(content);			
 			d.setResizable(true);
 			
