@@ -344,20 +344,20 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		);
 		
 		if (item instanceof ItemMagic)
-		{				
-			Button button = new Button("New");
-			button.addEventHandler(ActionEvent.ANY, handler);
-			
+		{							
 			VBox content = new VBox();			
 			content.getStylesheets().addAll(Locator.getView().getScene().getStylesheets());
 			content.getChildren().add(d.getDialogPane().getContent());
+					
+			HBox menuBox = new HBox();
+			content.getChildren().add(menuBox);
 			
-			GridPane menuGrid = new GridPane();			
 			ImageView image = new ImageView();
-			image.setId("Axe");
-			menuGrid.add(image, 0, 0);
-			menuGrid.add(button, 1, 0);
-			content.getChildren().add(menuGrid);
+			
+			Button button = new Button();
+			button.getStyleClass().addAll("imgButton", "imgSpell");
+			
+			menuBox.getChildren().add(button);
 									
 			d.getDialogPane().setContent(content);			
 			d.setResizable(true);
