@@ -142,6 +142,17 @@ Label {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Recycle-Crystal-Empty-icon.png');
 }
 
+.imgButton {	
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-min-width: 48;
+	-fx-min-height: 48;
+}
+
+.imgSpell {
+	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Ebook-icon.png');
+}
+
 #Spell {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Ebook-icon.png');	
 }
