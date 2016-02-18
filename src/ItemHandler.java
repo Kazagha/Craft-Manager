@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import com.sun.org.apache.xpath.internal.operations.Div;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -348,15 +350,22 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			VBox content = new VBox();			
 			content.getStylesheets().addAll(Locator.getView().getScene().getStylesheets());
 			content.getChildren().add(d.getDialogPane().getContent());
+			
+			content.getChildren().add(new Separator());
+			content.getChildren().add(new Label("Add New Effect"));
 					
 			HBox menuBox = new HBox();
+			//menuBox.getStyleClass().add("backgroundGroup");
 			content.getChildren().add(menuBox);
 			
 			ImageView image = new ImageView();
 			
 			Button button = new Button();
-			button.getStyleClass().addAll("imgButton", "imgSpell");
+			button.getStyleClass().addAll("imgButton", "imgSpell");			
+			menuBox.getChildren().add(button);
 			
+			button = new Button();
+			button.getStyleClass().addAll("imgButton", "imgEnhance");
 			menuBox.getChildren().add(button);
 									
 			d.getDialogPane().setContent(content);			
