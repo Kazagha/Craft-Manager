@@ -153,6 +153,22 @@ Label {
 	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Ebook-icon.png');
 }
 
+.imgEnhance {	
+	-fx-background-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/ele-ice-icon.png');
+}
+
+.imgStatic {
+	-fx-background-image: url('');
+}
+
+.backgroundGroup {
+	-fx-background-color: linear-gradient(rgba(100,0,0,0.08), rgba(150,0,0,0.08));
+	-fx-padding: 4;
+	-fx-background-radius: 4;
+	-fx-border-color: rgba(100,100,100,0.25);	
+	-fx-border-radius: 4;
+}
+
 #Spell {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Ebook-icon.png');	
 }
