@@ -346,26 +346,27 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		);
 		
 		if (item instanceof ItemMagic)
-		{							
+		{				
 			VBox content = new VBox();			
 			content.getStylesheets().addAll(Locator.getView().getScene().getStylesheets());
 			content.getChildren().add(d.getDialogPane().getContent());
 			
 			content.getChildren().add(new Separator());
-			content.getChildren().add(new Label("Add New Effect"));
 					
 			HBox menuBox = new HBox();
 			//menuBox.getStyleClass().add("backgroundGroup");
 			content.getChildren().add(menuBox);
 			
-			ImageView image = new ImageView();
-			
+			menuBox.getChildren().add(new Label("New Effect: "));
+						
 			Button button = new Button();
-			button.getStyleClass().addAll("imgButton", "imgSpell");			
+			button.getStyleClass().addAll("imgButton", "imgSpell");
+			button.addEventFilter(ActionEvent.ACTION, handler);
 			menuBox.getChildren().add(button);
 			
 			button = new Button();
 			button.getStyleClass().addAll("imgButton", "imgEnhance");
+			button.addEventHandler(ActionEvent.ACTION, handler);
 			menuBox.getChildren().add(button);
 									
 			d.getDialogPane().setContent(content);			
