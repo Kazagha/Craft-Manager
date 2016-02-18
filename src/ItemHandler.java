@@ -360,11 +360,13 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			menuBox.getChildren().add(new Label("New Effect: "));
 						
 			Button button = new Button();
+			button.setId("spell");
 			button.getStyleClass().addAll("imgButton", "imgSpell");
 			button.addEventFilter(ActionEvent.ACTION, handler);
 			menuBox.getChildren().add(button);
 			
 			button = new Button();
+			button.setId("enhancement");
 			button.getStyleClass().addAll("imgButton", "imgEnhance");
 			button.addEventHandler(ActionEvent.ACTION, handler);
 			menuBox.getChildren().add(button);
@@ -427,20 +429,26 @@ public class ItemHandler implements EventHandler<InputEvent> {
 		@Override
 		public void handle(ActionEvent event) 
 		{				
-			// Add the new Effect to the item
-			Effect effect = new EffectBonus();
+			Effect effect = null;
+			switch (((Node) event.getSource()).getId()) 
+			{
+			case "spell":
+				effect = new EffectSpell();
+				break;
+			case "enhancement":
+				effect = new EffectBonus();
+				break;
+			case "static":
+				effect = new EffectStatic();
+				break;
+			default:
+				return;
+			}
 			
 			// Add to item and save in array
 			((ItemMagic) item).getEffect().add(effect);
 			newEffect.add(effect);
-			
-			// Open a new Dialog										
-			//d.setResizable(true);									
-			//d.getDialogPane().setContent(item.toEditPane());
-			
-			//Locator.getView().addToDialog((GridPane) d.getDialogPane().getContent(),
-			//		new Label("New"), (Node) event.getSource());
-			
+						
 			ImageView view = new ImageView();
 			view.setId(effect.classToString().replace(" ", ""));
 		
