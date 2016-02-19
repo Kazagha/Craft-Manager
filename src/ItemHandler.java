@@ -370,6 +370,11 @@ public class ItemHandler implements EventHandler<InputEvent> {
 			button.getStyleClass().addAll("imgButton", "imgEnhance");
 			button.addEventHandler(ActionEvent.ACTION, handler);
 			menuBox.getChildren().add(button);
+			
+			button = new Button();
+			button.setId("static");
+			button.getStyleClass().addAll("imgButton", "imgStatic");
+			menuBox.getChildren().add(button);
 									
 			d.getDialogPane().setContent(content);			
 			d.setResizable(true);
