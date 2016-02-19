@@ -5,13 +5,21 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.control.TextField;
+
 @XmlRootElement
 @XmlType(propOrder={ "name", "price", "xpCost"})
 public class EffectStatic extends Effect {
 
-	String name;
-	int price;
-	int xpCost;
+	private String name;
+	private int price;
+	private int xpCost;
+	
+	private TextField nameField;
+	private TextField priceField;
+	private TextField xpField;
 	
 	public EffectStatic() {};
 	
@@ -52,40 +60,41 @@ public class EffectStatic extends Effect {
 	{
 		EffectStatic newEffect = new EffectStatic("", 0, 0);
 		
-		if(newEffect.edit() == JOptionPane.OK_OPTION)		
-			return newEffect;
+		//if(newEffect.edit() == JOptionPane.OK_OPTION)		
+		//	return newEffect;
 		
 		return null;		
 	}
+	
+	@Override
+	public Node toEditPane() {
+		Platform.runLater(() -> nameField.requestFocus());
+		
+		nameField.setText(this.getName());
+		priceField.setText(String.valueOf(this.getPrice()));
+		xpField.setText(String.valueOf(this.getXpCost()));
+		
+		return null;
+	}
 
 	@Override
-	public int edit() 
-	{
-		Object[] array;
+	public boolean validateAndStore() {
+		if (nameField.getText().equals(""))
+			return false;
 		
-		JTextField name = new JTextField(this.getName());
-		JTextField price = new JTextField(String.valueOf(this.getPrice()));
-		JTextField xp = new JTextField(String.valueOf(this.getXpCost()));
+		if (priceField.getText().matches("[A-Za-z]*") ||
+				Integer.valueOf(priceField.getText()) <= 0)
+			return false;
 		
-		array = new Object[] { "Name", name, "Price", price, "Additional XP Cost", xp };
+		if (xpField.getText().matches("") ||
+				Integer.valueOf(xpField.getText()) < 0)
+			return false;
 		
-		int result = JOptionPane.OK_OPTION;
-		while(result == JOptionPane.OK_OPTION)
-		{
-			try 
-			{
-				result = Controller.getInstance().editArray(array);
-				
-				this.setName(name.getText());
-				this.setPrice(Integer.valueOf(price.getText()));
-				this.setXpCost(Integer.valueOf(xp.getText()));
-				return result;				
-			} catch (Exception e) {
-				Controller.getInstance().showMessage("Input Error:" + e.getMessage());
-			}
-		}
+		this.setName(nameField.getText());
+		this.setPrice(Integer.valueOf(priceField.getText()));
+		this.setXpCost(Integer.valueOf(xpField.getText()));
 		
-		return result;
+		return true;
 	}
 
 	public void setXpCost(int xpCost) {
