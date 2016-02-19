@@ -177,6 +177,10 @@ Label {
 	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/ele-ice-icon.png');
 }
 
+#SetPrice {
+	-fx-image: url('http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Gold-icon.png');	
+}
+
 #Axe {
 	-fx-image: url(http://icons.iconarchive.com/icons/raindropmemory/legendora/48/Axe-icon.png);
 }
