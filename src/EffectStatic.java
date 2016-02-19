@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 @XmlRootElement
@@ -17,9 +18,9 @@ public class EffectStatic extends Effect {
 	private int price;
 	private int xpCost;
 	
-	private TextField nameField;
-	private TextField priceField;
-	private TextField xpField;
+	private TextField nameField = new TextField();
+	private TextField priceField = new TextField();
+	private TextField xpField = new TextField();
 	
 	public EffectStatic() {};
 	
@@ -74,7 +75,11 @@ public class EffectStatic extends Effect {
 		priceField.setText(String.valueOf(this.getPrice()));
 		xpField.setText(String.valueOf(this.getXpCost()));
 		
-		return null;
+		return Locator.getView().toDialog(
+				new Label("Name"), nameField,
+				new Label("Price"), priceField,
+				new Label("XP"), xpField
+				);
 	}
 
 	@Override
